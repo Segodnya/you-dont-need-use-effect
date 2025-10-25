@@ -1,0 +1,100 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import Text from '../ui/Text.astro';
+import Section from '../ui/Section.astro';
+import SlideTitle from '../ui/SlideTitle.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import CardTitle from '../ui/CardTitle.astro';
+import CardText from '../ui/CardText.astro';
+import Highlight from '../ui/Highlight.astro';
+---
+
+<BaseSlide id="tech-stack" title="Технический стек" variant="centered">
+  <Section>
+    <Text size="lg" class="mb-8 text-center">
+      Эта презентация построена с использованием современных веб-технологий
+    </Text>
+
+    <Grid cols="2" class="gap-8 max-w-6xl mx-auto">
+      <!-- Astro -->
+      <Card class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg width="64" height="64" viewBox="0 0 256 366" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <linearGradient id="astroGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" style="stop-color:#ff5d01"/>
+                <stop offset="100%" style="stop-color:#ff1639"/>
+              </linearGradient>
+            </defs>
+            <path fill="url(#astroGradient)" d="M182.022 9.147c2.982 3.702 4.502 8.697 7.543 18.687L256 246.074a276.467 276.467 0 0 0-79.426-26.891L133.318 73.008a5.63 5.63 0 0 0-10.802.017L79.784 219.11A276.453 276.453 0 0 0 .334 246.04L73.22 27.817c3.049-9.96 4.27-14.97 7.046-18.687 2.48-3.315 5.583-4.855 9.617-4.855 4.267 0 7.26 1.540 9.740 4.855 2.777 3.717 3.998 8.727 7.047 18.687l73.46 218.2c.462 1.370.693 2.06.693 2.06s.23-.69.692-2.06L255.22 27.817c3.049-9.96 4.27-14.97 7.046-18.687 2.48-3.315 5.583-4.855 9.617-4.855z"/>
+          </svg>
+        </div>
+        <CardTitle>Astro</CardTitle>
+        <CardText>
+          Современный фреймворк для создания быстрых веб-сайтов. 
+          <Highlight color="red">Островная архитектура</Highlight> и статическая генерация.
+        </CardText>
+      </Card>
+
+      <!-- shadcn/ui -->
+      <Card class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg width="64" height="64" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <rect width="256" height="256" rx="60" fill="#000"/>
+            <path fill="#fff" d="M208 128c0-45.333-36.667-82-82-82s-82 36.667-82 82c0 45.333 36.667 82 82 82s82-36.667 82-82z"/>
+            <path fill="#000" d="M152 96h32v32h-32z"/>
+            <path fill="#000" d="M152 160h32v32h-32z"/>
+            <path fill="#000" d="M72 128h32v32H72z"/>
+            <path fill="#000" d="M112 96h32v32h-32z"/>
+            <path fill="#000" d="M112 160h32v32h-32z"/>
+          </svg>
+        </div>
+        <CardTitle>shadcn/ui</CardTitle>
+        <CardText>
+          Переиспользуемые компоненты, построенные с помощью Radix UI и Tailwind CSS. 
+          <Highlight color="cyan">Копируй и вставляй</Highlight> готовые компоненты.
+        </CardText>
+      </Card>
+
+      <!-- Alpine.js -->
+      <Card class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg width="64" height="64" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <path fill="#8bc34a" d="M0 128L128 0l128 128L128 256L0 128z"/>
+            <path fill="#66bb6a" d="M128 0v256L0 128L128 0z"/>
+            <path fill="#4caf50" d="M128 0v256l128-128L128 0z"/>
+          </svg>
+        </div>
+        <CardTitle>Alpine.js</CardTitle>
+        <CardText>
+          Легковесный фреймворк для интерактивности. 
+          Добавляет <Highlight color="green">реактивность</Highlight> без сложности.
+        </CardText>
+      </Card>
+
+      <!-- OGL -->
+      <Card class="text-center">
+        <div class="mb-4 flex justify-center">
+          <svg width="64" height="64" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="128" cy="128" r="120" fill="none" stroke="#fbbf24" stroke-width="16"/>
+            <circle cx="128" cy="128" r="80" fill="none" stroke="#f59e0b" stroke-width="12"/>
+            <circle cx="128" cy="128" r="40" fill="#f59e0b"/>
+            <path stroke="#fbbf24" stroke-width="3" fill="none" d="M48 128 L208 128 M128 48 L128 208 M78.863 78.863 L177.137 177.137 M78.863 177.137 L177.137 78.863"/>
+          </svg>
+        </div>
+        <CardTitle>OGL</CardTitle>
+        <CardText>
+          Минималистичная WebGL библиотека для создания 
+          <Highlight color="yellow">3D графики и анимаций</Highlight> в фоне.
+        </CardText>
+      </Card>
+    </Grid>
+
+    <Text class="mt-8 text-center text-lg">
+      Все исходники доступны на 
+      <Highlight color="purple">GitHub</Highlight> 
+      для изучения и использования
+    </Text>
+  </Section>
+</BaseSlide>

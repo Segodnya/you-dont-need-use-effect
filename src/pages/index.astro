@@ -22,6 +22,7 @@ import PassingDataUpSlide from '../components/slides/16-PassingDataUpSlide.astro
 import InitializingStateSlide from '../components/slides/17-InitializingStateSlide.astro';
 import WhenNeededSlide from '../components/slides/18-WhenNeededSlide.astro';
 import WhatsNextSlide from '../components/slides/19-WhatsNextSlide.astro';
+import TechStackSlide from '../components/slides/20-TechStackSlide.astro';
 
 // Define slide structure for navigation
 const slides = [
@@ -44,6 +45,7 @@ const slides = [
   { id: 'when-needed', title: 'Когда useEffect нужен' },
   { id: 'whats-next', title: 'Что дальше?' },
   { id: 'conclusion', title: 'Заключение' },
+  { id: 'tech-stack', title: 'Технический стек' },
 ];
 ---
 
@@ -70,6 +72,7 @@ const slides = [
     <WhenNeededSlide />
     <WhatsNextSlide />
     <ConclusionSlide />
+    <TechStackSlide />
   </main>
 
   <Navigation slides={slides} />
