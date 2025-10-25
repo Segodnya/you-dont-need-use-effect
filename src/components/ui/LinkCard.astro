@@ -1,4 +1,16 @@
 ---
+/**
+ * LinkCard - Card component for external links
+ * 
+ * Features:
+ * - Opens links in new tab
+ * - Optional external link icon
+ * - Hover effects for borders
+ */
+
+import GlassCard from './GlassCard.astro';
+import { BORDER_COLORS, BACKGROUND_COLORS } from '../../lib/constants';
+
 export interface Props {
   href: string;
   showIcon?: boolean;
@@ -8,12 +20,8 @@ export interface Props {
 const { href, showIcon = true, class: className = '' } = Astro.props;
 ---
 
-<div class={`relative rounded-xl p-6 ${className}`}>
-  {/* Blurry background */}
-  <div class="absolute inset-0 bg-linear-to-br from-blue-500/20 via-purple-500/20 to-cyan-500/20 rounded-xl blur-sm transform scale-110"></div>
-  
-  {/* Card content */}
-  <div class="relative border-2 border-blue-400/40 bg-blue-950/40 backdrop-blur-sm shadow-lg shadow-blue-500/10 rounded-xl hover:border-blue-500/50 transition-colors">
+<GlassCard color="blue" class={className}>
+  <div class={`border-2 ${BORDER_COLORS.blue} ${BACKGROUND_COLORS.blue} rounded-xl hover:border-blue-500/50 transition-colors`}>
     <a
       href={href}
       target="_blank"
@@ -24,4 +32,4 @@ const { href, showIcon = true, class: className = '' } = Astro.props;
       {showIcon && <span class="text-sm">↗</span>}
     </a>
   </div>
-</div>
+</GlassCard>

@@ -1,10 +1,23 @@
 /* Code comparison component styles */
 
-.code-comparison {
-  animation: fadeIn 0.5s ease-out;
+/* Ensure equal heights for both columns */
+.code-comparison > div {
+  display: flex;
+  min-height: 100%;
 }
 
-@keyframes fadeIn {
+/* Prevent flickering during animation by stabilizing the backdrop */
+.code-comparison .backdrop-blur-sm {
+  will-change: auto;
+  transform: translateZ(0);
+}
+
+/* Smooth appearance without affecting backgrounds */
+.code-comparison {
+  animation: fadeInContent 0.5s ease-out;
+}
+
+@keyframes fadeInContent {
   from {
     opacity: 0;
     transform: translateY(10px);

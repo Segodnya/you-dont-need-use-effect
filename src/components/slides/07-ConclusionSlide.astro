@@ -5,7 +5,7 @@ import Text from '../ui/Text.astro';
 import Highlight from '../ui/Highlight.astro';
 import ChecklistItem from '../ui/ChecklistItem.astro';
 import Section from '../ui/Section.astro';
-import GradientBox from '../ui/GradientBox.astro';
+import GlassCard from '../ui/GlassCard.astro';
 import List from '../ui/List.astro';
 ---
 
@@ -27,7 +27,7 @@ import List from '../ui/List.astro';
       <Text size="xl">а не для организации потока данных внутри приложения.</Text>
     </Section>
 
-    <GradientBox class="mt-8">
+    <GlassCard color="blue" class="mt-8" padding="p-8">
       <SlideTitle size="md" color="blue" class="mb-4">
         Прежде чем написать useEffect, спросите себя:
       </SlideTitle>
@@ -45,7 +45,7 @@ import List from '../ui/List.astro';
           Это просто 'поток данных' внутри приложения? → Поднимите состояние выше или используйте контекст.
         </ChecklistItem>
       </List>
-    </GradientBox>
+    </GlassCard>
 
     <Section class="pt-8">
       <Text size="xl" class="text-gray-400">

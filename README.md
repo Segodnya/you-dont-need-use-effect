@@ -125,6 +125,132 @@ const slides = [
 
 ## 🧩 Component Reference
 
+### Core Components
+
+#### GlassCard (Base Component)
+
+Foundation component for all glassmorphic cards with blur effect. Provides consistent visual styling across the app.
+
+**Props:**
+
+- `color` (optional): ColorVariant ('blue' | 'green' | 'red' | 'yellow' | 'purple' | 'cyan' | 'pink' | 'gray'), default 'blue'
+- `class` (optional): Additional CSS classes
+- `padding` (optional): Padding classes, default 'p-6'
+
+**Example:**
+
+```astro
+<GlassCard color="purple" padding="p-8">
+  <p>Your content here</p>
+</GlassCard>
+```
+
+**Architecture:**
+- Creates a blurred gradient background layer
+- Provides consistent visual depth across all card components
+- Uses centralized gradient constants from `lib/constants.ts`
+
+#### Card
+
+General purpose card component built on GlassCard.
+
+**Props:**
+
+- `variant` (optional): 'default' | 'hover' | 'gradient-border'
+- `color` (optional): ColorVariant, default 'gray'
+- `class` (optional): Additional CSS classes
+
+**Example:**
+
+```astro
+<Card variant="hover" color="blue">
+  <CardTitle>Title</CardTitle>
+  <CardText>Content</CardText>
+</Card>
+```
+
+#### InfoCard
+
+Card with title and icon support, using status-based variants.
+
+**Props:**
+
+- `variant` (optional): StatusVariant ('info' | 'success' | 'error' | 'warning'), default 'info'
+- `icon` (optional): Custom icon string
+- `title` (optional): Card title
+- `titleSize` (optional): 'sm' | 'base' | 'lg', default 'lg'
+- `class` (optional): Additional CSS classes
+
+**Example:**
+
+```astro
+<InfoCard variant="success" title="Great!" icon="🎉">
+  Everything worked perfectly!
+</InfoCard>
+```
+
+#### Callout
+
+Attention-grabbing box for important information.
+
+**Props:**
+
+- `variant` (optional): StatusVariant ('info' | 'warning' | 'error' | 'success' | 'tip' | 'primary'), default 'info'
+- `icon` (optional): Custom icon (overrides default)
+- `class` (optional): Additional CSS classes
+
+**Example:**
+
+```astro
+<Callout variant="warning">
+  Be careful with this approach!
+</Callout>
+```
+
+**Default Icons:**
+- info: 💡
+- success: ✅
+- error: ❌
+- warning: ⚠️
+- tip: 💡
+- primary: 🔑
+
+#### InfoBox
+
+Enhanced callout with title support for structured information.
+
+**Props:**
+
+- `type` (optional): StatusVariant ('info' | 'warning' | 'success' | 'error' | 'tip'), default 'info'
+- `title` (optional): Box title
+- `className` (optional): Additional CSS classes
+
+**Example:**
+
+```astro
+<InfoBox type="warning" title="Important">
+  Be careful with this approach!
+</InfoBox>
+```
+
+#### LinkCard
+
+Card component for external links with hover effects.
+
+**Props:**
+
+- `href` (required): External URL
+- `showIcon` (optional): Show external link icon, default true
+- `class` (optional): Additional CSS classes
+
+**Example:**
+
+```astro
+<LinkCard href="https://react.dev">
+  React Documentation
+</LinkCard>
+```
+
 ### BaseSlide
 
 Base component for all slides with built-in animations.
@@ -186,24 +312,6 @@ Single code block with optional title.
 />
 ```
 
-### InfoBox
-
-Colored callout boxes for highlighting information.
-
-**Props:**
-
-- `type` (optional): 'info' | 'warning' | 'success' | 'error' | 'tip'
-- `title` (optional): Box title
-- `className` (optional): Additional CSS classes
-
-**Example:**
-
-```astro
-<InfoBox type="warning" title="Important">
-  Be careful with this approach!
-</InfoBox>
-```
-
 ## ⌨️ Keyboard Shortcuts
 
 - `↓` or `Page Down` - Next slide
@@ -250,11 +358,52 @@ Files are prefixed with numbers (01-, 02-, etc.) for:
 
 ## 🏗️ Architecture Highlights
 
+### Component Architecture
+
+The app uses a **composition-based architecture** with shared base components to eliminate duplication:
+
+#### GlassCard Base Component
+
+All card-like components (Card, InfoCard, LinkCard, Callout, InfoBox, CodeComparison) are built on top of the `GlassCard` base component, which provides:
+
+- Consistent glassmorphic blur effect
+- Centralized gradient backgrounds
+- Unified visual depth and styling
+
+#### Centralized Theme System
+
+`src/lib/constants.ts` provides a single source of truth for:
+
+- **Color Gradients**: Predefined gradient combinations for all color variants
+- **Status Variants**: Mapping of semantic variants (info, success, error, warning) to colors
+- **Theme Functions**: Helper functions to get complete theme configurations
+- **TypeScript Types**: Shared types for consistent APIs across components
+
+**Benefits:**
+- No duplicate gradient definitions across 6+ components
+- Easy to add new color schemes
+- Type-safe component APIs
+- Consistent visual language
+
+#### Component Hierarchy
+
+```
+GlassCard (base)
+├── Card (general purpose)
+├── InfoCard (with title/icon)
+├── LinkCard (external links)
+├── Callout (inline notifications)
+├── InfoBox (structured info)
+└── CodeComparison (code examples)
+```
+
 ### Separation of Concerns
 
 - **JavaScript**: Modular files in `src/scripts/`
 - **CSS**: Component-specific files in `src/styles/components/`
 - **Markup**: Clean Astro components without inline scripts/styles
+- **Constants**: Centralized in `src/lib/constants.ts`
+- **Types**: Shared TypeScript types for consistency
 
 ### Animation System
 

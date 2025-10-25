@@ -1,0 +1,31 @@
+---
+/**
+ * GlassCard - Base component for cards with gradient background
+ * 
+ * This component provides the foundation for all card components in the app.
+ * Simple structure with gradient background and borders, no blur effects.
+ * 
+ * Structure:
+ * - Outer container with gradient background
+ * - Content layer (slot)
+ */
+
+import type { ColorVariant } from '../../lib/constants';
+import { GRADIENT_BACKGROUNDS } from '../../lib/constants';
+
+export interface Props {
+  color?: ColorVariant;
+  class?: string;
+  padding?: string;
+}
+
+const { 
+  color = 'blue', 
+  class: className = '',
+  padding = 'p-6',
+} = Astro.props;
+---
+
+<div class={`rounded-xl bg-linear-to-br ${GRADIENT_BACKGROUNDS[color]} ${padding} ${className}`}>
+  <slot />
+</div>

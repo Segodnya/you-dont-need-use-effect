@@ -1,63 +1,35 @@
 ---
+/**
+ * Callout - Attention-grabbing box for important information
+ * 
+ * Features:
+ * - Status-based variants (info, warning, error, success, tip, primary)
+ * - Default icons for each variant
+ * - Custom icon override support
+ * - Flex layout with icon and content
+ */
+
+import GlassCard from './GlassCard.astro';
+import type { StatusVariant } from '../../lib/constants';
+import { getStatusTheme } from '../../lib/constants';
+
 export interface Props {
-  variant?: 'info' | 'warning' | 'error' | 'success' | 'tip' | 'primary';
+  variant?: StatusVariant;
   icon?: string;
   class?: string;
 }
 
 const { variant = 'info', icon, class: className = '' } = Astro.props;
 
-const variants = {
-  info: {
-    container: 'bg-blue-950/40 backdrop-blur-sm',
-    text: 'text-blue-200',
-    icon: icon || '💡',
-    background: 'from-blue-500/20 via-purple-500/20 to-cyan-500/20',
-  },
-  warning: {
-    container: 'bg-yellow-950/40 backdrop-blur-sm',
-    text: 'text-yellow-200',
-    icon: icon || '⚠️',
-    background: 'from-yellow-500/20 via-amber-500/20 to-orange-500/20',
-  },
-  error: {
-    container: 'bg-red-950/40 backdrop-blur-sm',
-    text: 'text-red-200',
-    icon: icon || '❌',
-    background: 'from-red-500/20 via-rose-500/20 to-pink-500/20',
-  },
-  success: {
-    container: 'bg-green-950/40 backdrop-blur-sm',
-    text: 'text-green-200',
-    icon: icon || '✓',
-    background: 'from-green-500/20 via-emerald-500/20 to-teal-500/20',
-  },
-  tip: {
-    container: 'bg-yellow-950/40 backdrop-blur-sm',
-    text: 'text-yellow-200',
-    icon: icon || '💡',
-    background: 'from-yellow-500/20 via-amber-500/20 to-orange-500/20',
-  },
-  primary: {
-    container: 'bg-purple-950/40 backdrop-blur-sm',
-    text: 'text-purple-200',
-    icon: icon || '🔑',
-    background: 'from-purple-500/20 via-violet-500/20 to-indigo-500/20',
-  },
-};
-
-const config = variants[variant];
+const theme = getStatusTheme(variant);
+const displayIcon = icon || theme.icon;
 ---
 
-<div class={`relative rounded-xl p-4 ${className}`}>
-  {/* Blurry background */}
-  <div class={`absolute inset-0 bg-linear-to-br ${config.background} rounded-xl blur-sm transform scale-110`}></div>
-  
-  {/* Card content */}
-  <div class={`relative ${config.container} rounded-xl`}>
-    <div class={`${config.text} flex items-center gap-3`}>
-      <span class="text-2xl shrink-0">{config.icon}</span>
+<GlassCard color={theme.gradient.split('-')[1].split('/')[0] as any} class={className} padding="p-4">
+  <div class="rounded-xl">
+    <div class={`${theme.text} flex items-center gap-3`}>
+      <span class="text-2xl shrink-0">{displayIcon}</span>
       <div class="flex-1"><slot /></div>
     </div>
   </div>
-</div>
+</GlassCard>

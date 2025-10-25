@@ -1,6 +1,17 @@
 ---
+/**
+ * InfoCard - Card component with title and icon support
+ * 
+ * Used for informational content with optional titles and icons.
+ * Supports status-based variants (success, error, info, warning).
+ */
+
+import GlassCard from './GlassCard.astro';
+import type { StatusVariant } from '../../lib/constants';
+import { getStatusTheme } from '../../lib/constants';
+
 export interface Props {
-  variant?: 'success' | 'error' | 'info' | 'warning';
+  variant?: StatusVariant;
   icon?: string;
   title?: string;
   titleSize?: 'sm' | 'base' | 'lg';
@@ -15,50 +26,23 @@ const {
   class: className = '' 
 } = Astro.props;
 
-const variants = {
-  success: {
-    container: 'backdrop-blur-sm',
-    title: 'text-green-400',
-    background: 'from-green-500/20 via-emerald-500/20 to-teal-500/20',
-  },
-  error: {
-    container: 'backdrop-blur-sm',
-    title: 'text-red-400',
-    background: 'from-red-500/20 via-rose-500/20 to-pink-500/20',
-  },
-  info: {
-    container: 'backdrop-blur-sm',
-    title: 'text-blue-400',
-    background: 'from-blue-500/20 via-purple-500/20 to-cyan-500/20',
-  },
-  warning: {
-    container: 'backdrop-blur-sm',
-    title: 'text-yellow-400',
-    background: 'from-yellow-500/20 via-amber-500/20 to-orange-500/20',
-  },
-};
+const theme = getStatusTheme(variant);
 
 const titleSizes = {
   sm: 'text-base',
   base: 'text-lg',
   lg: 'text-xl',
 };
-
-const config = variants[variant];
 ---
 
-<div class={`relative rounded-xl p-6 ${className}`}>
-  {/* Blurry background */}
-  <div class={`absolute inset-0 bg-linear-to-br ${config.background} rounded-xl blur-sm transform scale-110`}></div>
-  
-  {/* Card content */}
-  <div class={`relative ${config.container} rounded-xl`}>
+<GlassCard color={theme.gradient.split('-')[1].split('/')[0] as any} class={className}>
+  <div class="rounded-xl">
     {title && (
-      <h3 class={`${config.title} font-semibold ${titleSizes[titleSize]} mb-4 flex items-center gap-2`}>
+      <h3 class={`${theme.title} font-semibold ${titleSizes[titleSize]} mb-4 flex items-center gap-2`}>
         {icon && <span class="text-xl">{icon}</span>}
         {title}
       </h3>
     )}
     <slot />
   </div>
-</div>
+</GlassCard>

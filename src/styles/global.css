@@ -19,7 +19,6 @@ html.loaded {
 /* Ensure smooth appearance of cards */
 .relative {
   opacity: 1;
-  transition: opacity 0.2s ease-in-out;
 }
 
 @custom-variant dark (&:is(.dark *));
