@@ -1,0 +1,100 @@
+---
+interface Props {
+  id: string;
+}
+
+const { id } = Astro.props;
+---
+
+<div class="carousel-container" data-carousel-id={id}>
+  <div class="carousel-wrapper relative flex items-center gap-4">
+    <!-- Left Navigation Button -->
+    <button
+      class="carousel-btn carousel-prev-btn bg-blue-600/80 hover:bg-blue-500 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0"
+      aria-label="Предыдущий пример"
+      title="Предыдущий пример"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+      </svg>
+    </button>
+
+    <!-- Carousel Content -->
+    <div class="carousel-content-wrapper flex-1">
+      <div class="carousel-content">
+        <slot />
+      </div>
+      
+      <!-- Carousel Indicator -->
+      <div class="carousel-indicator text-center text-gray-400 font-mono text-sm mt-4">
+        <span class="current-index">1</span> / <span class="total-items">4</span>
+      </div>
+
+      <!-- Dots Indicator -->
+      <div class="carousel-dots flex items-center justify-center gap-2 mt-3">
+        <!-- Will be populated by JavaScript -->
+      </div>
+    </div>
+
+    <!-- Right Navigation Button -->
+    <button
+      class="carousel-btn carousel-next-btn bg-blue-600/80 hover:bg-blue-500 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0"
+      aria-label="Следующий пример"
+      title="Следующий пример"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+      </svg>
+    </button>
+  </div>
+</div>
+
+<style>
+  .carousel-container {
+    width: 100%;
+  }
+
+  .carousel-content {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .carousel-content :global(.carousel-item) {
+    display: none;
+    animation: fadeIn 0.4s ease-in-out;
+  }
+
+  .carousel-content :global(.carousel-item.active) {
+    display: block;
+  }
+
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateX(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+
+  .carousel-dot {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background-color: rgba(156, 163, 175, 0.5);
+    transition: all 0.3s ease;
+    cursor: pointer;
+  }
+
+  .carousel-dot:hover {
+    background-color: rgba(156, 163, 175, 0.8);
+    transform: scale(1.2);
+  }
+
+  .carousel-dot.active {
+    background-color: rgb(59, 130, 246);
+    transform: scale(1.3);
+  }
+</style>

@@ -1,0 +1,46 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="race-conditions" title="4б. Race Conditions в цепочках">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Что, если user изменится, пока мы получаем profile? Race condition налицо.
+    </p>
+
+    <CodeComparison
+      badCode={`useEffect(() => {
+  if (user) {
+    setProfile(null);
+    fetchProfile(user.id).then(setProfile);
+  }
+}, [user]);
+
+useEffect(() => {
+  if (profile) {
+    setPosts([]);
+    fetchPosts(profile.id).then(setPosts);
+  }
+}, [profile]);`}
+      goodCode={`// Объединяем логику в событии
+async function loadUserData(userId) {
+  const profile = await fetchProfile(userId);
+  setProfile(profile);
+  
+  const posts = await fetchPosts(profile.id);
+  setPosts(posts);
+}
+
+// Или используйте библиотеку для data fetching`}
+      language="tsx"
+    />
+
+    <div class="bg-red-900/20 border border-red-700 rounded-lg p-4">
+      <p class="text-red-200 flex items-start gap-3">
+        <span class="text-2xl">⚠️</span>
+        <span>Проблема: Мы получим profile для старого пользователя, а потом и posts для него же.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

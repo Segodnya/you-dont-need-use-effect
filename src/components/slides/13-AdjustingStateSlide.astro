@@ -1,0 +1,44 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="adjusting-state" title="6. Корректировка состояния при изменении пропсов">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Эффект, который сбрасывает состояние при изменении пропса - распространенный паттерн, но он не оптимален.
+    </p>
+
+    <CodeComparison
+      badCode={`function List({ items }) {
+  const [selection, setSelection] = useState();
+
+  useEffect(() => {
+    setSelection(null);
+  }, [items]);
+}`}
+      goodCode={`// Решение 1: Контролируемый компонент
+function List({ items, selection, onSelectionChange }) {
+  // selection управляется родителем
+}
+
+// Решение 2: Adjust state during render
+function List({ items }) {
+  const [prevItems, setPrevItems] = useState(items);
+  
+  if (items !== prevItems) {
+    setPrevItems(items);
+    setSelection(null);
+  }
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+      <p class="text-yellow-200 flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <span>Делайте компонент полностью контролируемым или корректируйте состояние во время рендера.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

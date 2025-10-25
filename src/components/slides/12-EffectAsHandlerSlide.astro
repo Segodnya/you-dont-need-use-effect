@@ -1,0 +1,41 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="effect-as-handler" title="5. Эффект как обработчик событий">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Эффект используется как 'наблюдатель' за состоянием. Это антипаттерн!
+    </p>
+
+    <CodeComparison
+      badCode={`function Form() {
+  const [dataToSubmit, setDataToSubmit] = useState();
+
+  useEffect(() => {
+    if (dataToSubmit) {
+      submitData(dataToSubmit);
+    }
+  }, [dataToSubmit]);
+}`}
+      goodCode={`function Form() {
+  const [dataToSubmit, setDataToSubmit] = useState();
+
+  const handleSubmit = () => {
+    submitData(dataToSubmit);
+  };
+  
+  return <button onClick={handleSubmit}>Submit</button>;
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+      <p class="text-yellow-200 flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <span>Выполняйте side-эффекты напрямую в ответ на действия пользователя, а не через наблюдение за состоянием.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

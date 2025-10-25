@@ -10,6 +10,18 @@ import ProblemsSlide from '../components/slides/04-ProblemsSlide.astro';
 import KeyMessagesSlide from '../components/slides/05-KeyMessagesSlide.astro';
 import DerivedStateSlide from '../components/slides/06-DerivedStateSlide.astro';
 import ConclusionSlide from '../components/slides/07-ConclusionSlide.astro';
+import EmptyEffectsSlide from '../components/slides/08-EmptyEffectsSlide.astro';
+import PropOnlyEffectsSlide from '../components/slides/09-PropOnlyEffectsSlide.astro';
+import StateChainsSlide from '../components/slides/10-StateChainsSlide.astro';
+import RaceConditionsSlide from '../components/slides/11-RaceConditionsSlide.astro';
+import EffectAsHandlerSlide from '../components/slides/12-EffectAsHandlerSlide.astro';
+import AdjustingStateSlide from '../components/slides/13-AdjustingStateSlide.astro';
+import ResettingStateSlide from '../components/slides/14-ResettingStateSlide.astro';
+import NotifyingParentSlide from '../components/slides/15-NotifyingParentSlide.astro';
+import PassingDataUpSlide from '../components/slides/16-PassingDataUpSlide.astro';
+import InitializingStateSlide from '../components/slides/17-InitializingStateSlide.astro';
+import WhenNeededSlide from '../components/slides/18-WhenNeededSlide.astro';
+import WhatsNextSlide from '../components/slides/19-WhatsNextSlide.astro';
 
 // Define slide structure for navigation
 const slides = [
@@ -18,7 +30,19 @@ const slides = [
   { id: 'what-is-useeffect', title: 'Что такое useEffect' },
   { id: 'problems', title: 'Проблемы' },
   { id: 'key-messages', title: 'Ключевые сообщения' },
-  { id: 'derived-state', title: 'Производное состояние' },
+  { id: 'derived-state', title: '3. Производное состояние' },
+  { id: 'empty-effects', title: '1. Пустые эффекты' },
+  { id: 'prop-only-effects', title: '2. Эффекты с пропсами' },
+  { id: 'state-chains', title: '4. Цепочки обновлений' },
+  { id: 'race-conditions', title: '4б. Race Conditions' },
+  { id: 'effect-as-handler', title: '5. Эффект как обработчик' },
+  { id: 'adjusting-state', title: '6. Корректировка состояния' },
+  { id: 'resetting-state', title: '7. Сброс состояния' },
+  { id: 'notifying-parent', title: '8. Уведомление родителя' },
+  { id: 'passing-data-up', title: '9. Передача данных вверх' },
+  { id: 'initializing-state', title: '10. Инициализация состояния' },
+  { id: 'when-needed', title: 'Когда useEffect нужен' },
+  { id: 'whats-next', title: 'Что дальше?' },
   { id: 'conclusion', title: 'Заключение' },
 ];
 ---
@@ -33,6 +57,18 @@ const slides = [
     <ProblemsSlide />
     <KeyMessagesSlide />
     <DerivedStateSlide />
+    <EmptyEffectsSlide />
+    <PropOnlyEffectsSlide />
+    <StateChainsSlide />
+    <RaceConditionsSlide />
+    <EffectAsHandlerSlide />
+    <AdjustingStateSlide />
+    <ResettingStateSlide />
+    <NotifyingParentSlide />
+    <PassingDataUpSlide />
+    <InitializingStateSlide />
+    <WhenNeededSlide />
+    <WhatsNextSlide />
     <ConclusionSlide />
   </main>
 

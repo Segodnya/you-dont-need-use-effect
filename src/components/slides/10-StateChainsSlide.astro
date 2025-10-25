@@ -1,0 +1,49 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="state-chains" title="4. Цепочки обновлений состояния">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Эффект-лабиринт: каждый эффект запускает следующий, создавая цепочку обновлений.
+    </p>
+
+    <CodeComparison
+      badCode={`// Длинная цепочка эффектов
+useEffect(() => {
+  if (card !== null && card.gold) {
+    setGoldCardCount(c => c + 1);
+  }
+}, [card]);
+
+useEffect(() => {
+  if (goldCardCount > 3) {
+    setRound(r => r + 1);
+    setGoldCardCount(0);
+  }
+}, [goldCardCount]);`}
+      goodCode={`// Вся логика в одном месте
+function handleCardPick(nextCard) {
+  setCard(nextCard);
+
+  if (nextCard.gold) {
+    if (goldCardCount <= 3) {
+      setGoldCardCount(prev => prev + 1);
+    } else {
+      setGoldCardCount(0);
+      setRound(prev => prev + 1);
+    }
+  }
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+      <p class="text-yellow-200 flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <span>Объединяйте связанные обновления состояния в одном месте (обычно в обработчиках событий).</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

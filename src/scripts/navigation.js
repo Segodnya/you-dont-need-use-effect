@@ -2,8 +2,12 @@
  * Navigation controls for presentation slides
  */
 
+import { getActiveCarousel } from './carousel.js';
+
 export function initKeyboardNavigation() {
   document.addEventListener('keydown', (e) => {
+    const activeCarousel = getActiveCarousel();
+
     // Navigate with Arrow keys, Page Up/Down, and Space
     if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
       e.preventDefault();
@@ -13,15 +17,33 @@ export function initKeyboardNavigation() {
       navigateToPrevSlide();
     } else if (e.key === 'ArrowRight') {
       e.preventDefault();
-      navigateToNextSlide();
+      // If there's an active carousel, navigate within it first
+      if (activeCarousel && !activeCarousel.isAtEnd()) {
+        activeCarousel.next();
+      } else {
+        navigateToNextSlide();
+      }
     } else if (e.key === 'ArrowLeft') {
       e.preventDefault();
-      navigateToPrevSlide();
+      // If there's an active carousel, navigate within it first
+      if (activeCarousel && !activeCarousel.isAtStart()) {
+        activeCarousel.prev();
+      } else {
+        navigateToPrevSlide();
+      }
     }
   });
 }
 
 export function navigateToNextSlide() {
+  const activeCarousel = getActiveCarousel();
+  
+  // If there's an active carousel and it's not at the end, navigate within it
+  if (activeCarousel && !activeCarousel.isAtEnd()) {
+    activeCarousel.next();
+    return;
+  }
+
   const slides = document.querySelectorAll('.slide');
   let currentIndex = getCurrentSlideIndex(slides);
   
@@ -33,6 +55,14 @@ export function navigateToNextSlide() {
 }
 
 export function navigateToPrevSlide() {
+  const activeCarousel = getActiveCarousel();
+  
+  // If there's an active carousel and it's not at the start, navigate within it
+  if (activeCarousel && !activeCarousel.isAtStart()) {
+    activeCarousel.prev();
+    return;
+  }
+
   const slides = document.querySelectorAll('.slide');
   let currentIndex = getCurrentSlideIndex(slides);
   

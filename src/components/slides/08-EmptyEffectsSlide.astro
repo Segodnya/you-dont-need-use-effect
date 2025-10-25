@@ -1,0 +1,29 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="empty-effects" title="1. Пустые эффекты">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Если эффект ничего не делает - он не нужен.
+    </p>
+
+    <CodeComparison
+      badCode={`function Component() {
+  useEffect(() => {}, []); // Бессмысленный эффект
+}`}
+      goodCode={`function Component() {
+  // Просто удалите его!
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-red-900/20 border border-red-700 rounded-lg p-4">
+      <p class="text-red-200 flex items-start gap-3">
+        <span class="text-2xl">❌</span>
+        <span>Пустой эффект не выполняет никакой полезной работы и только добавляет шум в код.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

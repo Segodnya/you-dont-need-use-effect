@@ -1,0 +1,41 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="initializing-state" title="10. Инициализация состояния в эффекте">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Зачем делать два рендера, когда можно сделать один?
+    </p>
+
+    <CodeComparison
+      badCode={`function MyComponent() {
+  const [state, setState] = useState();
+
+  useEffect(() => {
+    setState("Hello"); // Инициализация в эффекте
+  }, []);
+}`}
+      goodCode={`// Простая инициализация
+function MyComponent() {
+  const [state, setState] = useState("Hello");
+}
+
+// Ленивая инициализация для дорогих вычислений
+function ExpensiveComponent() {
+  const [state, setState] = useState(() => {
+    return expensiveCalculation();
+  });
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+      <p class="text-yellow-200 flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <span>Функция в useState выполняется только при первом рендере, а эффект с пустыми зависимостями выполняется после рендера, вызывая дополнительное обновление.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>

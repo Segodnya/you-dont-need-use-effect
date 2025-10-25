@@ -1,0 +1,35 @@
+---
+import BaseSlide from './BaseSlide.astro';
+import CodeComparison from '../CodeComparison.astro';
+---
+
+<BaseSlide id="prop-only-effects" title="2. Эффекты, которые используют только пропсы">
+  <div class="space-y-6">
+    <p class="text-xl text-gray-300">
+      Если эффект использует только пропсы и не взаимодействует с внешними системами - скорее всего, эта логика должна быть в родительском компоненте.
+    </p>
+
+    <CodeComparison
+      badCode={`function Component({ foo }) {
+  useEffect(() => {
+    console.log(foo);
+  }, [foo]);
+}`}
+      goodCode={`// Поднимите логику на уровень выше
+function ParentComponent() {
+  const foo = someValue;
+  console.log(foo); // Логика в родителе
+  
+  return <Component foo={foo} />;
+}`}
+      language="tsx"
+    />
+
+    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
+      <p class="text-yellow-200 flex items-start gap-3">
+        <span class="text-2xl">💡</span>
+        <span>Поднимайте логику на уровень выше, где находятся данные.</span>
+      </p>
+    </div>
+  </div>
+</BaseSlide>
