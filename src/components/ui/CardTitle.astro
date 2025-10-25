@@ -1,0 +1,30 @@
+---
+export interface Props {
+  color?: 'gray' | 'blue' | 'green' | 'red' | 'cyan' | 'purple' | 'pink' | 'yellow';
+  size?: 'base' | 'lg' | 'xl';
+  class?: string;
+}
+
+const { color = 'gray', size = 'lg', class: className = '' } = Astro.props;
+
+const colorClasses = {
+  gray: 'text-gray-100',
+  blue: 'text-blue-300',
+  green: 'text-green-400',
+  red: 'text-red-400',
+  cyan: 'text-cyan-300',
+  purple: 'text-purple-300',
+  pink: 'text-pink-300',
+  yellow: 'text-yellow-300',
+};
+
+const sizeClasses = {
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl',
+};
+---
+
+<h3 class={`${sizeClasses[size]} font-semibold ${colorClasses[color]} mb-2 ${className}`}>
+  <slot />
+</h3>

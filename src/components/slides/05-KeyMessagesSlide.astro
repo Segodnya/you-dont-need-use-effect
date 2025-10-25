@@ -1,53 +1,57 @@
 ---
 import BaseSlide from './BaseSlide.astro';
+import Card from '../ui/Card.astro';
+import CardTitle from '../ui/CardTitle.astro';
+import CardText from '../ui/CardText.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="key-messages" title="Ключевые сообщения для команды">
-  <div class="space-y-5 text-base text-gray-300">
-    <div class="bg-blue-950/20 border-l-4 border-blue-500 p-5 rounded-r-lg">
-      <p class="font-semibold text-blue-300 mb-2">
+  <Section spacing="relaxed" class="text-base text-gray-300">
+    <Card color="blue">
+      <CardTitle color="blue" size="base">
         "Effects are for synchronization, not for flow control"
-      </p>
-      <p class="text-gray-400 text-base">
+      </CardTitle>
+      <CardText>
         Эффекты для синхронизации с внешним миром, а не для управления потоком
         данных внутри приложения.
-      </p>
-    </div>
+      </CardText>
+    </Card>
 
-    <div class="bg-blue-950/20 border-l-4 border-cyan-500 p-5 rounded-r-lg">
-      <p class="font-semibold text-cyan-300 mb-2">"Calculate during render"</p>
-      <p class="text-gray-400 text-base">
+    <Card color="cyan">
+      <CardTitle color="cyan" size="base">"Calculate during render"</CardTitle>
+      <CardText>
         Вычисляйте всё, что можно, прямо во время рендера.
-      </p>
-    </div>
+      </CardText>
+    </Card>
 
-    <div class="bg-blue-950/20 border-l-4 border-purple-500 p-5 rounded-r-lg">
-      <p class="font-semibold text-purple-300 mb-2">
+    <Card color="purple">
+      <CardTitle color="purple" size="base">
         "React knows when state changes"
-      </p>
-      <p class="text-gray-400 text-base">
+      </CardTitle>
+      <CardText>
         React и так знает, когда состояние изменилось, не нужно дублировать эту
         логику в эффектах.
-      </p>
-    </div>
+      </CardText>
+    </Card>
 
-    <div class="bg-blue-950/20 border-l-4 border-pink-500 p-5 rounded-r-lg">
-      <p class="font-semibold text-pink-300 mb-2">
+    <Card color="pink">
+      <CardTitle color="pink" size="base">
         "Lift state up instead of passing data up"
-      </p>
-      <p class="text-gray-400 text-base">
+      </CardTitle>
+      <CardText>
         Поднимайте состояние, а не передавайте данные наверх через эффекты.
-      </p>
-    </div>
+      </CardText>
+    </Card>
 
-    <div class="bg-blue-950/20 border-l-4 border-green-500 p-5 rounded-r-lg">
-      <p class="font-semibold text-green-300 mb-2">
+    <Card color="yellow">
+      <CardTitle color="green" size="base">
         "When in doubt, use an event handler"
-      </p>
-      <p class="text-gray-400 text-base">
+      </CardTitle>
+      <CardText>
         Если вы сомневаетесь, нужен ли эффект, скорее всего, логика должна быть
         в обработчике события.
-      </p>
-    </div>
-  </div>
+      </CardText>
+    </Card>
+  </Section>
 </BaseSlide>

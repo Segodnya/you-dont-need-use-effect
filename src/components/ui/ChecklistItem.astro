@@ -1,0 +1,13 @@
+---
+export interface Props {
+  number: string | number;
+  class?: string;
+}
+
+const { number, class: className = '' } = Astro.props;
+---
+
+<li class={`flex items-start gap-3 ${className}`}>
+  <span class="text-cyan-400 text-lg shrink-0">{number}.</span>
+  <span><slot /></span>
+</li>

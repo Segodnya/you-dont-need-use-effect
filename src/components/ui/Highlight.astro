@@ -1,0 +1,21 @@
+---
+export interface Props {
+  color?: 'blue' | 'cyan' | 'purple' | 'green' | 'red' | 'yellow';
+  class?: string;
+}
+
+const { color = 'blue', class: className = '' } = Astro.props;
+
+const colors = {
+  blue: 'text-blue-400',
+  cyan: 'text-cyan-400',
+  purple: 'text-purple-400',
+  green: 'text-green-400',
+  red: 'text-red-400',
+  yellow: 'text-yellow-400',
+};
+---
+
+<strong class={`${colors[color]} ${className}`}>
+  <slot />
+</strong>

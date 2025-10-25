@@ -1,13 +1,16 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import CodeComparison from '../CodeComparison.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="derived-state" title="Пример: Производное состояние">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Избегайте useEffect для вычисления производных значений
-    </p>
+    </Text>
 
     <CodeComparison
       badCode={`function Form({ firstName, lastName }) {
@@ -28,15 +31,9 @@ import CodeComparison from '../CodeComparison.astro';
       language="tsx"
     />
 
-    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
-      <p class="text-yellow-200 flex items-start gap-3">
-        <span class="text-2xl">💡</span>
-        <span
-          >Вычисляйте значения напрямую во время рендера! Если вычисление
-          дорогое — используйте <code class="text-cyan-300">useMemo</code
-          >.</span
-        >
-      </p>
-    </div>
-  </div>
+    <Callout variant="tip">
+      Вычисляйте значения напрямую во время рендера! Если вычисление
+      дорогое — используйте <code class="text-cyan-300">useMemo</code>.
+    </Callout>
+  </Section>
 </BaseSlide>

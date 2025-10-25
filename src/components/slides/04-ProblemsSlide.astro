@@ -1,53 +1,49 @@
 ---
 import BaseSlide from './BaseSlide.astro';
+import Text from '../ui/Text.astro';
+import Grid from '../ui/Grid.astro';
+import Card from '../ui/Card.astro';
+import CardTitle from '../ui/CardTitle.astro';
+import CardText from '../ui/CardText.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="problems" title="Проблемы неправильного использования">
-  <div class="space-y-6 text-base text-gray-300">
-    <p class="text-lg">Почему это так важно? Потому что цена ошибки высока.</p>
+  <Section>
+    <Text>Почему это так важно? Потому что цена ошибки высока.</Text>
 
-    <div class="grid gap-4 mt-6">
-      <div
-        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
-      >
-        <h3 class="text-red-400 font-semibold text-lg mb-2">
-          1. Производительность
-        </h3>
-        <p class="text-gray-400">
+    <Grid cols="1" gap="4" class="mt-6">
+      <Card variant="hover" color="gray">
+        <CardTitle color="red" size="lg">1. Производительность</CardTitle>
+        <CardText>
           Каждый эффект — это потенциально лишний рендер. Представьте цепочку:
           Рендер → Эффект → setState → Рендер...
-        </p>
-      </div>
+        </CardText>
+      </Card>
 
-      <div
-        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
-      >
-        <h3 class="text-red-400 font-semibold text-lg mb-2">2. Баги</h3>
-        <p class="text-gray-400">
+      <Card variant="hover" color="gray">
+        <CardTitle color="red" size="lg">2. Баги</CardTitle>
+        <CardText>
           Race conditions в запросах данных, бесконечные циклы обновлений,
           состояние, которое 'прыгает' и не соответствует ожиданиям.
-        </p>
-      </div>
+        </CardText>
+      </Card>
 
-      <div
-        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
-      >
-        <h3 class="text-red-400 font-semibold text-lg mb-2">3. Сложность</h3>
-        <p class="text-gray-400">
+      <Card variant="hover" color="gray">
+        <CardTitle color="red" size="lg">3. Сложность</CardTitle>
+        <CardText>
           Код с эффектами становится императивным. Мы говорим 'как' сделать, а
           не 'что' мы хотим видеть.
-        </p>
-      </div>
+        </CardText>
+      </Card>
 
-      <div
-        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
-      >
-        <h3 class="text-red-400 font-semibold text-lg mb-2">4. Архитектура</h3>
-        <p class="text-gray-400">
+      <Card variant="hover" color="gray">
+        <CardTitle color="red" size="lg">4. Архитектура</CardTitle>
+        <CardText>
           Мы нарушаем односторонний поток данных. Данные начинают течь снизу
           вверх через эффекты, создавая спагетти-код.
-        </p>
-      </div>
-    </div>
-  </div>
+        </CardText>
+      </Card>
+    </Grid>
+  </Section>
 </BaseSlide>

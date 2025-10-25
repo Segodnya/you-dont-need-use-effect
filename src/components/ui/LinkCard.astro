@@ -1,0 +1,23 @@
+---
+export interface Props {
+  href: string;
+  showIcon?: boolean;
+  class?: string;
+}
+
+const { href, showIcon = true, class: className = '' } = Astro.props;
+---
+
+<div
+  class={`bg-blue-950/20 border border-blue-500/30 rounded-lg p-6 hover:border-blue-500/50 transition-colors ${className}`}
+>
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    class="text-blue-400 hover:text-blue-300 font-semibold text-lg flex items-center gap-2"
+  >
+    <slot />
+    {showIcon && <span class="text-sm">↗</span>}
+  </a>
+</div>

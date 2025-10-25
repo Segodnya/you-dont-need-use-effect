@@ -1,0 +1,36 @@
+---
+export interface Props {
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  gradient?: boolean;
+  color?: 'gray' | 'blue' | 'green' | 'red' | 'cyan' | 'purple' | 'pink' | 'yellow';
+  class?: string;
+}
+
+const { size = 'md', gradient = false, color = 'gray', class: className = '' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-lg font-semibold',
+  md: 'text-xl font-semibold',
+  lg: 'text-2xl font-bold',
+  xl: 'text-4xl lg:text-6xl font-bold',
+};
+
+const colorClasses = {
+  gray: 'text-gray-100',
+  blue: 'text-blue-300',
+  green: 'text-green-400',
+  red: 'text-red-400',
+  cyan: 'text-cyan-300',
+  purple: 'text-purple-300',
+  pink: 'text-pink-300',
+  yellow: 'text-yellow-300',
+};
+
+const colorClass = gradient
+  ? 'bg-linear-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent'
+  : colorClasses[color];
+---
+
+<h3 class={`${sizeClasses[size]} ${colorClass} ${className}`}>
+  <slot />
+</h3>

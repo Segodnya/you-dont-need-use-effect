@@ -1,13 +1,16 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import CodeComparison from '../CodeComparison.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="prop-only-effects" title="2. Эффекты, которые используют только пропсы">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Если эффект использует только пропсы и не взаимодействует с внешними системами - скорее всего, эта логика должна быть в родительском компоненте.
-    </p>
+    </Text>
 
     <CodeComparison
       badCode={`function Component({ foo }) {
@@ -25,11 +28,8 @@ function ParentComponent() {
       language="tsx"
     />
 
-    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
-      <p class="text-yellow-200 flex items-start gap-3">
-        <span class="text-2xl">💡</span>
-        <span>Поднимайте логику на уровень выше, где находятся данные.</span>
-      </p>
-    </div>
-  </div>
+    <Callout variant="tip">
+      Поднимайте логику на уровень выше, где находятся данные.
+    </Callout>
+  </Section>
 </BaseSlide>

@@ -1,0 +1,26 @@
+---
+export interface Props {
+  size?: 'sm' | 'base' | 'lg' | 'xl';
+  color?: 'gray-300' | 'gray-400' | 'white';
+  class?: string;
+}
+
+const { size = 'lg', color = 'gray-300', class: className = '' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+  xl: 'text-xl lg:text-3xl',
+};
+
+const colorClasses = {
+  'gray-300': 'text-gray-300',
+  'gray-400': 'text-gray-400',
+  'white': 'text-white',
+};
+---
+
+<p class={`text-left ${sizeClasses[size]} ${colorClasses[color]} ${className}`}>
+  <slot />
+</p>

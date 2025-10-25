@@ -1,63 +1,41 @@
 ---
 import BaseSlide from './BaseSlide.astro';
+import Text from '../ui/Text.astro';
+import LinkCard from '../ui/LinkCard.astro';
+import List from '../ui/List.astro';
+import ListItem from '../ui/ListItem.astro';
+import Link from '../ui/Link.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="inspiration" title="Вдохновение">
-  <div class="space-y-6 text-base lg:text-lg text-gray-300">
-    <p>Вдохновился я на нынешний доклад после прочтения статьи:</p>
+  <Section>
+    <Text size="base">Вдохновился я на нынешний доклад после прочтения статьи:</Text>
 
-    <div
-      class="bg-blue-950/20 border border-blue-500/30 rounded-lg p-6 hover:border-blue-500/50 transition-colors"
-    >
-      <a
-        href="https://react.dev/learn/you-might-not-need-an-effect"
-        target="_blank"
-        rel="noopener noreferrer"
-        class="text-blue-400 hover:text-blue-300 font-semibold text-lg flex items-center gap-2"
-      >
-        You Might Not Need an Effect
-        <span class="text-sm">↗</span>
-      </a>
-    </div>
+    <LinkCard href="https://react.dev/learn/you-might-not-need-an-effect">
+      You Might Not Need an Effect
+    </LinkCard>
 
-    <p class="pt-4">
+    <Text size="base" class="pt-4">
       Также по теме может быть полезно почитать непосредственно саму доку React:
-    </p>
+    </Text>
 
-    <ul class="space-y-3 pl-4">
-      <li class="flex items-start gap-3">
-        <span class="text-cyan-400 mt-1">•</span>
-        <a
-          href="https://react.dev/learn/synchronizing-with-effects"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-cyan-400 hover:text-cyan-300 hover:underline"
-        >
+    <List spacing="normal" class="pl-4">
+      <ListItem icon="•" iconColor="text-cyan-400">
+        <Link href="https://react.dev/learn/synchronizing-with-effects" variant="secondary">
           Synchronizing with Effects
-        </a>
-      </li>
-      <li class="flex items-start gap-3">
-        <span class="text-cyan-400 mt-1">•</span>
-        <a
-          href="https://react.dev/learn/separating-events-from-effects"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-cyan-400 hover:text-cyan-300 hover:underline"
-        >
+        </Link>
+      </ListItem>
+      <ListItem icon="•" iconColor="text-cyan-400">
+        <Link href="https://react.dev/learn/separating-events-from-effects" variant="secondary">
           Separating Events from Effects
-        </a>
-      </li>
-      <li class="flex items-start gap-3">
-        <span class="text-cyan-400 mt-1">•</span>
-        <a
-          href="https://react.dev/learn/lifecycle-of-reactive-effects"
-          target="_blank"
-          rel="noopener noreferrer"
-          class="text-cyan-400 hover:text-cyan-300 hover:underline"
-        >
+        </Link>
+      </ListItem>
+      <ListItem icon="•" iconColor="text-cyan-400">
+        <Link href="https://react.dev/learn/lifecycle-of-reactive-effects" variant="secondary">
           Lifecycle of Reactive Effects
-        </a>
-      </li>
-    </ul>
-  </div>
+        </Link>
+      </ListItem>
+    </List>
+  </Section>
 </BaseSlide>

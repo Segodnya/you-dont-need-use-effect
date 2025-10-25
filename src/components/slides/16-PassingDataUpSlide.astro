@@ -1,13 +1,16 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import CodeComparison from '../CodeComparison.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="passing-data-up" title="9. Передача данных в родительский компонент">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Это нарушает поток данных в React. Данные должны течь сверху вниз, а не снизу вверх через эффекты.
-    </p>
+    </Text>
 
     <CodeComparison
       badCode={`const Child = ({ onFetched }) => {
@@ -31,11 +34,8 @@ function Child({ data }) {
       language="tsx"
     />
 
-    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
-      <p class="text-yellow-200 flex items-start gap-3">
-        <span class="text-2xl">💡</span>
-        <span>Поднимите получение данных на уровень выше или используйте контекст для разделения ответственности.</span>
-      </p>
-    </div>
-  </div>
+    <Callout variant="tip">
+      Поднимите получение данных на уровень выше или используйте контекст для разделения ответственности.
+    </Callout>
+  </Section>
 </BaseSlide>

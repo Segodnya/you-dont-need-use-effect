@@ -1,0 +1,19 @@
+---
+export interface Props {
+  variant?: 'default' | 'checkmarks' | 'numbers';
+  spacing?: 'tight' | 'normal' | 'relaxed';
+  class?: string;
+}
+
+const { variant = 'default', spacing = 'normal', class: className = '' } = Astro.props;
+
+const spacingClasses = {
+  tight: 'space-y-2',
+  normal: 'space-y-3',
+  relaxed: 'space-y-4',
+};
+---
+
+<ul class={`${spacingClasses[spacing]} text-gray-300 ${className}`}>
+  <slot />
+</ul>

@@ -1,25 +1,29 @@
 ---
 import BaseSlide from './BaseSlide.astro';
+import SlideTitle from '../ui/SlideTitle.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="intro" variant="centered">
-  <div class="space-y-6">
-    <h1
-      class="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-blue-400 via-cyan-400 to-purple-400 bg-clip-text text-transparent"
-    >
-      useEffect
-    </h1>
-    <p class="text-xl lg:text-3xl text-gray-300 mb-8">
-      Когда он нужен, а когда нет
-    </p>
-    <div class="text-base lg:text-lg text-gray-300 space-y-4 max-w-4xl">
-      <p>Сколько раз вы писали useEffect за последнюю неделю? А сколько из них были действительно необходимы?</p>
-      <p>Мы часто используем его как универсальный молоток для любых задач, не связанных напрямую с рендерингом. Но на самом деле, во многих случаях useEffect не только не нужен, но и создает скрытые проблемы с производительностью, рождает баги и делает код запутанным.</p>
-      <div class="bg-purple-900/30 border border-purple-500 rounded-lg p-4 mt-6">
-        <p class="text-purple-200 font-semibold">
-          <span class="text-2xl">�</span> Ключевой тезис: useEffect — это аварийный люк. Он нужен для 'побега' из React-парадигмы и синхронизации с внешними системами.
-        </p>
-      </div>
-    </div>
-  </div>
+  <Section spacing="relaxed">
+    <SlideTitle size="xl" gradient>useEffect</SlideTitle>
+    <Text size="xl" class="mb-8">Когда он нужен, а когда нет</Text>
+    
+    <Section class="max-w-4xl">
+      <Text size="lg">
+        Сколько раз вы писали useEffect за последнюю неделю? А сколько из них были действительно необходимы?
+      </Text>
+      <Text size="lg">
+        Мы часто используем его как универсальный молоток для любых задач, не связанных напрямую с рендерингом. Но на самом деле, во многих случаях useEffect не только не нужен, но и создает скрытые проблемы с производительностью, рождает баги и делает код запутанным.
+      </Text>
+      
+      <Callout variant="primary" class="mt-6">
+        <Text class="font-semibold">
+          Ключевой тезис: useEffect — это аварийный люк. Он нужен для 'побега' из React-парадигмы и синхронизации с внешними системами.
+        </Text>
+      </Callout>
+    </Section>
+  </Section>
 </BaseSlide>

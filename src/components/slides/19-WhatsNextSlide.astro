@@ -1,53 +1,53 @@
 ---
 import BaseSlide from './BaseSlide.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
+import SlideTitle from '../ui/SlideTitle.astro';
+import List from '../ui/List.astro';
+import ListItem from '../ui/ListItem.astro';
+import ChecklistItem from '../ui/ChecklistItem.astro';
+import Highlight from '../ui/Highlight.astro';
 ---
 
 <BaseSlide id="whats-next" title="Что дальше?">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Сегодня мы рассмотрели основные проблемы, которые возникают при неправильном использовании useEffect. И да, эти проблемы могут быть отловлены с помощью линтера.
-    </p>
+    </Text>
 
-    <div class="bg-blue-900/20 border border-blue-700 rounded-lg p-6">
-      <h3 class="text-xl font-semibold text-blue-400 mb-4">
-        Внедрение ESLint плагина
-      </h3>
-      <p class="text-gray-300 mb-4">
-        <code class="text-cyan-300">eslint-plugin-react-you-might-not-need-an-effect</code>
-      </p>
-      
-      <div class="space-y-3 text-gray-300 text-base">
-        <div class="flex items-start gap-3">
-          <span class="text-yellow-400 text-lg">1.</span>
-          <p>Сначала добавим правила с уровнем <code class="text-cyan-300">warn</code> - чтобы видеть проблемы, но не блокировать разработку</p>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="text-yellow-400 text-lg">2.</span>
-          <p>Будем исправлять старые ошибки постепенно, по мере работы с компонентами (их 172)</p>
-        </div>
-        <div class="flex items-start gap-3">
-          <span class="text-yellow-400 text-lg">3.</span>
-          <p>Для нового кода - задумываться, когда используем useEffect, и сразу писать правильно</p>
-        </div>
-      </div>
-    </div>
+    <Callout variant="info" class="mt-6">
+      <Section spacing="tight">
+        <SlideTitle size="md" class="mb-4">
+          Внедрение ESLint плагина
+        </SlideTitle>
+        <Text size="base" class="mb-4">
+          <Highlight color="cyan">eslint-plugin-react-you-might-not-need-an-effect</Highlight>
+        </Text>
+        
+        <List spacing="normal" class="text-base">
+          <ChecklistItem number="1">
+            Сначала добавим правила с уровнем <Highlight color="cyan">warn</Highlight> - чтобы видеть проблемы, но не блокировать разработку
+          </ChecklistItem>
+          <ChecklistItem number="2">
+            Будем исправлять старые ошибки постепенно, по мере работы с компонентами (их 172)
+          </ChecklistItem>
+          <ChecklistItem number="3">
+            Для нового кода - задумываться, когда используем useEffect, и сразу писать правильно
+          </ChecklistItem>
+        </List>
+      </Section>
+    </Callout>
 
-    <div class="bg-green-900/20 border border-green-700 rounded-lg p-6">
-      <h3 class="text-xl font-semibold text-green-400 mb-4">Что это даст:</h3>
-      <ul class="space-y-2 text-gray-300 text-base">
-        <li class="flex items-start gap-2">
-          <span class="text-green-400">✓</span>
-          <span>Улучшится производительность - меньше лишних ре-рендеров</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-green-400">✓</span>
-          <span>Упростится отладка - код станет более предсказуемым</span>
-        </li>
-        <li class="flex items-start gap-2">
-          <span class="text-green-400">✓</span>
-          <span>Улучшится архитектура - более четкое разделение ответственности</span>
-        </li>
-      </ul>
-    </div>
-  </div>
+    <Callout variant="success" class="mt-4">
+      <Section spacing="tight">
+        <SlideTitle size="md" class="mb-4">Что это даст:</SlideTitle>
+        <List spacing="tight">
+          <ListItem>Улучшится производительность - меньше лишних ре-рендеров</ListItem>
+          <ListItem>Упростится отладка - код станет более предсказуемым</ListItem>
+          <ListItem>Улучшится архитектура - более четкое разделение ответственности</ListItem>
+        </List>
+      </Section>
+    </Callout>
+  </Section>
 </BaseSlide>

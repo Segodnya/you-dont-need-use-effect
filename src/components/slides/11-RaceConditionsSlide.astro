@@ -1,13 +1,16 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import CodeComparison from '../CodeComparison.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="race-conditions" title="4б. Race Conditions в цепочках">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Что, если user изменится, пока мы получаем profile? Race condition налицо.
-    </p>
+    </Text>
 
     <CodeComparison
       badCode={`useEffect(() => {
@@ -36,11 +39,8 @@ async function loadUserData(userId) {
       language="tsx"
     />
 
-    <div class="bg-red-900/20 border border-red-700 rounded-lg p-4">
-      <p class="text-red-200 flex items-start gap-3">
-        <span class="text-2xl">⚠️</span>
-        <span>Проблема: Мы получим profile для старого пользователя, а потом и posts для него же.</span>
-      </p>
-    </div>
-  </div>
+    <Callout variant="warning" icon="⚠️">
+      Проблема: Мы получим profile для старого пользователя, а потом и posts для него же.
+    </Callout>
+  </Section>
 </BaseSlide>

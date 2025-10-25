@@ -1,0 +1,42 @@
+---
+export interface Props {
+  href: string;
+  variant?: 'primary' | 'secondary' | 'external';
+  size?: 'sm' | 'base' | 'lg';
+  external?: boolean;
+  class?: string;
+}
+
+const { 
+  href, 
+  variant = 'primary', 
+  size = 'base',
+  external = true,
+  class: className = '' 
+} = Astro.props;
+
+const variants = {
+  primary: 'text-blue-400 hover:text-blue-300',
+  secondary: 'text-cyan-400 hover:text-cyan-300',
+  external: 'text-blue-400 hover:text-blue-300 font-semibold',
+};
+
+const sizes = {
+  sm: 'text-sm',
+  base: 'text-base',
+  lg: 'text-lg',
+};
+
+const externalProps = external ? {
+  target: '_blank',
+  rel: 'noopener noreferrer'
+} : {};
+---
+
+<a
+  href={href}
+  class={`${variants[variant]} ${sizes[size]} hover:underline ${className}`}
+  {...externalProps}
+>
+  <slot />
+</a>

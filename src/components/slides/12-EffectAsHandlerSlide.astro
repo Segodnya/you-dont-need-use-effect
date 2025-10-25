@@ -1,13 +1,16 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import CodeComparison from '../CodeComparison.astro';
+import Text from '../ui/Text.astro';
+import Callout from '../ui/Callout.astro';
+import Section from '../ui/Section.astro';
 ---
 
 <BaseSlide id="effect-as-handler" title="5. Эффект как обработчик событий">
-  <div class="space-y-6">
-    <p class="text-lg text-gray-300">
+  <Section>
+    <Text>
       Эффект используется как 'наблюдатель' за состоянием. Это антипаттерн!
-    </p>
+    </Text>
 
     <CodeComparison
       badCode={`function Form() {
@@ -31,11 +34,8 @@ import CodeComparison from '../CodeComparison.astro';
       language="tsx"
     />
 
-    <div class="bg-yellow-900/20 border border-yellow-700 rounded-lg p-4">
-      <p class="text-yellow-200 flex items-start gap-3">
-        <span class="text-2xl">💡</span>
-        <span>Выполняйте side-эффекты напрямую в ответ на действия пользователя, а не через наблюдение за состоянием.</span>
-      </p>
-    </div>
-  </div>
+    <Callout variant="tip">
+      Выполняйте side-эффекты напрямую в ответ на действия пользователя, а не через наблюдение за состоянием.
+    </Callout>
+  </Section>
 </BaseSlide>
