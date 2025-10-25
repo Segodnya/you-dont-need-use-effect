@@ -2,6 +2,8 @@
  * Presentation slide animations and tracking
  */
 
+import { updateCurrentSlide } from './utils.js';
+
 export function initSlideAnimations() {
   const slides = document.querySelectorAll('.slide');
 
@@ -16,13 +18,8 @@ export function initSlideAnimations() {
           entry.target.classList.add('active');
           const slideIndex = Array.from(slides).indexOf(entry.target);
 
-          // Update Alpine store if available
-          if (window.Alpine) {
-            const alpineData = window.Alpine.$data(document.body);
-            if (alpineData) {
-              alpineData.currentSlide = slideIndex;
-            }
-          }
+          // Update Alpine store
+          updateCurrentSlide(slideIndex);
         }
       });
     },

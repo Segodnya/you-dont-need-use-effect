@@ -3,6 +3,7 @@
  */
 
 import { getActiveCarousel } from './carousel.js';
+import { updateCurrentSlide, isUrlSyncEnabled } from './utils.js';
 
 let slides = [];
 let currentSlideIndex = 0;
@@ -56,7 +57,7 @@ function initializeFromHash() {
       if (index !== -1) {
         currentSlideIndex = index;
         navigateToSlide(index, false); // Don't update hash since we're reading from it
-        updateAlpineState(index);
+        updateCurrentSlide(index);
         return;
       }
     }
@@ -64,7 +65,7 @@ function initializeFromHash() {
   
   // Default to first slide
   currentSlideIndex = 0;
-  updateAlpineState(0);
+  updateCurrentSlide(0);
   updateHash(0);
 }
 
@@ -77,25 +78,18 @@ function handleHashChange() {
       if (index !== -1 && index !== currentSlideIndex) {
         currentSlideIndex = index;
         navigateToSlide(index, false); // Don't update hash since we're responding to hash change
-        updateAlpineState(index);
+        updateCurrentSlide(index);
       }
     }
   }
 }
 
 function updateHash(slideIndex) {
-  if (slideIndex >= 0 && slideIndex < slides.length) {
+  // Check if URL syncing is enabled
+  if (isUrlSyncEnabled() && slideIndex >= 0 && slideIndex < slides.length) {
     const slideId = slides[slideIndex].id;
     // Use history.replaceState to avoid creating new history entries
     history.replaceState(null, null, `#${slideId}`);
-  }
-}
-
-function updateAlpineState(slideIndex) {
-  // Update Alpine.js state
-  const body = document.body;
-  if (body._x_dataStack && body._x_dataStack[0]) {
-    body._x_dataStack[0].currentSlide = slideIndex;
   }
 }
 
@@ -105,7 +99,7 @@ function navigateToSlide(slideIndex, updateHashFlag = true) {
     if (updateHashFlag) {
       updateHash(slideIndex);
     }
-    updateAlpineState(slideIndex);
+    updateCurrentSlide(slideIndex);
   }
 }
 
@@ -198,7 +192,7 @@ export function initNavigationButtons() {
           if (slideIndex !== -1) {
             currentSlideIndex = slideIndex;
             updateNavigationButtons(slideIndex, slides.length);
-            updateAlpineState(slideIndex);
+            updateCurrentSlide(slideIndex);
             updateHash(slideIndex);
           }
         }

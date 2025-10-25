@@ -10,6 +10,7 @@ import PageLoader from '../components/ui/PageLoader.astro';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>useEffect - Когда нужен, а когда нет</title>
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -19,7 +20,7 @@ import PageLoader from '../components/ui/PageLoader.astro';
   </head>
   <body
     class="text-white overflow-x-hidden dark relative"
-    x-data="{ currentSlide: 0, totalSlides: 0 }"
+    x-data="{ currentSlide: 0, totalSlides: 0, syncUrlWithSlide: false }"
     x-init="
       totalSlides = document.querySelectorAll('.slide').length;
       // Initialize from URL hash if present
@@ -49,6 +50,8 @@ import PageLoader from '../components/ui/PageLoader.astro';
         speed={0.3}
         scanlineFrequency={0.5}
         warpAmount={5}
+        x-bind:current-slide="currentSlide"
+        x-bind:total-slides="totalSlides"
       />
     </div>
     

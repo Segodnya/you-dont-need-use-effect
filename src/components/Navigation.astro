@@ -7,12 +7,11 @@ const { slides } = Astro.props;
 ---
 
 <!-- Right Side Navigation Container -->
-<div class="fixed right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center gap-6 z-50">
+<div
+  class="fixed right-8 top-1/2 transform -translate-y-1/2 hidden lg:flex flex-col items-center gap-6 z-50"
+>
   <!-- Navigation Dots -->
-  <nav
-    class="flex flex-col space-y-3"
-    aria-label="Навигация по слайдам"
-  >
+  <nav class="flex flex-col space-y-3" aria-label="Навигация по слайдам">
     {
       slides.map((slide, index) => (
         <a
@@ -28,6 +27,29 @@ const { slides } = Astro.props;
 
   <!-- Navigation Buttons -->
   <div class="flex flex-col items-center gap-3">
+    <!-- URL Sync Toggle Button -->
+    <button
+      class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+      x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+      x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена' : 'URL синхронизация выключена'"
+      x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
+    >
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+        ></path>
+      </svg>
+    </button>
+
     <!-- Previous Button -->
     <button
       id="prev-slide-btn"
@@ -35,8 +57,18 @@ const { slides } = Astro.props;
       aria-label="Предыдущий слайд"
       title="Предыдущий слайд"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 15l7-7 7 7" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M5 15l7-7 7 7"></path>
       </svg>
     </button>
 
@@ -47,8 +79,19 @@ const { slides } = Astro.props;
       aria-label="Полноэкранный режим"
       title="Полноэкранный режим"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+        ></path>
       </svg>
     </button>
 
@@ -59,15 +102,27 @@ const { slides } = Astro.props;
       aria-label="Следующий слайд"
       title="Следующий слайд"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        class="h-5 w-5"
+        fill="none"
+        viewBox="0 0 24 24"
+        stroke="currentColor"
+      >
+        <path
+          stroke-linecap="round"
+          stroke-linejoin="round"
+          stroke-width="2"
+          d="M19 9l-7 7-7-7"></path>
       </svg>
     </button>
   </div>
 </div>
 
 <!-- Mobile Navigation Buttons (Bottom) -->
-<div class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 z-50 lg:hidden">
+<div
+  class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 z-50 lg:hidden"
+>
   <!-- Previous Button -->
   <button
     id="prev-slide-btn-mobile"
@@ -75,8 +130,41 @@ const { slides } = Astro.props;
     aria-label="Предыдущий слайд"
     title="Предыдущий слайд"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M15 19l-7-7 7-7"></path>
+    </svg>
+  </button>
+
+  <!-- URL Sync Toggle Button -->
+  <button
+    class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+    x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+    x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена' : 'URL синхронизация выключена'"
+    x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
+  >
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+      ></path>
     </svg>
   </button>
 
@@ -87,8 +175,19 @@ const { slides } = Astro.props;
     aria-label="Полноэкранный режим"
     title="Полноэкранный режим"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+      ></path>
     </svg>
   </button>
 
@@ -99,8 +198,18 @@ const { slides } = Astro.props;
     aria-label="Следующий слайд"
     title="Следующий слайд"
   >
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="h-6 w-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        stroke-linecap="round"
+        stroke-linejoin="round"
+        stroke-width="2"
+        d="M9 5l7 7-7 7"></path>
     </svg>
   </button>
 </div>

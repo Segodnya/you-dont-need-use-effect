@@ -81,6 +81,8 @@ interface DarkVeilProps {
   scanlineFrequency?: number;
   warpAmount?: number;
   resolutionScale?: number;
+  currentSlide?: number;
+  totalSlides?: number;
 }
 
 export default function DarkVeil({
@@ -90,10 +92,17 @@ export default function DarkVeil({
   speed = 0.5,
   scanlineFrequency = 0,
   warpAmount = 0,
-  resolutionScale = 1
+  resolutionScale = 1,
+  currentSlide = 0,
+  totalSlides = 1
 }: DarkVeilProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
+  
+  // Calculate hueShift based on presentation progress (0 to 360)
+  const calculatedHueShift = totalSlides > 1 
+    ? (currentSlide / (totalSlides - 1)) * 360 
+    : hueShift;
 
   useEffect(() => {
     console.log('🎨 DarkVeil: Component mounting...');
@@ -134,7 +143,7 @@ export default function DarkVeil({
         uniforms: {
           uTime: { value: 0 },
           uResolution: { value: new Vec2() },
-          uHueShift: { value: hueShift },
+          uHueShift: { value: calculatedHueShift },
           uNoise: { value: noiseIntensity },
           uScan: { value: scanlineIntensity },
           uScanFreq: { value: scanlineFrequency },
@@ -165,7 +174,7 @@ export default function DarkVeil({
 
       const loop = () => {
         program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-        program.uniforms.uHueShift.value = hueShift;
+        program.uniforms.uHueShift.value = calculatedHueShift;
         program.uniforms.uNoise.value = noiseIntensity;
         program.uniforms.uScan.value = scanlineIntensity;
         program.uniforms.uScanFreq.value = scanlineFrequency;
@@ -192,7 +201,7 @@ export default function DarkVeil({
     } catch (error) {
       console.error('❌ DarkVeil: Error:', error);
     }
-  }, [hueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+  }, [calculatedHueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
 
   return (
     <div 

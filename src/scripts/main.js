@@ -6,6 +6,7 @@ import Alpine from 'alpinejs';
 import { initSlideAnimations } from './presentation.js';
 import { initKeyboardNavigation, initNavigationButtons } from './navigation.js';
 import { initCarousels } from './carousel.js';
+import { initUrlSyncToggle } from './url-sync.js';
 
 // Initialize Alpine.js
 window.Alpine = Alpine;
@@ -17,4 +18,5 @@ document.addEventListener('DOMContentLoaded', () => {
   initKeyboardNavigation();
   initNavigationButtons();
   initCarousels();
+  initUrlSyncToggle();
 });
