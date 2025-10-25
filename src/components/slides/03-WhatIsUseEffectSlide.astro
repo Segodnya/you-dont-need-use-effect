@@ -3,8 +3,8 @@ import BaseSlide from './BaseSlide.astro';
 ---
 
 <BaseSlide id="what-is-useeffect" title="Что такое useEffect?">
-  <div class="space-y-6 text-lg text-gray-300">
-    <p class="text-xl">
+  <div class="space-y-6 text-base text-gray-300">
+    <p class="text-lg">
       Прежде чем ругать, давайте договоримся, для чего он создан.
       <strong class="text-blue-400"
         >useEffect — это инструмент для синхронизации.</strong
@@ -15,12 +15,12 @@ import BaseSlide from './BaseSlide.astro';
     <div class="grid lg:grid-cols-2 gap-6 mt-8">
       <div class="bg-green-950/20 border border-green-500/30 rounded-lg p-6">
         <h3
-          class="text-green-400 font-semibold text-xl mb-4 flex items-center gap-2"
+          class="text-green-400 font-semibold text-lg mb-4 flex items-center gap-2"
         >
-          <span class="text-2xl">✅</span>
+          <span class="text-xl">✅</span>
           Что такое 'внешняя система'?
         </h3>
-        <ul class="space-y-2 text-base">
+        <ul class="space-y-2 text-sm">
           <li>
             • API браузера: <code class="text-cyan-300">setInterval</code>, <code
               class="text-cyan-300">addEventListener</code>
@@ -33,12 +33,12 @@ import BaseSlide from './BaseSlide.astro';
 
       <div class="bg-red-950/20 border border-red-500/30 rounded-lg p-6">
         <h3
-          class="text-red-400 font-semibold text-xl mb-4 flex items-center gap-2"
+          class="text-red-400 font-semibold text-lg mb-4 flex items-center gap-2"
         >
-          <span class="text-2xl">❌</span>
+          <span class="text-xl">❌</span>
           Что НЕ является внешней системой?
         </h3>
-        <ul class="space-y-2 text-base">
+        <ul class="space-y-2 text-sm">
           <li>• Пропсы и состояние вашего же приложения</li>
           <li>• Логика преобразования данных</li>
           <li>• Обновление состояния на основе другого состояния</li>

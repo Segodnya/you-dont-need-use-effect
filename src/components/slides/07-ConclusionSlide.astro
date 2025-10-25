@@ -5,12 +5,12 @@ import BaseSlide from './BaseSlide.astro';
 <BaseSlide id="conclusion" variant="centered">
   <div class="space-y-8">
     <h2
-      class="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent"
+      class="text-3xl lg:text-5xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent"
     >
       Заключение
     </h2>
 
-    <div class="text-xl lg:text-2xl text-gray-300 space-y-4">
+    <div class="text-lg lg:text-xl text-gray-300 space-y-4">
       <p>
         Помните: <strong class="text-blue-400">useEffect</strong> - это инструмент
         для синхронизации с внешними системами,
@@ -21,33 +21,33 @@ import BaseSlide from './BaseSlide.astro';
     <div
       class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-8 mt-8"
     >
-      <h3 class="text-2xl font-semibold text-blue-300 mb-4">
+      <h3 class="text-xl font-semibold text-blue-300 mb-4">
         Прежде чем написать useEffect, спросите себя:
       </h3>
-      <ul class="space-y-3 text-lg text-left">
+      <ul class="space-y-3 text-base text-left">
         <li class="flex items-start gap-3">
-          <span class="text-cyan-400 text-xl">1.</span>
+          <span class="text-cyan-400 text-lg">1.</span>
           <span>Можно ли это вычислить во время рендера? → Вычисляйте в рендере или используйте useMemo.</span>
         </li>
         <li class="flex items-start gap-3">
-          <span class="text-cyan-400 text-xl">2.</span>
+          <span class="text-cyan-400 text-lg">2.</span>
           <span>Это реакция на конкретное действие пользователя? → Используйте обработчик события (onClick, onSubmit).</span>
         </li>
         <li class="flex items-start gap-3">
-          <span class="text-cyan-400 text-xl">3.</span>
+          <span class="text-cyan-400 text-lg">3.</span>
           <span>Нужно ли синхронизировать состояние компонента с пропсами? → Попробуйте сделать состояние полностью контролируемым или используйте key.</span>
         </li>
         <li class="flex items-start gap-3">
-          <span class="text-cyan-400 text-xl">4.</span>
+          <span class="text-cyan-400 text-lg">4.</span>
           <span>Это просто 'поток данных' внутри приложения? → Поднимите состояние выше или используйте контекст.</span>
         </li>
       </ul>
     </div>
 
-    <div class="pt-8 text-2xl text-gray-400">
+    <div class="pt-8 text-xl text-gray-400">
       <p>Давайте вместе сделаем наш код чище, производительнее и понятнее! 🚀</p>
-      <p class="mt-4 text-3xl">Спасибо за внимание!</p>
-      <p class="mt-6 text-xl">Вопросы?</p>
+      <p class="mt-4 text-2xl">Спасибо за внимание!</p>
+      <p class="mt-6 text-lg">Вопросы?</p>
     </div>
   </div>
 </BaseSlide>

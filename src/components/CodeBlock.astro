@@ -6,9 +6,16 @@ export interface Props {
   language?: string;
   title?: string;
   highlight?: string;
+  size?: 'sm' | 'base' | 'lg';
 }
 
-const { code, language = 'tsx', title, highlight } = Astro.props;
+const { code, language = 'tsx', title, highlight, size = 'base' } = Astro.props;
+
+const sizeClasses = {
+  sm: 'text-xs',
+  base: 'text-sm',
+  lg: 'text-base'
+};
 ---
 
 <div class="code-block my-4">
@@ -20,7 +27,7 @@ const { code, language = 'tsx', title, highlight } = Astro.props;
     )
   }
   <div
-    class={`overflow-x-auto bg-gray-900 p-4 ${title ? 'rounded-b-lg' : 'rounded-lg'}`}
+    class={`overflow-x-auto bg-gray-900 p-4 ${title ? 'rounded-b-lg' : 'rounded-lg'} ${sizeClasses[size]}`}
   >
     <Code code={code} lang={language} theme="github-dark" />
   </div>
