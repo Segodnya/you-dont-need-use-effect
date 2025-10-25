@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import DarkVeil from '../components/backgrounds/DarkVeil.tsx';
 ---
 
 <!doctype html>
@@ -16,11 +17,27 @@ import '../styles/global.css';
     />
   </head>
   <body
-    class="bg-gradient-to-br from-gray-900 to-gray-950 text-white overflow-x-hidden dark"
+    class="text-white overflow-x-hidden dark relative"
     x-data="{ currentSlide: 0, totalSlides: 0 }"
     x-init="totalSlides = document.querySelectorAll('.slide').length"
   >
-    <slot />
+    <!-- DarkVeil background -->
+    <div class="fixed inset-0 z-0">
+      <DarkVeil 
+        client:load
+        hueShift={0}
+        noiseIntensity={0.05}
+        scanlineIntensity={0.02}
+        speed={0.3}
+        scanlineFrequency={0.5}
+        warpAmount={5}
+      />
+    </div>
+    
+    <!-- Content -->
+    <div class="relative z-10">
+      <slot />
+    </div>
 
     <script>
       import '../scripts/main.js';
