@@ -19,7 +19,21 @@ import DarkVeil from '../components/backgrounds/DarkVeil.tsx';
   <body
     class="text-white overflow-x-hidden dark relative"
     x-data="{ currentSlide: 0, totalSlides: 0 }"
-    x-init="totalSlides = document.querySelectorAll('.slide').length"
+    x-init="
+      totalSlides = document.querySelectorAll('.slide').length;
+      // Initialize from URL hash if present
+      const hash = window.location.hash.substring(1);
+      if (hash) {
+        const slideElement = document.getElementById(hash);
+        if (slideElement) {
+          const slides = Array.from(document.querySelectorAll('.slide'));
+          const index = slides.indexOf(slideElement);
+          if (index !== -1) {
+            currentSlide = index;
+          }
+        }
+      }
+    "
   >
     <!-- DarkVeil background -->
     <div class="fixed inset-0 z-0">

@@ -4,7 +4,19 @@
 
 import { getActiveCarousel } from './carousel.js';
 
+let slides = [];
+let currentSlideIndex = 0;
+
 export function initKeyboardNavigation() {
+  // Initialize slides array
+  slides = Array.from(document.querySelectorAll('.slide'));
+  
+  // Initialize from URL hash or start at first slide
+  initializeFromHash();
+  
+  // Listen for hash changes
+  window.addEventListener('hashchange', handleHashChange);
+  
   document.addEventListener('keydown', (e) => {
     const activeCarousel = getActiveCarousel();
 
@@ -35,6 +47,68 @@ export function initKeyboardNavigation() {
   });
 }
 
+function initializeFromHash() {
+  const hash = window.location.hash.substring(1); // Remove the '#'
+  if (hash) {
+    const slideElement = document.getElementById(hash);
+    if (slideElement) {
+      const index = slides.indexOf(slideElement);
+      if (index !== -1) {
+        currentSlideIndex = index;
+        navigateToSlide(index, false); // Don't update hash since we're reading from it
+        updateAlpineState(index);
+        return;
+      }
+    }
+  }
+  
+  // Default to first slide
+  currentSlideIndex = 0;
+  updateAlpineState(0);
+  updateHash(0);
+}
+
+function handleHashChange() {
+  const hash = window.location.hash.substring(1);
+  if (hash) {
+    const slideElement = document.getElementById(hash);
+    if (slideElement) {
+      const index = slides.indexOf(slideElement);
+      if (index !== -1 && index !== currentSlideIndex) {
+        currentSlideIndex = index;
+        navigateToSlide(index, false); // Don't update hash since we're responding to hash change
+        updateAlpineState(index);
+      }
+    }
+  }
+}
+
+function updateHash(slideIndex) {
+  if (slideIndex >= 0 && slideIndex < slides.length) {
+    const slideId = slides[slideIndex].id;
+    // Use history.replaceState to avoid creating new history entries
+    history.replaceState(null, null, `#${slideId}`);
+  }
+}
+
+function updateAlpineState(slideIndex) {
+  // Update Alpine.js state
+  const body = document.body;
+  if (body._x_dataStack && body._x_dataStack[0]) {
+    body._x_dataStack[0].currentSlide = slideIndex;
+  }
+}
+
+function navigateToSlide(slideIndex, updateHashFlag = true) {
+  if (slideIndex >= 0 && slideIndex < slides.length) {
+    slides[slideIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    if (updateHashFlag) {
+      updateHash(slideIndex);
+    }
+    updateAlpineState(slideIndex);
+  }
+}
+
 export function navigateToNextSlide() {
   const activeCarousel = getActiveCarousel();
   
@@ -44,13 +118,11 @@ export function navigateToNextSlide() {
     return;
   }
 
-  const slides = document.querySelectorAll('.slide');
-  let currentIndex = getCurrentSlideIndex(slides);
-  
-  const nextIndex = currentIndex + 1;
+  const nextIndex = currentSlideIndex + 1;
   
   if (nextIndex < slides.length) {
-    slides[nextIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    currentSlideIndex = nextIndex;
+    navigateToSlide(nextIndex);
   }
 }
 
@@ -63,40 +135,12 @@ export function navigateToPrevSlide() {
     return;
   }
 
-  const slides = document.querySelectorAll('.slide');
-  let currentIndex = getCurrentSlideIndex(slides);
-  
-  const prevIndex = currentIndex - 1;
+  const prevIndex = currentSlideIndex - 1;
   
   if (prevIndex >= 0) {
-    slides[prevIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
+    currentSlideIndex = prevIndex;
+    navigateToSlide(prevIndex);
   }
-}
-
-function getCurrentSlideIndex(slides) {
-  // First try to find the active slide
-  const activeSlide = document.querySelector('.slide.active');
-  if (activeSlide) {
-    return Array.from(slides).indexOf(activeSlide);
-  }
-  
-  // Fallback: find the slide closest to the center of the viewport
-  const viewportCenter = window.innerHeight / 2 + window.scrollY;
-  let closestIndex = 0;
-  let closestDistance = Infinity;
-  
-  slides.forEach((slide, index) => {
-    const rect = slide.getBoundingClientRect();
-    const slideCenter = rect.top + window.scrollY + rect.height / 2;
-    const distance = Math.abs(slideCenter - viewportCenter);
-    
-    if (distance < closestDistance) {
-      closestDistance = distance;
-      closestIndex = index;
-    }
-  });
-  
-  return closestIndex;
 }
 
 export function initNavigationButtons() {
@@ -135,14 +179,28 @@ export function initNavigationButtons() {
     fullscreenBtnMobile.addEventListener('click', toggleFullscreen);
   }
 
+  // Initialize navigation dots click handlers
+  const navDots = document.querySelectorAll('.nav-dot');
+  navDots.forEach((dot, index) => {
+    dot.addEventListener('click', (e) => {
+      e.preventDefault();
+      currentSlideIndex = index;
+      navigateToSlide(index);
+    });
+  });
+
   // Update button states based on current slide
-  const slides = document.querySelectorAll('.slide');
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
           const slideIndex = Array.from(slides).indexOf(entry.target);
-          updateNavigationButtons(slideIndex, slides.length);
+          if (slideIndex !== -1) {
+            currentSlideIndex = slideIndex;
+            updateNavigationButtons(slideIndex, slides.length);
+            updateAlpineState(slideIndex);
+            updateHash(slideIndex);
+          }
         }
       });
     },
@@ -178,6 +236,13 @@ function updateNavigationButtons(currentIndex, totalSlides) {
   if (nextBtnMobile) {
     nextBtnMobile.disabled = currentIndex === totalSlides - 1;
     nextBtnMobile.style.opacity = currentIndex === totalSlides - 1 ? '0.3' : '1';
+  }
+
+  // Update progress bar
+  const progressBar = document.getElementById('scroll-progress');
+  if (progressBar) {
+    const progress = totalSlides > 1 ? (currentIndex / (totalSlides - 1)) * 100 : 0;
+    progressBar.style.width = `${progress}%`;
   }
 }
 

@@ -18,17 +18,49 @@
 }
 
 .nav-dot:hover::before {
-  background: rgba(59, 130, 246, 0.1);
+  background: rgba(34, 211, 238, 0.15);
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.3);
 }
 
 .nav-dot:focus::before {
-  background: rgba(59, 130, 246, 0.2);
+  background: rgba(34, 211, 238, 0.2);
+  box-shadow: 0 0 25px rgba(34, 211, 238, 0.4);
+}
+
+/* Active dot enhancement */
+.nav-dot.bg-cyan-500 {
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.6);
+}
+
+.nav-dot.bg-cyan-500::before {
+  background: rgba(34, 211, 238, 0.1);
+  box-shadow: 0 0 30px rgba(34, 211, 238, 0.4);
 }
 
 /* Navigation buttons */
 .nav-button {
   cursor: pointer;
   user-select: none;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.nav-button:hover:not(:disabled) {
+  box-shadow: 0 0 20px rgba(34, 211, 238, 0.4);
+  transform: scale(1.1);
+}
+
+.nav-button:hover:not(:disabled)::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(45deg, rgba(34, 211, 238, 0.1), rgba(168, 85, 247, 0.1));
+  border-radius: inherit;
+  pointer-events: none;
 }
 
 .nav-button:active:not(:disabled) {
