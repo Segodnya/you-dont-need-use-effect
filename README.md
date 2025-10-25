@@ -67,6 +67,7 @@ src/
 ## ✨ Features
 
 ### Presentation Features
+
 - ✅ Smooth scroll-based navigation
 - ✅ Fade-in and slide-up animations
 - ✅ Keyboard navigation (Arrow keys, PageUp/Down)
@@ -78,6 +79,7 @@ src/
 - ✅ Syntax highlighting (via Astro's built-in Shiki)
 
 ### Code Quality
+
 - ✅ Clean separation of concerns (JS, CSS, markup)
 - ✅ No React dependencies - pure Astro + Alpine.js
 - ✅ Numeric slide prefixes for easy file navigation
@@ -128,12 +130,14 @@ const slides = [
 Base component for all slides with built-in animations.
 
 **Props:**
+
 - `id` (required): Unique slide identifier
 - `title` (optional): Slide title
 - `variant` (optional): 'default' | 'centered' | 'full'
 - `className` (optional): Additional CSS classes
 
 **Example:**
+
 ```astro
 <BaseSlide id="example" title="Example Slide" variant="centered">
   <p>Content goes here</p>
@@ -145,6 +149,7 @@ Base component for all slides with built-in animations.
 Side-by-side comparison of bad/good code examples.
 
 **Props:**
+
 - `badCode` (required): Code for bad example
 - `goodCode` (required): Code for good example
 - `language` (optional): Programming language, default 'tsx'
@@ -152,6 +157,7 @@ Side-by-side comparison of bad/good code examples.
 - `goodTitle` (optional): Custom title for good example
 
 **Example:**
+
 ```astro
 <CodeComparison
   badCode={`const bad = "example";`}
@@ -165,11 +171,13 @@ Side-by-side comparison of bad/good code examples.
 Single code block with optional title.
 
 **Props:**
+
 - `code` (required): Code to display
 - `language` (optional): Programming language, default 'tsx'
 - `title` (optional): Code block title
 
 **Example:**
+
 ```astro
 <CodeBlock
   code={`const example = "code";`}
@@ -183,11 +191,13 @@ Single code block with optional title.
 Colored callout boxes for highlighting information.
 
 **Props:**
+
 - `type` (optional): 'info' | 'warning' | 'success' | 'error' | 'tip'
 - `title` (optional): Box title
 - `className` (optional): Additional CSS classes
 
 **Example:**
+
 ```astro
 <InfoBox type="warning" title="Important">
   Be careful with this approach!
@@ -256,6 +266,7 @@ Files are prefixed with numbers (01-, 02-, etc.) for:
 ### State Management
 
 Alpine.js handles minimal state:
+
 - Current slide index
 - Total slides count
 - Active slide tracking
@@ -267,7 +278,7 @@ Alpine.js handles minimal state:
 Edit gradient in `src/layouts/Presentation.astro`:
 
 ```astro
-<body class="bg-gradient-to-br from-gray-900 to-gray-950 text-white">
+<body class="bg-linear-to-br from-gray-900 to-gray-950 text-white">
 ```
 
 ### Adjust Animation Speed
@@ -287,6 +298,7 @@ Update Google Fonts link in `src/layouts/Presentation.astro`.
 ## 📦 Dependencies
 
 ### Production
+
 - `astro` (5.15.1) - Framework
 - `alpinejs` (3.15.0) - Interactivity
 - `tailwindcss` (4.1.14) - Styling
@@ -294,6 +306,7 @@ Update Google Fonts link in `src/layouts/Presentation.astro`.
 - `@tailwindcss/vite` (4.1.14) - Tailwind Vite plugin
 
 ### Development
+
 - `tw-animate-css` (1.4.0) - Tailwind animations
 
 ## 🚀 Deployment
@@ -323,6 +336,7 @@ npm run build
 ## 📚 Content Source
 
 Presentation content is based on React's official documentation:
+
 - [You Might Not Need an Effect](https://react.dev/learn/you-might-not-need-an-effect)
 - [Synchronizing with Effects](https://react.dev/learn/synchronizing-with-effects)
 - [Separating Events from Effects](https://react.dev/learn/separating-events-from-effects)
@@ -342,4 +356,4 @@ MIT
 
 ---
 
-**Built with ❤️ using Astro, Alpine.js, and Tailwind CSS**
+Built with ❤️ using Astro, Alpine.js, and Tailwind CSS
