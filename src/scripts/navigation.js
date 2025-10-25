@@ -103,7 +103,13 @@ export function initNavigationButtons() {
   const nextBtn = document.getElementById('next-slide-btn');
   const prevBtn = document.getElementById('prev-slide-btn');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
+  
+  // Mobile buttons
+  const nextBtnMobile = document.getElementById('next-slide-btn-mobile');
+  const prevBtnMobile = document.getElementById('prev-slide-btn-mobile');
+  const fullscreenBtnMobile = document.getElementById('fullscreen-btn-mobile');
 
+  // Desktop buttons
   if (nextBtn) {
     nextBtn.addEventListener('click', navigateToNextSlide);
   }
@@ -114,6 +120,19 @@ export function initNavigationButtons() {
 
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
+
+  // Mobile buttons
+  if (nextBtnMobile) {
+    nextBtnMobile.addEventListener('click', navigateToNextSlide);
+  }
+
+  if (prevBtnMobile) {
+    prevBtnMobile.addEventListener('click', navigateToPrevSlide);
+  }
+
+  if (fullscreenBtnMobile) {
+    fullscreenBtnMobile.addEventListener('click', toggleFullscreen);
   }
 
   // Update button states based on current slide
@@ -136,7 +155,10 @@ export function initNavigationButtons() {
 function updateNavigationButtons(currentIndex, totalSlides) {
   const prevBtn = document.getElementById('prev-slide-btn');
   const nextBtn = document.getElementById('next-slide-btn');
+  const prevBtnMobile = document.getElementById('prev-slide-btn-mobile');
+  const nextBtnMobile = document.getElementById('next-slide-btn-mobile');
 
+  // Update desktop buttons
   if (prevBtn) {
     prevBtn.disabled = currentIndex === 0;
     prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
@@ -145,6 +167,17 @@ function updateNavigationButtons(currentIndex, totalSlides) {
   if (nextBtn) {
     nextBtn.disabled = currentIndex === totalSlides - 1;
     nextBtn.style.opacity = currentIndex === totalSlides - 1 ? '0.3' : '1';
+  }
+
+  // Update mobile buttons
+  if (prevBtnMobile) {
+    prevBtnMobile.disabled = currentIndex === 0;
+    prevBtnMobile.style.opacity = currentIndex === 0 ? '0.3' : '1';
+  }
+
+  if (nextBtnMobile) {
+    nextBtnMobile.disabled = currentIndex === totalSlides - 1;
+    nextBtnMobile.style.opacity = currentIndex === totalSlides - 1 ? '0.3' : '1';
   }
 }
 
