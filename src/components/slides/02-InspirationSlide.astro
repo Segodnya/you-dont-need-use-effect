@@ -1,41 +1,67 @@
 ---
 import BaseSlide from './BaseSlide.astro';
 import Text from '../ui/Text.astro';
-import LinkCard from '../ui/LinkCard.astro';
 import List from '../ui/List.astro';
 import ListItem from '../ui/ListItem.astro';
 import Link from '../ui/Link.astro';
 import Section from '../ui/Section.astro';
+import Grid from '../ui/Grid.astro';
+import QRCodeComponent from '../ui/QRCode.tsx';
 ---
 
 <BaseSlide id="inspiration" title="Вдохновение">
   <Section>
-    <Text size="base">Вдохновился я на нынешний доклад после прочтения статьи:</Text>
+    <Grid cols="2" gap="8">
+      <!-- Left column: QR code -->
+      <div class="flex flex-col items-start justify-start">
+        <Text size="base" class="mb-6"
+          >Вдохновился я на нынешний доклад после прочтения статьи:</Text
+        >
 
-    <LinkCard href="https://react.dev/learn/you-might-not-need-an-effect">
-      You Might Not Need an Effect
-    </LinkCard>
+        <div class="w-full flex justify-center">
+          <QRCodeComponent
+            value="https://react.dev/learn/you-might-not-need-an-effect"
+            size={160}
+            label="You Might Not Need an Effect"
+            client:load
+          />
+        </div>
+      </div>
 
-    <Text size="base" class="pt-4">
-      Также по теме может быть полезно почитать непосредственно саму доку React:
-    </Text>
+      <!-- Right column: React docs -->
+      <div>
+        <Text size="base" class="mb-4">
+          Также по теме может быть полезно почитать непосредственно саму доку
+          React:
+        </Text>
 
-    <List spacing="normal" class="pl-4">
-      <ListItem icon="•" iconColor="text-cyan-400">
-        <Link href="https://react.dev/learn/synchronizing-with-effects" variant="secondary">
-          Synchronizing with Effects
-        </Link>
-      </ListItem>
-      <ListItem icon="•" iconColor="text-cyan-400">
-        <Link href="https://react.dev/learn/separating-events-from-effects" variant="secondary">
-          Separating Events from Effects
-        </Link>
-      </ListItem>
-      <ListItem icon="•" iconColor="text-cyan-400">
-        <Link href="https://react.dev/learn/lifecycle-of-reactive-effects" variant="secondary">
-          Lifecycle of Reactive Effects
-        </Link>
-      </ListItem>
-    </List>
+        <List spacing="normal" class="pl-4">
+          <ListItem icon="•" iconColor="text-cyan-400">
+            <Link
+              href="https://react.dev/learn/synchronizing-with-effects"
+              variant="secondary"
+            >
+              Synchronizing with Effects
+            </Link>
+          </ListItem>
+          <ListItem icon="•" iconColor="text-cyan-400">
+            <Link
+              href="https://react.dev/learn/separating-events-from-effects"
+              variant="secondary"
+            >
+              Separating Events from Effects
+            </Link>
+          </ListItem>
+          <ListItem icon="•" iconColor="text-cyan-400">
+            <Link
+              href="https://react.dev/learn/lifecycle-of-reactive-effects"
+              variant="secondary"
+            >
+              Lifecycle of Reactive Effects
+            </Link>
+          </ListItem>
+        </List>
+      </div>
+    </Grid>
   </Section>
 </BaseSlide>
