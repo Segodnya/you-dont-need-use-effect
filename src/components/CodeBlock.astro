@@ -1,0 +1,27 @@
+---
+import { Code } from 'astro:components';
+
+export interface Props {
+  code: string;
+  language?: string;
+  title?: string;
+  highlight?: string;
+}
+
+const { code, language = 'tsx', title, highlight } = Astro.props;
+---
+
+<div class="code-block my-4">
+  {
+    title && (
+      <div class="bg-gray-800 px-4 py-2 rounded-t-lg border-b border-gray-700">
+        <span class="text-sm font-mono text-gray-400">{title}</span>
+      </div>
+    )
+  }
+  <div
+    class={`overflow-x-auto bg-gray-900 p-4 ${title ? 'rounded-b-lg' : 'rounded-lg'}`}
+  >
+    <Code code={code} lang={language} theme="github-dark" />
+  </div>
+</div>

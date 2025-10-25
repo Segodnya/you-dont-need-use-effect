@@ -1,0 +1,48 @@
+---
+import BaseSlide from './BaseSlide.astro';
+---
+
+<BaseSlide id="conclusion" variant="centered">
+  <div class="space-y-8">
+    <h2
+      class="text-4xl lg:text-6xl font-bold bg-gradient-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent"
+    >
+      Заключение
+    </h2>
+
+    <div class="text-xl lg:text-2xl text-gray-300 space-y-4">
+      <p>
+        Помните: <strong class="text-blue-400">useEffect</strong> - это инструмент
+        для синхронизации с внешними системами,
+      </p>
+      <p>а не для организации потока данных внутри приложения.</p>
+    </div>
+
+    <div
+      class="bg-gradient-to-r from-blue-600/20 to-purple-600/20 border border-blue-500/30 rounded-xl p-8 mt-8"
+    >
+      <h3 class="text-2xl font-semibold text-blue-300 mb-4">
+        Прежде чем написать useEffect, спросите себя:
+      </h3>
+      <ul class="space-y-3 text-lg text-left">
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 text-2xl">✓</span>
+          <span>Можно ли это вычислить во время рендера?</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 text-2xl">✓</span>
+          <span>Это реакция на конкретное действие пользователя?</span>
+        </li>
+        <li class="flex items-start gap-3">
+          <span class="text-green-400 text-2xl">✓</span>
+          <span>Нужно ли синхронизировать с внешней системой?</span>
+        </li>
+      </ul>
+    </div>
+
+    <div class="pt-8 text-2xl text-gray-400">
+      <p>Давайте вместе сделаем наш код чище! 🚀</p>
+      <p class="mt-4 text-3xl">Спасибо за внимание!</p>
+    </div>
+  </div>
+</BaseSlide>

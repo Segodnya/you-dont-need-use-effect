@@ -1,0 +1,53 @@
+---
+import BaseSlide from './BaseSlide.astro';
+---
+
+<BaseSlide id="problems" title="Проблемы неправильного использования">
+  <div class="space-y-6 text-lg text-gray-300">
+    <p class="text-xl">Почему это так важно? Потому что цена ошибки высока.</p>
+
+    <div class="grid gap-4 mt-6">
+      <div
+        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
+      >
+        <h3 class="text-red-400 font-semibold text-lg mb-2">
+          1. Производительность
+        </h3>
+        <p class="text-gray-400">
+          Каждый эффект — это потенциально лишний рендер. Представьте цепочку:
+          Рендер → Эффект → setState → Рендер...
+        </p>
+      </div>
+
+      <div
+        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
+      >
+        <h3 class="text-red-400 font-semibold text-lg mb-2">2. Баги</h3>
+        <p class="text-gray-400">
+          Race conditions в запросах данных, бесконечные циклы обновлений,
+          состояние, которое 'прыгает' и не соответствует ожиданиям.
+        </p>
+      </div>
+
+      <div
+        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
+      >
+        <h3 class="text-red-400 font-semibold text-lg mb-2">3. Сложность</h3>
+        <p class="text-gray-400">
+          Код с эффектами становится императивным. Мы говорим 'как' сделать, а
+          не 'что' мы хотим видеть.
+        </p>
+      </div>
+
+      <div
+        class="bg-gray-800/50 border border-gray-700 rounded-lg p-5 hover:border-gray-600 transition-colors"
+      >
+        <h3 class="text-red-400 font-semibold text-lg mb-2">4. Архитектура</h3>
+        <p class="text-gray-400">
+          Мы нарушаем односторонний поток данных. Данные начинают течь снизу
+          вверх через эффекты, создавая спагетти-код.
+        </p>
+      </div>
+    </div>
+  </div>
+</BaseSlide>

@@ -1,0 +1,33 @@
+---
+export interface Props {
+  id: string;
+  title?: string;
+  variant?: 'default' | 'centered' | 'code' | 'full';
+  className?: string;
+}
+
+const { id, title, variant = 'default', className = '' } = Astro.props;
+---
+
+<section
+  id={id}
+  class={`slide min-h-screen w-full snap-start flex flex-col justify-center px-6 lg:px-32 py-16 transition-all duration-700 opacity-40 transform-gpu ${className}`}
+  data-slide={id}
+>
+  {
+    title && (
+      <h2 class="text-3xl lg:text-5xl font-bold mb-8 bg-gradient-to-r from-blue-400 to-cyan-400 bg-clip-text text-transparent">
+        {title}
+      </h2>
+    )
+  }
+  <div
+    class={`
+    ${variant === 'centered' ? 'text-center mx-auto max-w-4xl' : ''}
+    ${variant === 'full' ? 'w-full' : 'max-w-6xl'}
+    content-animation
+  `}
+  >
+    <slot />
+  </div>
+</section>

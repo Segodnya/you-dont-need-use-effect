@@ -1,6 +1,12 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+/* Component styles */
+@import "./components/slides.css";
+@import "./components/code-comparison.css";
+@import "./components/code-block.css";
+@import "./components/navigation.css";
+
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
@@ -117,4 +123,48 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+/* Presentation-specific styles */
+
+/* Smooth scrolling */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar but keep functionality */
+.scroll-container {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scroll-container::-webkit-scrollbar {
+  display: none;
+}
+
+/* Custom scroll animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-slide-in-up {
+  animation: slideInUp 0.6s ease-out;
+}
+
+/* Code block customization for Astro's built-in syntax highlighting */
+pre {
+  background: transparent !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+code {
+  font-family: 'JetBrains Mono', 'Courier New', monospace !important;
 }

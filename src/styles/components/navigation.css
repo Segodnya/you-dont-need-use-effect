@@ -1,0 +1,49 @@
+/* Navigation component styles */
+
+.nav-dot {
+  position: relative;
+}
+
+.nav-dot::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: transparent;
+  transition: all 0.3s ease;
+}
+
+.nav-dot:hover::before {
+  background: rgba(59, 130, 246, 0.1);
+}
+
+.nav-dot:focus::before {
+  background: rgba(59, 130, 246, 0.2);
+}
+
+/* Navigation buttons */
+.nav-button {
+  cursor: pointer;
+  user-select: none;
+}
+
+.nav-button:active:not(:disabled) {
+  transform: scale(0.95);
+}
+
+.nav-button:disabled {
+  cursor: not-allowed;
+}
+
+/* Fullscreen button icon animation */
+#fullscreen-btn svg {
+  transition: transform 0.3s ease;
+}
+
+#fullscreen-btn:hover svg {
+  transform: rotate(90deg);
+}

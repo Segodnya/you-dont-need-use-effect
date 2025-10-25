@@ -1,0 +1,63 @@
+---
+import BaseSlide from './BaseSlide.astro';
+---
+
+<BaseSlide id="inspiration" title="Вдохновение">
+  <div class="space-y-6 text-lg lg:text-xl text-gray-300">
+    <p>Вдохновился я на нынешний доклад после прочтения статьи:</p>
+
+    <div
+      class="bg-blue-950/20 border border-blue-500/30 rounded-lg p-6 hover:border-blue-500/50 transition-colors"
+    >
+      <a
+        href="https://react.dev/learn/you-might-not-need-an-effect"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-blue-400 hover:text-blue-300 font-semibold text-xl flex items-center gap-2"
+      >
+        You Might Not Need an Effect
+        <span class="text-sm">↗</span>
+      </a>
+    </div>
+
+    <p class="pt-4">
+      Также по теме может быть полезно почитать непосредственно саму доку React:
+    </p>
+
+    <ul class="space-y-3 pl-4">
+      <li class="flex items-start gap-3">
+        <span class="text-cyan-400 mt-1">•</span>
+        <a
+          href="https://react.dev/learn/synchronizing-with-effects"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-cyan-400 hover:text-cyan-300 hover:underline"
+        >
+          Synchronizing with Effects
+        </a>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-cyan-400 mt-1">•</span>
+        <a
+          href="https://react.dev/learn/separating-events-from-effects"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-cyan-400 hover:text-cyan-300 hover:underline"
+        >
+          Separating Events from Effects
+        </a>
+      </li>
+      <li class="flex items-start gap-3">
+        <span class="text-cyan-400 mt-1">•</span>
+        <a
+          href="https://react.dev/learn/lifecycle-of-reactive-effects"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="text-cyan-400 hover:text-cyan-300 hover:underline"
+        >
+          Lifecycle of Reactive Effects
+        </a>
+      </li>
+    </ul>
+  </div>
+</BaseSlide>

@@ -1,0 +1,57 @@
+---
+import { Code } from 'astro:components';
+
+export interface Props {
+  badCode: string;
+  goodCode: string;
+  language?: string;
+  badTitle?: string;
+  goodTitle?: string;
+}
+
+const {
+  badCode,
+  goodCode,
+  language = 'tsx',
+  badTitle = '❌ Плохой пример',
+  goodTitle = '✅ Правильное решение',
+} = Astro.props;
+---
+
+<div
+  class="code-comparison grid grid-cols-1 lg:grid-cols-2 gap-4 lg:gap-6 my-6"
+>
+  <!-- Bad Example -->
+  <div
+    class="border border-red-500/50 bg-red-950/10 hover:bg-red-950/20 transition-colors rounded-lg overflow-hidden"
+  >
+    <div class="p-4 lg:p-6">
+      <div class="flex items-center mb-4">
+        <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+        <h3 class="text-lg font-semibold text-red-400">{badTitle}</h3>
+      </div>
+      <div
+        class="text-sm lg:text-base overflow-x-auto bg-gray-900 rounded-lg p-4"
+      >
+        <Code code={badCode} lang={language} theme="github-dark" />
+      </div>
+    </div>
+  </div>
+
+  <!-- Good Example -->
+  <div
+    class="border border-green-500/50 bg-green-950/10 hover:bg-green-950/20 transition-colors rounded-lg overflow-hidden"
+  >
+    <div class="p-4 lg:p-6">
+      <div class="flex items-center mb-4">
+        <div class="w-3 h-3 bg-green-500 rounded-full mr-3"></div>
+        <h3 class="text-lg font-semibold text-green-400">{goodTitle}</h3>
+      </div>
+      <div
+        class="text-sm lg:text-base overflow-x-auto bg-gray-900 rounded-lg p-4"
+      >
+        <Code code={goodCode} lang={language} theme="github-dark" />
+      </div>
+    </div>
+  </div>
+</div>
