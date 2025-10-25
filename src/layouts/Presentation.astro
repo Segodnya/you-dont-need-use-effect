@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import DarkVeil from '../components/backgrounds/DarkVeil.tsx';
+import PageLoader from '../components/ui/PageLoader.astro';
 ---
 
 <!doctype html>
@@ -35,6 +36,9 @@ import DarkVeil from '../components/backgrounds/DarkVeil.tsx';
       }
     "
   >
+    <!-- Page Loader -->
+    <PageLoader />
+    
     <!-- DarkVeil background -->
     <div class="fixed inset-0 z-0">
       <DarkVeil 

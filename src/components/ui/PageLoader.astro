@@ -1,0 +1,83 @@
+---
+// Page loader component to prevent FOUC (Flash of Unstyled Content)
+---
+
+<div 
+  id="page-loader" 
+  class="fixed inset-0 z-50 bg-gray-950 flex items-center justify-center transition-opacity duration-500"
+  x-data="{ loaded: false }"
+  x-init="
+    // Ensure HTML is visible when loader starts
+    document.documentElement.classList.add('loaded');
+    
+    // Hide loader after styles and content are loaded
+    const hideLoader = () => {
+      loaded = true;
+      const loader = document.getElementById('page-loader');
+      if (loader) {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    };
+    
+    // Wait for both DOM and all resources to be ready
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', () => {
+        setTimeout(hideLoader, 300);
+      });
+    } else {
+      setTimeout(hideLoader, 300);
+    }
+  "
+>
+  <!-- Blurry background effect -->
+  <div class="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-purple-900/20 to-cyan-900/20 backdrop-blur-sm"></div>
+  
+  <div class="relative z-10 flex flex-col items-center">
+    <!-- Spinner -->
+    <div class="relative">
+      <!-- Outer ring -->
+      <div class="w-16 h-16 border-4 border-blue-500/20 rounded-full"></div>
+      
+      <!-- Spinning ring -->
+      <div class="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-blue-500 rounded-full animate-spin"></div>
+      
+      <!-- Inner glow -->
+      <div class="absolute inset-2 w-12 h-12 bg-blue-500/10 rounded-full blur-sm"></div>
+    </div>
+    
+    <!-- Loading text -->
+    <div class="mt-6 text-blue-300 text-sm font-medium">
+      Загрузка презентации...
+    </div>
+  </div>
+</div>
+
+<script>
+  // Additional safety to ensure loader is hidden
+  window.addEventListener('load', () => {
+    setTimeout(() => {
+      const loader = document.getElementById('page-loader');
+      if (loader && loader.style.display !== 'none') {
+        loader.style.opacity = '0';
+        setTimeout(() => {
+          loader.style.display = 'none';
+        }, 500);
+      }
+    }, 100);
+  });
+</script>
+
+<style>
+  @keyframes spin {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  
+  .animate-spin {
+    animation: spin 1s linear infinite;
+  }
+</style>
