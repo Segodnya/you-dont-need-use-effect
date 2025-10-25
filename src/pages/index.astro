@@ -4,6 +4,7 @@ import Navigation from '../components/Navigation.astro';
 
 // Import slide components
 import IntroSlide from '../components/slides/01-IntroSlide.astro';
+import AuthorSlide from '../components/slides/21-AuthorSlide.astro';
 import InspirationSlide from '../components/slides/02-InspirationSlide.astro';
 import WhatIsUseEffectSlide from '../components/slides/03-WhatIsUseEffectSlide.astro';
 import ProblemsSlide from '../components/slides/04-ProblemsSlide.astro';
@@ -27,6 +28,7 @@ import TechStackSlide from '../components/slides/20-TechStackSlide.astro';
 // Define slide structure for navigation
 const slides = [
   { id: 'intro', title: 'Введение' },
+  { id: 'author', title: 'Об авторе' },
   { id: 'inspiration', title: 'Вдохновение' },
   { id: 'what-is-useeffect', title: 'Что такое useEffect' },
   { id: 'problems', title: 'Проблемы' },
@@ -54,6 +56,7 @@ const slides = [
     class="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth scroll-container"
   >
     <IntroSlide />
+    <AuthorSlide />
     <InspirationSlide />
     <WhatIsUseEffectSlide />
     <ProblemsSlide />
