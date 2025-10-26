@@ -2,32 +2,20 @@
  * Presentation slide animations and tracking
  */
 
-import { updateCurrentSlide } from './utils.js';
+import { alpineState } from '../lib/alpine-state.ts';
+import { setupSlideObserver } from '../lib/slide-observer.ts';
 
 export function initSlideAnimations() {
   const slides = document.querySelectorAll('.slide');
 
-  // Intersection Observer for slide animations
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          // Remove active class from all slides first
-          slides.forEach(slide => slide.classList.remove('active'));
-          // Add active class to current slide
-          entry.target.classList.add('active');
-          const slideIndex = Array.from(slides).indexOf(entry.target);
+  // Use shared observer utility
+  setupSlideObserver((entry, slideIndex) => {
+    // Remove active class from all slides first
+    slides.forEach(slide => slide.classList.remove('active'));
+    // Add active class to current slide
+    entry.target.classList.add('active');
 
-          // Update Alpine store
-          updateCurrentSlide(slideIndex);
-        }
-      });
-    },
-    {
-      threshold: 0.5,
-      rootMargin: '-10% 0px -10% 0px',
-    }
-  );
-
-  slides.forEach((slide) => observer.observe(slide));
+    // Update Alpine store using centralized state manager
+    alpineState.setCurrentSlide(slideIndex);
+  });
 }

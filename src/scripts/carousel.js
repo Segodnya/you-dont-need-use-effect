@@ -3,6 +3,8 @@
  * ⚡ OPTIMIZED: Lazy initialization with Intersection Observer
  */
 
+import { OBSERVER_CONFIG } from '../lib/utils.ts';
+
 class Carousel {
   constructor(container) {
     this.container = container;
@@ -169,7 +171,7 @@ export function initCarousels() {
       }
     });
   }, {
-    rootMargin: '50px', // Start loading 50px before carousel enters viewport
+    rootMargin: OBSERVER_CONFIG.CAROUSEL_PRELOAD_MARGIN,
     threshold: 0.01
   });
   

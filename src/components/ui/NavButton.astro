@@ -1,0 +1,44 @@
+---
+/**
+ * NavButton component - Reusable navigation button
+ * Eliminates duplication of button markup in Navigation.astro
+ */
+
+import Icon from './Icon.astro';
+import { buildButtonClass, getIconSize } from '../../lib/button-styles';
+
+export interface Props {
+  id: string;
+  icon: 'arrow-up' | 'arrow-down' | 'arrow-left' | 'arrow-right' | 'link' | 'fullscreen';
+  label: string;
+  title: string;
+  size?: 'sm' | 'md' | 'lg';
+  canDisable?: boolean;
+  alpineClass?: string;
+  class?: string;
+}
+
+const { 
+  id, 
+  icon, 
+  label, 
+  title, 
+  size = 'md',
+  canDisable = false,
+  alpineClass,
+  class: additionalClass = ''
+} = Astro.props;
+
+const buttonClass = buildButtonClass('nav', size, canDisable, additionalClass);
+const iconSize = getIconSize(size);
+---
+
+<button
+  id={id}
+  class={buttonClass}
+  x-bind:class={alpineClass}
+  aria-label={label}
+  title={title}
+>
+  <Icon name={icon} class={iconSize} />
+</button>

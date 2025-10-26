@@ -3,7 +3,8 @@
  */
 
 import { getActiveCarousel } from './carousel.js';
-import { updateCurrentSlide, isUrlSyncEnabled } from './utils.js';
+import { alpineState } from '../lib/alpine-state.ts';
+import { setupSlideObserver } from '../lib/slide-observer.ts';
 import { toggleUrlSync } from './url-sync.js';
 
 let slides = [];
@@ -80,7 +81,7 @@ function initializeFromHash() {
       if (index !== -1) {
         currentSlideIndex = index;
         navigateToSlide(index, false); // Don't update hash since we're reading from it
-        updateCurrentSlide(index);
+        alpineState.setCurrentSlide(index);
         return;
       }
     }
@@ -88,7 +89,7 @@ function initializeFromHash() {
 
   // Default to first slide
   currentSlideIndex = 0;
-  updateCurrentSlide(0);
+  alpineState.setCurrentSlide(0);
   updateHash(0);
 }
 
@@ -101,7 +102,7 @@ function handleHashChange() {
       if (index !== -1 && index !== currentSlideIndex) {
         currentSlideIndex = index;
         navigateToSlide(index, false); // Don't update hash since we're responding to hash change
-        updateCurrentSlide(index);
+        alpineState.setCurrentSlide(index);
       }
     }
   }
@@ -109,7 +110,7 @@ function handleHashChange() {
 
 function updateHash(slideIndex) {
   // Check if URL syncing is enabled
-  if (isUrlSyncEnabled() && slideIndex >= 0 && slideIndex < slides.length) {
+  if (alpineState.isUrlSyncEnabled() && slideIndex >= 0 && slideIndex < slides.length) {
     const slideId = slides[slideIndex].id;
     // Use history.replaceState to avoid creating new history entries
     history.replaceState(null, null, `#${slideId}`);
@@ -122,7 +123,7 @@ function navigateToSlide(slideIndex, updateHashFlag = true) {
     if (updateHashFlag) {
       updateHash(slideIndex);
     }
-    updateCurrentSlide(slideIndex);
+    alpineState.setCurrentSlide(slideIndex);
   }
 }
 
@@ -207,24 +208,12 @@ export function initNavigationButtons() {
   });
 
   // Update button states based on current slide
-  const observer = new IntersectionObserver(
-    (entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          const slideIndex = Array.from(slides).indexOf(entry.target);
-          if (slideIndex !== -1) {
-            currentSlideIndex = slideIndex;
-            updateNavigationButtons(slideIndex, slides.length);
-            updateCurrentSlide(slideIndex);
-            updateHash(slideIndex);
-          }
-        }
-      });
-    },
-    { threshold: 0.5 }
-  );
-
-  slides.forEach((slide) => observer.observe(slide));
+  setupSlideObserver((entry, slideIndex) => {
+    currentSlideIndex = slideIndex;
+    updateNavigationButtons(slideIndex, slides.length);
+    alpineState.setCurrentSlide(slideIndex);
+    updateHash(slideIndex);
+  });
 }
 
 function updateNavigationButtons(currentIndex, totalSlides) {
@@ -254,14 +243,6 @@ function updateNavigationButtons(currentIndex, totalSlides) {
     nextBtnMobile.disabled = currentIndex === totalSlides - 1;
     nextBtnMobile.style.opacity =
       currentIndex === totalSlides - 1 ? '0.3' : '1';
-  }
-
-  // Update progress bar
-  const progressBar = document.getElementById('scroll-progress');
-  if (progressBar) {
-    const progress =
-      totalSlides > 1 ? (currentIndex / (totalSlides - 1)) * 100 : 0;
-    progressBar.style.width = `${progress}%`;
   }
 }
 

@@ -80,58 +80,10 @@ import PageLoader from '../components/ui/PageLoader.astro';
 
     <script>
       import '../scripts/main.js';
-    </script>
-
-    <script>
-      // Sync Alpine.js state with DarkVeil container
-      const setupAlpineSync = () => {
-        console.log('🏔️ Setting up Alpine sync');
-        const container = document.getElementById('dark-veil-container');
-        if (!container) {
-          console.error('❌ DarkVeil container not found');
-          return;
-        }
-
-        console.log('✅ DarkVeil container found');
-
-        // Check if Alpine is available
-        if (typeof window.Alpine === 'undefined') {
-          console.error('❌ Alpine.js not found on window');
-          return;
-        }
-
-        console.log('✅ Alpine.js found, setting up Alpine.effect');
-
-        // Watch for currentSlide and totalSlides changes
-        window.Alpine.effect(() => {
-          const data = window.Alpine.$data(document.body);
-          if (data) {
-            const currentSlide = data.currentSlide || 0;
-            const totalSlides = data.totalSlides || 0;
-
-            console.log('🔄 Alpine.effect triggered:', {
-              currentSlide,
-              totalSlides,
-            });
-
-            container.dataset.currentSlide = String(currentSlide);
-            container.dataset.totalSlides = String(totalSlides);
-
-            console.log('📝 Updated container attributes:', {
-              'data-current-slide': container.dataset.currentSlide,
-              'data-total-slides': container.dataset.totalSlides,
-            });
-          }
-        });
-      };
-
-      // Try on alpine:init event
-      document.addEventListener('alpine:init', setupAlpineSync);
-
-      // Also try on DOMContentLoaded as fallback
-      document.addEventListener('DOMContentLoaded', () => {
-        setTimeout(setupAlpineSync, 100);
-      });
+      import { initAlpineSync } from '../scripts/alpine-sync.ts';
+      
+      // Initialize Alpine-DarkVeil synchronization
+      initAlpineSync();
     </script>
   </body>
 </html>

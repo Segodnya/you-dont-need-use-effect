@@ -2,23 +2,20 @@
  * URL sync toggle functionality
  */
 
+import { alpineState } from '../lib/alpine-state.ts';
+
 /**
  * Toggle URL syncing and update the URL accordingly
  */
 export function toggleUrlSync() {
-  const body = document.body;
-  const state = body._x_dataStack?.[0];
-  
-  if (!state) return;
-  
-  // Toggle the state
-  state.syncUrlWithSlide = !state.syncUrlWithSlide;
+  // Toggle the state using centralized state manager
+  alpineState.toggleUrlSync();
   
   // Update URL based on new state
-  if (state.syncUrlWithSlide) {
+  if (alpineState.isUrlSyncEnabled()) {
     // Sync enabled: add current slide to URL
     const slides = Array.from(document.querySelectorAll('.slide'));
-    const currentSlide = slides[state.currentSlide];
+    const currentSlide = slides[alpineState.getCurrentSlide()];
     if (currentSlide) {
       history.replaceState(null, null, '#' + currentSlide.id);
     }

@@ -1,22 +1,26 @@
 ---
+import Icon from './ui/Icon.astro';
+import { buildButtonClass, getIconSize } from '../lib/button-styles';
+
 interface Props {
   id: string;
 }
 
 const { id } = Astro.props;
+
+const buttonClass = buildButtonClass('carousel', 'md', true);
+const iconSize = getIconSize('lg');
 ---
 
 <div class="carousel-container" data-carousel-id={id}>
   <div class="carousel-wrapper relative flex items-center gap-4">
     <!-- Left Navigation Button -->
     <button
-      class="carousel-btn carousel-prev-btn bg-blue-600/80 hover:bg-blue-500 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0"
+      class={`carousel-prev-btn ${buttonClass}`}
       aria-label="Предыдущий пример"
       title="Предыдущий пример"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
-      </svg>
+      <Icon name="arrow-left" class={iconSize} />
     </button>
 
     <!-- Carousel Content -->
@@ -38,13 +42,11 @@ const { id } = Astro.props;
 
     <!-- Right Navigation Button -->
     <button
-      class="carousel-btn carousel-next-btn bg-blue-600/80 hover:bg-blue-500 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100 shrink-0"
+      class={`carousel-next-btn ${buttonClass}`}
       aria-label="Следующий пример"
       title="Следующий пример"
     >
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
-      </svg>
+      <Icon name="arrow-right" class={iconSize} />
     </button>
   </div>
 </div>

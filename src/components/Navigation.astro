@@ -1,4 +1,6 @@
 ---
+import NavButton from './ui/NavButton.astro';
+
 export interface Props {
   slides: Array<{ id: string; title: string }>;
 }
@@ -88,98 +90,48 @@ const { slides } = Astro.props;
   <!-- Navigation Buttons -->
   <div class="flex flex-col items-center gap-3">
     <!-- Previous Button -->
-    <button
+    <NavButton 
       id="prev-slide-btn"
-      class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
-      aria-label="Предыдущий слайд"
+      icon="arrow-up"
+      label="Предыдущий слайд"
       title="Предыдущий слайд"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M5 15l7-7 7 7"></path>
-      </svg>
-    </button>
+      size="md"
+      canDisable={true}
+    />
 
     <!-- Next Button -->
-    <button
+    <NavButton 
       id="next-slide-btn"
-      class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
-      aria-label="Следующий слайд"
+      icon="arrow-down"
+      label="Следующий слайд"
       title="Следующий слайд"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M19 9l-7 7-7-7"></path>
-      </svg>
-    </button>
+      size="md"
+      canDisable={true}
+    />
 
     <!-- URL Sync Toggle Button -->
     <div class="relative">
-      <button
-        class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-        x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
-        x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена (L)' : 'URL синхронизация выключена (L)'"
-        x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-          ></path>
-        </svg>
-      </button>
+      <NavButton 
+        id="url-sync-toggle-btn"
+        icon="link"
+        label="Синхронизация URL"
+        title="Синхронизация URL (L)"
+        size="md"
+        alpineClass="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+        class="url-sync-toggle-btn"
+      />
       <span class="keyboard-hint">L</span>
     </div>
 
     <!-- Fullscreen Button -->
     <div class="relative">
-      <button
+      <NavButton 
         id="fullscreen-btn"
-        class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-        aria-label="Полноэкранный режим (F)"
+        icon="fullscreen"
+        label="Полноэкранный режим (F)"
         title="Полноэкранный режим (F)"
-      >
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          class="h-5 w-5"
-          fill="none"
-          viewBox="0 0 24 24"
-          stroke="currentColor"
-        >
-          <path
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            stroke-width="2"
-            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-          ></path>
-        </svg>
-      </button>
+        size="md"
+      />
       <span class="keyboard-hint">F</span>
     </div>
   </div>
@@ -190,94 +142,44 @@ const { slides } = Astro.props;
   class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 z-50 lg:hidden"
 >
   <!-- Previous Button -->
-  <button
+  <NavButton 
     id="prev-slide-btn-mobile"
-    class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
-    aria-label="Предыдущий слайд"
+    icon="arrow-left"
+    label="Предыдущий слайд"
     title="Предыдущий слайд"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M15 19l-7-7 7-7"></path>
-    </svg>
-  </button>
+    size="lg"
+    canDisable={true}
+  />
 
   <!-- URL Sync Toggle Button -->
-  <button
-    class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-    x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
-    x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена (L)' : 'URL синхронизация выключена (L)'"
-    x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-      ></path>
-    </svg>
-  </button>
+  <NavButton 
+    id="url-sync-toggle-btn-mobile"
+    icon="link"
+    label="Синхронизация URL"
+    title="Синхронизация URL (L)"
+    size="lg"
+    alpineClass="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+    class="url-sync-toggle-btn"
+  />
 
   <!-- Fullscreen Button -->
-  <button
+  <NavButton 
     id="fullscreen-btn-mobile"
-    class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-    aria-label="Полноэкранный режим (F)"
+    icon="fullscreen"
+    label="Полноэкранный режим (F)"
     title="Полноэкранный режим (F)"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-      ></path>
-    </svg>
-  </button>
+    size="lg"
+  />
 
   <!-- Next Button -->
-  <button
+  <NavButton 
     id="next-slide-btn-mobile"
-    class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100"
-    aria-label="Следующий слайд"
+    icon="arrow-right"
+    label="Следующий слайд"
     title="Следующий слайд"
-  >
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      class="h-6 w-6"
-      fill="none"
-      viewBox="0 0 24 24"
-      stroke="currentColor"
-    >
-      <path
-        stroke-linecap="round"
-        stroke-linejoin="round"
-        stroke-width="2"
-        d="M9 5l7 7-7 7"></path>
-    </svg>
-  </button>
+    size="lg"
+    canDisable={true}
+  />
 </div>
 
 <!-- Slide Counter (Mobile) -->

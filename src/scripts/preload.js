@@ -3,7 +3,10 @@
  * Preloads next/previous slides in the background for instant navigation
  */
 
-const PRELOAD_DISTANCE = 2; // Preload 2 slides ahead and 1 behind
+import { logger } from '../lib/logger.ts';
+import { PRELOAD_CONFIG, TIMING_CONFIG, OBSERVER_CONFIG } from '../lib/utils.ts';
+
+const { PRELOAD_DISTANCE } = PRELOAD_CONFIG;
 const preloadedSlides = new Set();
 
 /**
@@ -17,7 +20,7 @@ function preloadSlide(slideIndex) {
   preloadedSlides.add(slideIndex);
   
   // Mark for preloading (browser will handle the actual loading)
-  console.log(`⚡ Preloading slide ${slideIndex}`);
+  logger.debug(`⚡ Preloading slide ${slideIndex}`);
 }
 
 /**
@@ -40,7 +43,7 @@ export function initSmartPreload() {
       }
     });
   }, {
-    threshold: 0.5
+    threshold: OBSERVER_CONFIG.SLIDE_THRESHOLD
   });
   
   // Observe all slides
@@ -61,14 +64,14 @@ function preloadAdjacentSlides(currentIndex, totalSlides) {
   for (let i = 1; i <= PRELOAD_DISTANCE; i++) {
     const nextIndex = currentIndex + i;
     if (nextIndex < totalSlides) {
-      requestIdleCallback(() => preloadSlide(nextIndex), { timeout: 1000 });
+      requestIdleCallback(() => preloadSlide(nextIndex), { timeout: TIMING_CONFIG.IDLE_TIMEOUT });
     }
   }
   
   // Preload previous slide
   const prevIndex = currentIndex - 1;
   if (prevIndex >= 0) {
-    requestIdleCallback(() => preloadSlide(prevIndex), { timeout: 1000 });
+    requestIdleCallback(() => preloadSlide(prevIndex), { timeout: TIMING_CONFIG.IDLE_TIMEOUT });
   }
 }
 
@@ -76,7 +79,7 @@ function preloadAdjacentSlides(currentIndex, totalSlides) {
  * Preload critical resources on user interaction
  */
 export function preloadOnInteraction() {
-  const events = ['mousedown', 'touchstart', 'keydown'];
+  const events = [...PRELOAD_CONFIG.INTERACTION_EVENTS];
   
   const preload = () => {
     // Preload all slide chunks
@@ -84,7 +87,7 @@ export function preloadOnInteraction() {
       document.removeEventListener(event, preload);
     });
     
-    console.log('⚡ User interaction detected, preloading resources');
+    logger.log('⚡ User interaction detected, preloading resources');
     initSmartPreload();
   };
   
