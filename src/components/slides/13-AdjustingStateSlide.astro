@@ -26,10 +26,11 @@ import Section from '../ui/Section.astro';
 }`}
       goodCode={`// Решение 1: Контролируемый компонент
 function List({ items, selection, onSelectionChange }) {
-  // selection управляется родителем
+  // selection управляется родителем,
+  // нам не нужно сбрасывать его внутри
 }
 
-// Решение 2: Adjust state during render
+// Решение 2: Полностью независимый внутренний state + ключ для сброса
 function List({ items }) {
   const [prevItems, setPrevItems] = useState(items);
   
@@ -37,6 +38,9 @@ function List({ items }) {
     setPrevItems(items);
     setSelection(null);
   }
+  
+  // Или лучше вообще без состояния:
+  const selection = items.find(item => item.id === selectedId) ?? null;
 }`}
       language="tsx"
     />
