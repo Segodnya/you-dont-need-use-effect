@@ -6,6 +6,9 @@ import react from '@astrojs/react';
 
 // https://astro.build/config
 export default defineConfig({
+  site: 'https://segodnya.github.io',
+  base: '/you-dont-need-use-effect',
+  
   vite: {
     // @ts-expect-error - Tailwind Vite plugin has minor type incompatibility with Vite 6
     plugins: [tailwindcss()],
