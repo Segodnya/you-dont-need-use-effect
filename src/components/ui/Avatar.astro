@@ -7,6 +7,8 @@
  * - Gradient border effect matching app's UI kit
  * - Responsive sizing
  * - Shadow effects for depth
+ * - Progressive loading with blur placeholder
+ * - WebP with JPEG fallback for optimal performance
  */
 
 export interface Props {
@@ -14,9 +16,20 @@ export interface Props {
   alt: string;
   size?: 'sm' | 'md' | 'lg' | 'xl';
   class?: string;
+  loading?: 'lazy' | 'eager';
+  decoding?: 'async' | 'sync' | 'auto';
+  placeholder?: string;
 }
 
-const { src, alt, size = 'lg', class: className = '' } = Astro.props;
+const {
+  src,
+  alt,
+  size = 'lg',
+  class: className = '',
+  loading = 'lazy',
+  decoding = 'async',
+  placeholder,
+} = Astro.props;
 
 const sizeClasses = {
   sm: 'w-24 h-24',
@@ -24,6 +37,10 @@ const sizeClasses = {
   lg: 'w-48 h-48',
   xl: 'w-64 h-64',
 };
+
+// Check if src is a JPEG and create WebP version path
+const isJpeg = src.endsWith('.jpeg') || src.endsWith('.jpg');
+const webpSrc = isJpeg ? src.replace(/\.(jpeg|jpg)$/, '.webp') : null;
 ---
 
 <div class={`relative ${className}`}>
@@ -33,14 +50,33 @@ const sizeClasses = {
   >
     <!-- Inner white border for better contrast -->
     <div class="w-full h-full rounded-full bg-background p-1">
-      <!-- Avatar image -->
-      <img
-        src={src}
-        alt={alt}
-        class="w-full h-full rounded-full object-cover shadow-lg"
-        loading="eager"
-        fetchpriority="high"
-      />
+      <!-- Avatar image with progressive loading -->
+      <div class="relative w-full h-full rounded-full overflow-hidden">
+        {
+          placeholder && (
+            <img
+              src={placeholder}
+              alt=""
+              class="absolute inset-0 w-full h-full object-cover blur-xl scale-110 opacity-60"
+              aria-hidden="true"
+            />
+          )
+        }
+
+        <!-- Use picture element for WebP with fallback -->
+        <picture>
+          {webpSrc && <source srcset={webpSrc} type="image/webp" />}
+          <img
+            src={src}
+            alt={alt}
+            class="relative w-full h-full rounded-full object-cover shadow-lg transition-opacity duration-300"
+            loading={loading}
+            decoding={decoding}
+            onload="this.style.opacity='1'"
+            style={placeholder ? 'opacity: 0' : 'opacity: 1'}
+          />
+        </picture>
+      </div>
     </div>
   </div>
 </div>

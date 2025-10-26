@@ -40,37 +40,15 @@ import PageLoader from '../components/ui/PageLoader.astro';
       />
     </noscript>
 
-    <!-- ⚡ Preload images used in slides -->
-    <link
-      rel="preload"
-      as="image"
-      href={`${import.meta.env.BASE_URL}/author.jpeg`}
-    />
+    <!-- ⚡ Preload critical images -->
+    <!-- kommo.png: Used in Navigation (visible on all slides) -->
     <link
       rel="preload"
       as="image"
       href={`${import.meta.env.BASE_URL}/kommo.png`}
     />
-    <link
-      rel="preload"
-      as="image"
-      href={`${import.meta.env.BASE_URL}/astro.svg`}
-    />
-    <link
-      rel="preload"
-      as="image"
-      href={`${import.meta.env.BASE_URL}/shadcn.svg`}
-    />
-    <link
-      rel="preload"
-      as="image"
-      href={`${import.meta.env.BASE_URL}/alpine.svg`}
-    />
-    <link
-      rel="preload"
-      as="image"
-      href={`${import.meta.env.BASE_URL}/ogl.svg`}
-    />
+    <!-- Note: Tech stack icons (astro, shadcn, alpine, ogl) are lazy-loaded as they're on slide 20 -->
+    <!-- Note: author.jpeg is lazy-loaded as it's on slide 21 -->
   </head>
   <body
     class="text-white overflow-x-hidden dark relative"
