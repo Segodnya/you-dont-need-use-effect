@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect, useState } from 'react';
 import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
 
 const vertex = `
@@ -81,8 +81,6 @@ interface DarkVeilProps {
   scanlineFrequency?: number;
   warpAmount?: number;
   resolutionScale?: number;
-  currentSlide?: number;
-  totalSlides?: number;
 }
 
 export default function DarkVeil({
@@ -93,28 +91,103 @@ export default function DarkVeil({
   scanlineFrequency = 0,
   warpAmount = 0,
   resolutionScale = 1,
-  currentSlide = 0,
-  totalSlides = 1
 }: DarkVeilProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  
+  const [slideProgress, setSlideProgress] = useState({ current: 0, total: 1 });
+
+  // Use a ref to track the current hueShift so the animation loop can access it
+  const hueShiftRef = useRef(0);
+
+  // Watch for data attribute changes from Alpine.js
+  useEffect(() => {
+    // Find the container by ID to ensure we're observing the right element
+    const parentContainer = document.getElementById('dark-veil-container');
+
+    if (!parentContainer) {
+      console.error('❌ DarkVeil: Could not find #dark-veil-container');
+      return;
+    }
+
+    console.log(
+      '👀 DarkVeil: Setting up MutationObserver on #dark-veil-container'
+    );
+    console.log('📍 DarkVeil: Container element:', parentContainer);
+    console.log('📍 DarkVeil: Initial attributes:', {
+      currentSlide: parentContainer.dataset.currentSlide,
+      totalSlides: parentContainer.dataset.totalSlides,
+    });
+
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        console.log(
+          '👁️ DarkVeil: Mutation detected:',
+          mutation.type,
+          mutation.attributeName
+        );
+
+        if (
+          mutation.type === 'attributes' &&
+          (mutation.attributeName === 'data-current-slide' ||
+            mutation.attributeName === 'data-total-slides')
+        ) {
+          const current = parseInt(
+            parentContainer.dataset.currentSlide || '0',
+            10
+          );
+          const total = parseInt(
+            parentContainer.dataset.totalSlides || '1',
+            10
+          );
+          console.log('🔄 DarkVeil: Slide changed:', { current, total });
+          setSlideProgress({ current, total });
+        }
+      });
+    });
+
+    observer.observe(parentContainer, {
+      attributes: true,
+      attributeFilter: ['data-current-slide', 'data-total-slides'],
+    });
+
+    // Set initial values
+    const current = parseInt(parentContainer.dataset.currentSlide || '0', 10);
+    const total = parseInt(parentContainer.dataset.totalSlides || '1', 10);
+    console.log('📍 DarkVeil: Initial slide values:', { current, total });
+    setSlideProgress({ current, total });
+
+    return () => {
+      console.log('🛑 DarkVeil: Disconnecting MutationObserver');
+      observer.disconnect();
+    };
+  }, []);
+
   // Calculate hueShift based on presentation progress (0 to 360)
-  const calculatedHueShift = totalSlides > 1 
-    ? (currentSlide / (totalSlides - 1)) * 360 
-    : hueShift;
+  const calculatedHueShift =
+    slideProgress.total > 1
+      ? (slideProgress.current / (slideProgress.total - 1)) * 360
+      : hueShift;
+
+  // Update the ref whenever calculatedHueShift changes
+  useEffect(() => {
+    hueShiftRef.current = calculatedHueShift;
+    console.log('🎨 DarkVeil: HueShift updated:', {
+      slideProgress,
+      calculatedHueShift,
+    });
+  }, [slideProgress, calculatedHueShift]);
 
   useEffect(() => {
     console.log('🎨 DarkVeil: Component mounting...');
-    
+
     const canvas = canvasRef.current;
     const container = containerRef.current;
-    
+
     if (!canvas) {
       console.error('❌ DarkVeil: Canvas ref is null');
       return;
     }
-    
+
     if (!container) {
       console.error('❌ DarkVeil: Container ref is null');
       return;
@@ -122,20 +195,24 @@ export default function DarkVeil({
 
     console.log('📦 DarkVeil: Container size:', {
       width: container.clientWidth,
-      height: container.clientHeight
+      height: container.clientHeight,
     });
 
     try {
       const renderer = new Renderer({
         dpr: Math.min(window.devicePixelRatio, 2),
         canvas,
-        alpha: false
+        alpha: false,
       });
 
       const gl = renderer.gl;
       console.log('✅ DarkVeil: WebGL context created');
 
       const geometry = new Triangle(gl);
+
+      // Initialize hueShiftRef with the initial value
+      hueShiftRef.current = calculatedHueShift;
+      console.log('🎨 DarkVeil: Initial HueShift:', hueShiftRef.current);
 
       const program = new Program(gl, {
         vertex,
@@ -147,8 +224,8 @@ export default function DarkVeil({
           uNoise: { value: noiseIntensity },
           uScan: { value: scanlineIntensity },
           uScanFreq: { value: scanlineFrequency },
-          uWarp: { value: warpAmount }
-        }
+          uWarp: { value: warpAmount },
+        },
       });
 
       const mesh = new Mesh(gl, { geometry, program });
@@ -156,9 +233,9 @@ export default function DarkVeil({
       const resize = () => {
         const w = container.clientWidth;
         const h = container.clientHeight;
-        
+
         console.log('📏 DarkVeil: Resizing to', { w, h });
-        
+
         if (w > 0 && h > 0) {
           renderer.setSize(w * resolutionScale, h * resolutionScale);
           program.uniforms.uResolution.value.set(w, h);
@@ -173,20 +250,21 @@ export default function DarkVeil({
       let frameCount = 0;
 
       const loop = () => {
-        program.uniforms.uTime.value = ((performance.now() - start) / 1000) * speed;
-        program.uniforms.uHueShift.value = calculatedHueShift;
+        program.uniforms.uTime.value =
+          ((performance.now() - start) / 1000) * speed;
+        program.uniforms.uHueShift.value = hueShiftRef.current;
         program.uniforms.uNoise.value = noiseIntensity;
         program.uniforms.uScan.value = scanlineIntensity;
         program.uniforms.uScanFreq.value = scanlineFrequency;
         program.uniforms.uWarp.value = warpAmount;
-        
+
         renderer.render({ scene: mesh });
-        
+
         frameCount++;
         if (frameCount === 1) {
           console.log('✅ DarkVeil: First frame rendered!');
         }
-        
+
         frame = requestAnimationFrame(loop);
       };
 
@@ -201,25 +279,32 @@ export default function DarkVeil({
     } catch (error) {
       console.error('❌ DarkVeil: Error:', error);
     }
-  }, [calculatedHueShift, noiseIntensity, scanlineIntensity, speed, scanlineFrequency, warpAmount, resolutionScale]);
+  }, [
+    noiseIntensity,
+    scanlineIntensity,
+    speed,
+    scanlineFrequency,
+    warpAmount,
+    resolutionScale,
+  ]);
 
   return (
-    <div 
+    <div
       ref={containerRef}
-      style={{ 
-        width: '100%', 
+      style={{
+        width: '100%',
         height: '100%',
         position: 'absolute',
-        inset: 0
+        inset: 0,
       }}
     >
-      <canvas 
-        ref={canvasRef} 
-        style={{ 
-          width: '100%', 
+      <canvas
+        ref={canvasRef}
+        style={{
+          width: '100%',
           height: '100%',
-          display: 'block'
-        }} 
+          display: 'block',
+        }}
       />
     </div>
   );
