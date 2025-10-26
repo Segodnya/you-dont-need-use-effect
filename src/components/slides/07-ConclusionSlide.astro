@@ -11,9 +11,9 @@ import List from '../ui/List.astro';
 
 <BaseSlide id="conclusion" variant="centered">
   <Section spacing="relaxed">
-    <SlideTitle 
-      size="lg" 
-      gradient 
+    <SlideTitle
+      size="lg"
+      gradient
       class="text-3xl lg:text-5xl bg-linear-to-r from-purple-400 via-pink-400 to-red-400 bg-clip-text text-transparent"
     >
       Заключение
@@ -21,10 +21,10 @@ import List from '../ui/List.astro';
 
     <Section class="text-lg lg:text-xl">
       <Text size="xl">
-        Помните: <Highlight color="blue">useEffect</Highlight> - это инструмент
-        для синхронизации с внешними системами,
+        Помните: <Highlight color="blue">useEffect</Highlight> - это инструмент для
+        синхронизации с внешними системами, а не для организации потока данных внутри
+        приложения.
       </Text>
-      <Text size="xl">а не для организации потока данных внутри приложения.</Text>
     </Section>
 
     <GlassCard color="blue" class="mt-8" padding="p-8">
@@ -33,16 +33,21 @@ import List from '../ui/List.astro';
       </SlideTitle>
       <List spacing="normal" class="text-base text-left">
         <ChecklistItem number="1">
-          Можно ли это вычислить во время рендера? → Вычисляйте в рендере или используйте useMemo.
+          Можно ли это вычислить во время рендера? → Вычисляйте в рендере или
+          используйте useMemo.
         </ChecklistItem>
         <ChecklistItem number="2">
-          Это реакция на конкретное действие пользователя? → Используйте обработчик события (onClick, onSubmit).
+          Это реакция на конкретное действие пользователя? → Используйте
+          обработчик события (onClick, onSubmit).
         </ChecklistItem>
         <ChecklistItem number="3">
-          Нужно ли синхронизировать состояние компонента с пропсами? → Попробуйте сделать состояние полностью контролируемым или используйте key.
+          Нужно ли синхронизировать состояние компонента с пропсами? →
+          Попробуйте сделать состояние полностью контролируемым или используйте
+          key.
         </ChecklistItem>
         <ChecklistItem number="4">
-          Это просто 'поток данных' внутри приложения? → Поднимите состояние выше или используйте контекст.
+          Это просто 'поток данных' внутри приложения? → Поднимите состояние
+          выше или используйте контекст.
         </ChecklistItem>
       </List>
     </GlassCard>

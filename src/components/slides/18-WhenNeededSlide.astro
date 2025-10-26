@@ -41,17 +41,10 @@ useEffect(() => {
         </SlideTitle>
         <CodeBlock
           code={`useEffect(() => {
-  const handleOnline = () => 
-    setIsOnline(true);
-  
-  window.addEventListener(
-    'online', handleOnline
-  );
+  const handleOnline = () => setIsOnline(true);
+  window.addEventListener('online', handleOnline);
 
-  return () => 
-    window.removeEventListener(
-      'online', handleOnline
-    );
+  return () => window.removeEventListener('online', handleOnline);
 }, []);`}
           language="tsx"
           size="sm"
@@ -64,10 +57,7 @@ useEffect(() => {
         </SlideTitle>
         <CodeBlock
           code={`useEffect(() => {
-  const chart = new ChartJS(
-    ref.current,
-    { ...config, data }
-  );
+  const chart = new ChartJS(ref.current, { ...config, data });
 
   return () => chart.destroy();
 }, [data]);`}
@@ -98,7 +88,7 @@ useEffect(() => {
 
     <Callout variant="primary" icon="🔑" class="mt-6">
       <Text class="font-semibold">
-        Золотое правило: Если ваш эффект не синхронизирует компонент с какой-либо внешней системой, задайте себе вопрос: "А можно ли это сделать проще?"
+        Если ваш эффект не синхронизирует компонент с какой-либо внешней системой, задайте себе вопрос: "А можно ли это сделать проще?"
       </Text>
     </Callout>
   </Section>

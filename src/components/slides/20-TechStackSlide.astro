@@ -2,7 +2,6 @@
 import BaseSlide from './BaseSlide.astro';
 import Text from '../ui/Text.astro';
 import Section from '../ui/Section.astro';
-import SlideTitle from '../ui/SlideTitle.astro';
 import Grid from '../ui/Grid.astro';
 import Card from '../ui/Card.astro';
 import CardTitle from '../ui/CardTitle.astro';
@@ -13,14 +12,21 @@ import Highlight from '../ui/Highlight.astro';
 <BaseSlide id="tech-stack" title="Технический стек" variant="centered">
   <Section>
     <Text size="lg" class="mb-8 text-center">
-      Эта презентация построена с использованием современных веб-технологий
+      Эта презентация сделана с использованием модных веб-технологий
     </Text>
 
     <Grid cols="2" class="gap-8 max-w-6xl mx-auto">
       <!-- Astro -->
       <Card class="text-center">
         <div class="mb-4 flex justify-center">
-          <img src="/astro.svg" alt="Astro logo" width="64" height="64" />
+          <img
+            src={`${import.meta.env.BASE_URL}/astro.svg`}
+            alt="Astro logo"
+            width="64"
+            height="64"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
         <CardTitle>Astro</CardTitle>
         <CardText>
@@ -33,20 +39,34 @@ import Highlight from '../ui/Highlight.astro';
       <!-- shadcn/ui -->
       <Card class="text-center">
         <div class="mb-4 flex justify-center">
-          <img src="/shadcn.svg" alt="shadcn/ui logo" width="64" height="64" />
+          <img
+            src={`${import.meta.env.BASE_URL}/shadcn.svg`}
+            alt="shadcn/ui logo"
+            width="64"
+            height="64"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
         <CardTitle>shadcn/ui</CardTitle>
         <CardText>
           Переиспользуемые компоненты, построенные с помощью Radix UI и Tailwind
           CSS.
-          <Highlight color="cyan">Копируй и вставляй</Highlight> готовые компоненты.
+          <Highlight color="cyan">Копируй и вставляй</Highlight>.
         </CardText>
       </Card>
 
       <!-- Alpine.js -->
       <Card class="text-center">
         <div class="mb-4 flex justify-center">
-          <img src="/alpine.svg" alt="Alpine.js logo" width="64" height="64" />
+          <img
+            src={`${import.meta.env.BASE_URL}/alpine.svg`}
+            alt="Alpine.js logo"
+            width="64"
+            height="64"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
         <CardTitle>Alpine.js</CardTitle>
         <CardText>
@@ -59,7 +79,14 @@ import Highlight from '../ui/Highlight.astro';
       <!-- OGL -->
       <Card class="text-center">
         <div class="mb-4 flex justify-center">
-          <img src="/ogl.svg" alt="OGL logo" width="64" height="64" />
+          <img
+            src={`${import.meta.env.BASE_URL}/ogl.svg`}
+            alt="OGL logo"
+            width="64"
+            height="64"
+            loading="eager"
+            fetchpriority="high"
+          />
         </div>
         <CardTitle>OGL</CardTitle>
         <CardText>
@@ -70,7 +97,7 @@ import Highlight from '../ui/Highlight.astro';
     </Grid>
 
     <Text class="mt-8 text-center text-lg">
-      Все исходники доступны на
+      Все исходники доступны на моём
       <Highlight color="purple">GitHub</Highlight>
       для изучения и использования
     </Text>

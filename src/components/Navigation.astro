@@ -15,9 +15,11 @@ const { slides } = Astro.props;
   <!-- Kommo Logo -->
   <div class="flex-shrink-0">
     <img
-      src="/kommo.png"
+      src={`${import.meta.env.BASE_URL}/kommo.png`}
       alt="Kommo"
       class="w-12 h-12 rounded-full object-cover shadow-lg ring-2 ring-gray-700/50"
+      loading="eager"
+      fetchpriority="high"
     />
   </div>
 

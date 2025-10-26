@@ -1,6 +1,5 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import SlideTitle from '../ui/SlideTitle.astro';
 import Text from '../ui/Text.astro';
 import Avatar from '../ui/Avatar.astro';
 import Section from '../ui/Section.astro';
@@ -13,7 +12,7 @@ import Grid from '../ui/Grid.astro';
       <!-- Left column: Avatar -->
       <div class="flex justify-center">
         <Avatar
-          src="/author.jpeg"
+          src={`${import.meta.env.BASE_URL}/author.jpeg`}
           alt="Кирилл Куренцов"
           size="xl"
         />
