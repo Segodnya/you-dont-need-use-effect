@@ -4,6 +4,7 @@
 
 import { getActiveCarousel } from './carousel.js';
 import { updateCurrentSlide, isUrlSyncEnabled } from './utils.js';
+import { toggleUrlSync } from './url-sync.js';
 
 let slides = [];
 let currentSlideIndex = 0;
@@ -11,21 +12,43 @@ let currentSlideIndex = 0;
 export function initKeyboardNavigation() {
   // Initialize slides array
   slides = Array.from(document.querySelectorAll('.slide'));
-  
+
   // Initialize from URL hash or start at first slide
   initializeFromHash();
-  
+
   // Listen for hash changes
   window.addEventListener('hashchange', handleHashChange);
-  
+
   document.addEventListener('keydown', (e) => {
     const activeCarousel = getActiveCarousel();
 
+    // Handle fullscreen toggle with 'F' key
+    if (e.key === 'f' || e.key === 'F') {
+      e.preventDefault();
+      toggleFullscreen();
+      return;
+    }
+
+    // Handle URL sync toggle with 'L' key
+    if (e.key === 'l' || e.key === 'L') {
+      e.preventDefault();
+      toggleUrlSync();
+      return;
+    }
+
     // Navigate with Arrow keys, Page Up/Down, and Space
-    if (e.key === 'ArrowDown' || e.key === 'PageDown' || (e.key === ' ' && !e.shiftKey)) {
+    if (
+      e.key === 'ArrowDown' ||
+      e.key === 'PageDown' ||
+      (e.key === ' ' && !e.shiftKey)
+    ) {
       e.preventDefault();
       navigateToNextSlide();
-    } else if (e.key === 'ArrowUp' || e.key === 'PageUp' || (e.key === ' ' && e.shiftKey)) {
+    } else if (
+      e.key === 'ArrowUp' ||
+      e.key === 'PageUp' ||
+      (e.key === ' ' && e.shiftKey)
+    ) {
       e.preventDefault();
       navigateToPrevSlide();
     } else if (e.key === 'ArrowRight') {
@@ -62,7 +85,7 @@ function initializeFromHash() {
       }
     }
   }
-  
+
   // Default to first slide
   currentSlideIndex = 0;
   updateCurrentSlide(0);
@@ -105,7 +128,7 @@ function navigateToSlide(slideIndex, updateHashFlag = true) {
 
 export function navigateToNextSlide() {
   const activeCarousel = getActiveCarousel();
-  
+
   // If there's an active carousel and it's not at the end, navigate within it
   if (activeCarousel && !activeCarousel.isAtEnd()) {
     activeCarousel.next();
@@ -113,7 +136,7 @@ export function navigateToNextSlide() {
   }
 
   const nextIndex = currentSlideIndex + 1;
-  
+
   if (nextIndex < slides.length) {
     currentSlideIndex = nextIndex;
     navigateToSlide(nextIndex);
@@ -122,7 +145,7 @@ export function navigateToNextSlide() {
 
 export function navigateToPrevSlide() {
   const activeCarousel = getActiveCarousel();
-  
+
   // If there's an active carousel and it's not at the start, navigate within it
   if (activeCarousel && !activeCarousel.isAtStart()) {
     activeCarousel.prev();
@@ -130,7 +153,7 @@ export function navigateToPrevSlide() {
   }
 
   const prevIndex = currentSlideIndex - 1;
-  
+
   if (prevIndex >= 0) {
     currentSlideIndex = prevIndex;
     navigateToSlide(prevIndex);
@@ -141,7 +164,7 @@ export function initNavigationButtons() {
   const nextBtn = document.getElementById('next-slide-btn');
   const prevBtn = document.getElementById('prev-slide-btn');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
-  
+
   // Mobile buttons
   const nextBtnMobile = document.getElementById('next-slide-btn-mobile');
   const prevBtnMobile = document.getElementById('prev-slide-btn-mobile');
@@ -229,13 +252,15 @@ function updateNavigationButtons(currentIndex, totalSlides) {
 
   if (nextBtnMobile) {
     nextBtnMobile.disabled = currentIndex === totalSlides - 1;
-    nextBtnMobile.style.opacity = currentIndex === totalSlides - 1 ? '0.3' : '1';
+    nextBtnMobile.style.opacity =
+      currentIndex === totalSlides - 1 ? '0.3' : '1';
   }
 
   // Update progress bar
   const progressBar = document.getElementById('scroll-progress');
   if (progressBar) {
-    const progress = totalSlides > 1 ? (currentIndex / (totalSlides - 1)) * 100 : 0;
+    const progress =
+      totalSlides > 1 ? (currentIndex / (totalSlides - 1)) * 100 : 0;
     progressBar.style.width = `${progress}%`;
   }
 }

@@ -87,29 +87,6 @@ const { slides } = Astro.props;
 
   <!-- Navigation Buttons -->
   <div class="flex flex-col items-center gap-3">
-    <!-- URL Sync Toggle Button -->
-    <button
-      class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-      x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
-      x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена' : 'URL синхронизация выключена'"
-      x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
-        ></path>
-      </svg>
-    </button>
-
     <!-- Previous Button -->
     <button
       id="prev-slide-btn"
@@ -129,29 +106,6 @@ const { slides } = Astro.props;
           stroke-linejoin="round"
           stroke-width="2"
           d="M5 15l7-7 7 7"></path>
-      </svg>
-    </button>
-
-    <!-- Fullscreen Button -->
-    <button
-      id="fullscreen-btn"
-      class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-      aria-label="Полноэкранный режим"
-      title="Полноэкранный режим"
-    >
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        class="h-5 w-5"
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-      >
-        <path
-          stroke-linecap="round"
-          stroke-linejoin="round"
-          stroke-width="2"
-          d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
-        ></path>
       </svg>
     </button>
 
@@ -176,6 +130,58 @@ const { slides } = Astro.props;
           d="M19 9l-7 7-7-7"></path>
       </svg>
     </button>
+
+    <!-- URL Sync Toggle Button -->
+    <div class="relative">
+      <button
+        class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+        x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена (L)' : 'URL синхронизация выключена (L)'"
+        x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"
+          ></path>
+        </svg>
+      </button>
+      <span class="keyboard-hint">L</span>
+    </div>
+
+    <!-- Fullscreen Button -->
+    <div class="relative">
+      <button
+        id="fullscreen-btn"
+        class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-3 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
+        aria-label="Полноэкранный режим (F)"
+        title="Полноэкранный режим (F)"
+      >
+        <svg
+          xmlns="http://www.w3.org/2000/svg"
+          class="h-5 w-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            stroke-width="2"
+            d="M4 8V4m0 0h4M4 4l5 5m11-1V4m0 0h-4m4 0l-5 5M4 16v4m0 0h4m-4 0l5-5m11 5l-5-5m5 5v-4m0 4h-4"
+          ></path>
+        </svg>
+      </button>
+      <span class="keyboard-hint">F</span>
+    </div>
   </div>
 </div>
 
@@ -209,7 +215,7 @@ const { slides } = Astro.props;
   <button
     class="url-sync-toggle-btn nav-button backdrop-blur-sm text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
     x-bind:class="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
-    x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена' : 'URL синхронизация выключена'"
+    x-bind:title="syncUrlWithSlide ? 'URL синхронизация включена (L)' : 'URL синхронизация выключена (L)'"
     x-bind:aria-label="syncUrlWithSlide ? 'Отключить синхронизацию URL' : 'Включить синхронизацию URL'"
   >
     <svg
@@ -232,8 +238,8 @@ const { slides } = Astro.props;
   <button
     id="fullscreen-btn-mobile"
     class="nav-button bg-gray-800/80 backdrop-blur-sm hover:bg-cyan-600/90 text-white p-4 rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400"
-    aria-label="Полноэкранный режим"
-    title="Полноэкранный режим"
+    aria-label="Полноэкранный режим (F)"
+    title="Полноэкранный режим (F)"
   >
     <svg
       xmlns="http://www.w3.org/2000/svg"
