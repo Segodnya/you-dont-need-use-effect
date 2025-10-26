@@ -1,4 +1,4 @@
-import { useRef, useEffect } from 'react';
+import { useRef, useEffect } from 'preact/hooks';
 import QRCode from 'qrcode';
 
 export interface QRCodeProps {

@@ -2,7 +2,7 @@
 
 import tailwindcss from '@tailwindcss/vite';
 import { defineConfig } from 'astro/config';
-import react from '@astrojs/react';
+import preact from '@astrojs/preact';
 
 // https://astro.build/config
 export default defineConfig({
@@ -17,8 +17,8 @@ export default defineConfig({
         output: {
           manualChunks: (id) => {
             if (id.includes('node_modules')) {
-              if (id.includes('react') || id.includes('react-dom')) {
-                return 'vendor-react';
+              if (id.includes('preact')) {
+                return 'vendor-preact';
               }
               if (id.includes('alpinejs')) {
                 return 'vendor-alpine';
@@ -43,12 +43,12 @@ export default defineConfig({
       cssCodeSplit: true,
     },
     optimizeDeps: {
-      include: ['alpinejs', 'react', 'react-dom'],
+      include: ['alpinejs', 'preact', 'preact/hooks'],
       exclude: ['ogl'],
     },
   },
 
-  integrations: [react()],
+  integrations: [preact()],
 
   build: {
     inlineStylesheets: 'auto',

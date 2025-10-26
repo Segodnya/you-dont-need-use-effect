@@ -1,4 +1,4 @@
-import { useRef, useEffect, useState } from 'react';
+import { useRef, useEffect, useState } from 'preact/hooks';
 import { Renderer, Program, Mesh, Triangle, Vec2 } from 'ogl';
 
 const vertex = `
@@ -109,23 +109,8 @@ export default function DarkVeil({
       return;
     }
 
-    console.log(
-      '👀 DarkVeil: Setting up MutationObserver on #dark-veil-container'
-    );
-    console.log('📍 DarkVeil: Container element:', parentContainer);
-    console.log('📍 DarkVeil: Initial attributes:', {
-      currentSlide: parentContainer.dataset.currentSlide,
-      totalSlides: parentContainer.dataset.totalSlides,
-    });
-
     const observer = new MutationObserver((mutations) => {
       mutations.forEach((mutation) => {
-        console.log(
-          '👁️ DarkVeil: Mutation detected:',
-          mutation.type,
-          mutation.attributeName
-        );
-
         if (
           mutation.type === 'attributes' &&
           (mutation.attributeName === 'data-current-slide' ||
@@ -139,7 +124,6 @@ export default function DarkVeil({
             parentContainer.dataset.totalSlides || '1',
             10
           );
-          console.log('🔄 DarkVeil: Slide changed:', { current, total });
           setSlideProgress({ current, total });
         }
       });
@@ -153,11 +137,9 @@ export default function DarkVeil({
     // Set initial values
     const current = parseInt(parentContainer.dataset.currentSlide || '0', 10);
     const total = parseInt(parentContainer.dataset.totalSlides || '1', 10);
-    console.log('📍 DarkVeil: Initial slide values:', { current, total });
     setSlideProgress({ current, total });
 
     return () => {
-      console.log('🛑 DarkVeil: Disconnecting MutationObserver');
       observer.disconnect();
     };
   }, []);
@@ -171,15 +153,9 @@ export default function DarkVeil({
   // Update the ref whenever calculatedHueShift changes
   useEffect(() => {
     hueShiftRef.current = calculatedHueShift;
-    console.log('🎨 DarkVeil: HueShift updated:', {
-      slideProgress,
-      calculatedHueShift,
-    });
   }, [slideProgress, calculatedHueShift]);
 
   useEffect(() => {
-    console.log('🎨 DarkVeil: Component mounting...');
-
     const canvas = canvasRef.current;
     const container = containerRef.current;
 
@@ -192,11 +168,6 @@ export default function DarkVeil({
       console.error('❌ DarkVeil: Container ref is null');
       return;
     }
-
-    console.log('📦 DarkVeil: Container size:', {
-      width: container.clientWidth,
-      height: container.clientHeight,
-    });
 
     // ⚡ OPTIMIZATION: Defer WebGL initialization to prevent blocking main thread
     const initWebGL = () => {
@@ -211,13 +182,11 @@ export default function DarkVeil({
         });
 
         const gl = renderer.gl;
-        console.log('✅ DarkVeil: WebGL context created');
 
         const geometry = new Triangle(gl);
 
         // Initialize hueShiftRef with the initial value
         hueShiftRef.current = calculatedHueShift;
-        console.log('🎨 DarkVeil: Initial HueShift:', hueShiftRef.current);
 
         const program = new Program(gl, {
           vertex,
@@ -242,8 +211,6 @@ export default function DarkVeil({
           resizeTimeout = setTimeout(() => {
             const w = container.clientWidth;
             const h = container.clientHeight;
-
-            console.log('📏 DarkVeil: Resizing to', { w, h });
 
             if (w > 0 && h > 0) {
               renderer.setSize(w * resolutionScale, h * resolutionScale);
@@ -283,19 +250,14 @@ export default function DarkVeil({
             renderer.render({ scene: mesh });
 
             frameCount++;
-            if (frameCount === 1) {
-              console.log('✅ DarkVeil: First frame rendered!');
-            }
           }
 
           frame = requestAnimationFrame(loop);
         };
 
         loop(performance.now());
-        console.log('🎬 DarkVeil: Animation loop started');
 
         return () => {
-          console.log('🛑 DarkVeil: Cleaning up...');
           cancelAnimationFrame(frame);
           resizeObserver.disconnect();
           if (resizeTimeout) clearTimeout(resizeTimeout);
