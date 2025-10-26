@@ -12,13 +12,13 @@ class Carousel {
     this.items = Array.from(container.querySelectorAll('.carousel-item'));
     this.currentIndex = 0;
     this.totalItems = this.items.length;
-    
+
     this.prevBtn = container.querySelector('.carousel-prev-btn');
     this.nextBtn = container.querySelector('.carousel-next-btn');
     this.currentIndexEl = container.querySelector('.current-index');
     this.totalItemsEl = container.querySelector('.total-items');
     this.dotsContainer = container.querySelector('.carousel-dots');
-    
+
     this.initialized = false;
     this.init();
   }
@@ -26,7 +26,7 @@ class Carousel {
   init() {
     // ⚡ Mark as initialized to prevent double-initialization
     this.initialized = true;
-    
+
     // Set total items
     if (this.totalItemsEl) {
       this.totalItemsEl.textContent = this.totalItems;
@@ -73,8 +73,8 @@ class Carousel {
 
   showItem(index) {
     // Hide all items
-    this.items.forEach(item => item.classList.remove('active'));
-    
+    this.items.forEach((item) => item.classList.remove('active'));
+
     // Show current item
     this.items[index].classList.add('active');
     this.currentIndex = index;
@@ -158,25 +158,28 @@ const observedContainers = new Set();
  */
 export function initCarousels() {
   const carouselContainers = document.querySelectorAll('.carousel-container');
-  
+
   // ⚡ Create an Intersection Observer to lazy-initialize carousels
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting && !observedContainers.has(entry.target)) {
-        observedContainers.add(entry.target);
-        const carousel = new Carousel(entry.target);
-        carousels.set(carousel.id, carousel);
-        // Stop observing once initialized
-        observer.unobserve(entry.target);
-      }
-    });
-  }, {
-    rootMargin: OBSERVER_CONFIG.CAROUSEL_PRELOAD_MARGIN,
-    threshold: 0.01
-  });
-  
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting && !observedContainers.has(entry.target)) {
+          observedContainers.add(entry.target);
+          const carousel = new Carousel(entry.target);
+          carousels.set(carousel.id, carousel);
+          // Stop observing once initialized
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: OBSERVER_CONFIG.CAROUSEL_PRELOAD_MARGIN,
+      threshold: 0.01,
+    }
+  );
+
   // Observe all carousel containers
-  carouselContainers.forEach(container => {
+  carouselContainers.forEach((container) => {
     observer.observe(container);
   });
 }

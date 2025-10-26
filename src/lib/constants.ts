@@ -3,22 +3,22 @@
  * These provide consistent visual themes throughout the application
  */
 
-export type ColorVariant = 
-  | 'blue' 
-  | 'green' 
-  | 'red' 
-  | 'yellow' 
-  | 'purple' 
-  | 'cyan' 
-  | 'pink' 
+export type ColorVariant =
+  | 'blue'
+  | 'green'
+  | 'red'
+  | 'yellow'
+  | 'purple'
+  | 'cyan'
+  | 'pink'
   | 'gray';
 
-export type StatusVariant = 
-  | 'info' 
-  | 'success' 
-  | 'error' 
-  | 'warning' 
-  | 'tip' 
+export type StatusVariant =
+  | 'info'
+  | 'success'
+  | 'error'
+  | 'warning'
+  | 'tip'
   | 'primary';
 
 /**

@@ -13,7 +13,7 @@ import { TIMING_CONFIG } from '../lib/utils.ts';
 export function setupAlpineSync(): void {
   logger.log('🏔️ Setting up Alpine sync');
   const container = document.getElementById('dark-veil-container');
-  
+
   if (!container) {
     logger.error('❌ DarkVeil container not found');
     return;

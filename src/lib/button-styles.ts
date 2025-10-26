@@ -6,7 +6,8 @@
 export const BUTTON_STYLES = {
   base: 'nav-button backdrop-blur-sm text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400',
   primary: 'bg-gray-800/80 hover:bg-cyan-600/90',
-  disabled: 'disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100',
+  disabled:
+    'disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100',
   sizes: {
     sm: 'p-2',
     md: 'p-3',
@@ -16,13 +17,14 @@ export const BUTTON_STYLES = {
     sm: 'h-4 w-4',
     md: 'h-5 w-5',
     lg: 'h-6 w-6',
-  }
+  },
 } as const;
 
 export const CAROUSEL_BUTTON_STYLES = {
   base: 'carousel-btn text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 shrink-0',
   primary: 'bg-blue-600/80 hover:bg-blue-500',
-  disabled: 'disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100',
+  disabled:
+    'disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100',
   size: 'p-4',
 } as const;
 

@@ -11,7 +11,7 @@ export function initSlideAnimations() {
   // Use shared observer utility
   setupSlideObserver((entry, slideIndex) => {
     // Remove active class from all slides first
-    slides.forEach(slide => slide.classList.remove('active'));
+    slides.forEach((slide) => slide.classList.remove('active'));
     // Add active class to current slide
     entry.target.classList.add('active');
 

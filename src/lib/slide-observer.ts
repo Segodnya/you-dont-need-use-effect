@@ -11,7 +11,11 @@ import { OBSERVER_CONFIG } from './utils';
  * @param options - Optional IntersectionObserver options
  */
 export function createSlideObserver(
-  callback: (entry: IntersectionObserverEntry, slideIndex: number, slides: Element[]) => void,
+  callback: (
+    entry: IntersectionObserverEntry,
+    slideIndex: number,
+    slides: Element[]
+  ) => void,
   options?: IntersectionObserverInit
 ): IntersectionObserver {
   const defaultOptions: IntersectionObserverInit = {
@@ -52,7 +56,11 @@ export function observeAllSlides(observer: IntersectionObserver): void {
  * @param options - Optional IntersectionObserver options
  */
 export function setupSlideObserver(
-  callback: (entry: IntersectionObserverEntry, slideIndex: number, slides: Element[]) => void,
+  callback: (
+    entry: IntersectionObserverEntry,
+    slideIndex: number,
+    slides: Element[]
+  ) => void,
   options?: IntersectionObserverInit
 ): IntersectionObserver {
   const observer = createSlideObserver(callback, options);

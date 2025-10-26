@@ -260,18 +260,18 @@ export default function DarkVeil({
         let frame = 0;
         let frameCount = 0;
         let lastTime = start;
-        
+
         // ⚡ Throttle rendering to 30fps for better battery life
         const targetFPS = 30;
         const frameDelay = 1000 / targetFPS;
 
         const loop = (currentTime: number) => {
           const elapsed = currentTime - lastTime;
-          
+
           // Only render if enough time has passed
           if (elapsed > frameDelay) {
             lastTime = currentTime - (elapsed % frameDelay);
-            
+
             program.uniforms.uTime.value =
               ((performance.now() - start) / 1000) * speed;
             program.uniforms.uHueShift.value = hueShiftRef.current;
@@ -304,10 +304,10 @@ export default function DarkVeil({
         console.error('❌ DarkVeil: Error:', error);
       }
     };
-    
+
     // ⚡ Defer WebGL initialization slightly to prevent blocking
     const timeoutId = setTimeout(initWebGL, 100);
-    
+
     return () => {
       clearTimeout(timeoutId);
     };

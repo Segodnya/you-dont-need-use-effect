@@ -1,11 +1,11 @@
-@import "tailwindcss";
-@import "tw-animate-css";
+@import 'tailwindcss';
+@import 'tw-animate-css';
 
 /* Component styles */
-@import "./components/slides.css";
-@import "./components/code-comparison.css";
-@import "./components/code-block.css";
-@import "./components/navigation.css";
+@import './components/slides.css';
+@import './components/code-comparison.css';
+@import './components/code-block.css';
+@import './components/navigation.css';
 
 /* Prevent FOUC (Flash of Unstyled Content) */
 html {
@@ -136,7 +136,13 @@ html.loaded {
   }
   body {
     @apply bg-background text-foreground;
-    font-family: 'Montserrat', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family:
+      'Montserrat',
+      -apple-system,
+      BlinkMacSystemFont,
+      'Segoe UI',
+      Roboto,
+      sans-serif;
   }
 }
 

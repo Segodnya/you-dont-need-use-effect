@@ -110,7 +110,11 @@ function handleHashChange() {
 
 function updateHash(slideIndex) {
   // Check if URL syncing is enabled
-  if (alpineState.isUrlSyncEnabled() && slideIndex >= 0 && slideIndex < slides.length) {
+  if (
+    alpineState.isUrlSyncEnabled() &&
+    slideIndex >= 0 &&
+    slideIndex < slides.length
+  ) {
     const slideId = slides[slideIndex].id;
     // Use history.replaceState to avoid creating new history entries
     history.replaceState(null, null, `#${slideId}`);

@@ -1,9 +1,11 @@
 ---
 import { Code } from 'astro:components';
 
+type CodeLanguage = Parameters<typeof Code>[0]['lang'];
+
 export interface Props {
   code: string;
-  language?: string;
+  language?: CodeLanguage;
   title?: string;
   highlight?: string;
   size?: 'sm' | 'base' | 'lg';
@@ -14,7 +16,7 @@ const { code, language = 'tsx', title, highlight, size = 'base' } = Astro.props;
 const sizeClasses = {
   sm: 'text-xs',
   base: 'text-sm',
-  lg: 'text-base'
+  lg: 'text-base',
 };
 ---
 
