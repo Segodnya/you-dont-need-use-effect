@@ -177,8 +177,15 @@ pre {
   background: transparent !important;
   padding: 0 !important;
   margin: 0 !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
+  white-space: pre-wrap;
 }
 
 code {
   font-family: 'JetBrains Mono', 'Courier New', monospace !important;
+  overflow-wrap: break-word;
+  word-wrap: break-word;
+  word-break: break-word;
 }
