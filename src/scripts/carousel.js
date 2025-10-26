@@ -1,5 +1,6 @@
 /**
  * Carousel functionality for slides with multiple content items
+ * ⚡ OPTIMIZED: Lazy initialization with Intersection Observer
  */
 
 class Carousel {
@@ -16,10 +17,14 @@ class Carousel {
     this.totalItemsEl = container.querySelector('.total-items');
     this.dotsContainer = container.querySelector('.carousel-dots');
     
+    this.initialized = false;
     this.init();
   }
 
   init() {
+    // ⚡ Mark as initialized to prevent double-initialization
+    this.initialized = true;
+    
     // Set total items
     if (this.totalItemsEl) {
       this.totalItemsEl.textContent = this.totalItems;
@@ -143,13 +148,34 @@ class Carousel {
 
 // Store for active carousels
 const carousels = new Map();
+const observedContainers = new Set();
 
+/**
+ * ⚡ OPTIMIZED: Use Intersection Observer to only initialize carousels when they're visible
+ * This dramatically improves initial page load performance
+ */
 export function initCarousels() {
   const carouselContainers = document.querySelectorAll('.carousel-container');
   
+  // ⚡ Create an Intersection Observer to lazy-initialize carousels
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting && !observedContainers.has(entry.target)) {
+        observedContainers.add(entry.target);
+        const carousel = new Carousel(entry.target);
+        carousels.set(carousel.id, carousel);
+        // Stop observing once initialized
+        observer.unobserve(entry.target);
+      }
+    });
+  }, {
+    rootMargin: '50px', // Start loading 50px before carousel enters viewport
+    threshold: 0.01
+  });
+  
+  // Observe all carousel containers
   carouselContainers.forEach(container => {
-    const carousel = new Carousel(container);
-    carousels.set(carousel.id, carousel);
+    observer.observe(container);
   });
 }
 

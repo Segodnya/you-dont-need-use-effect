@@ -2,28 +2,31 @@
 import Presentation from '../layouts/Presentation.astro';
 import Navigation from '../components/Navigation.astro';
 
-// Import slide components
+// ⚡ OPTIMIZATION: Only eagerly import the first 3 slides for instant first paint
+// The rest will be lazy-loaded as the user navigates
 import IntroSlide from '../components/slides/01-IntroSlide.astro';
 import AuthorSlide from '../components/slides/21-AuthorSlide.astro';
 import InspirationSlide from '../components/slides/02-InspirationSlide.astro';
-import WhatIsUseEffectSlide from '../components/slides/03-WhatIsUseEffectSlide.astro';
-import ProblemsSlide from '../components/slides/04-ProblemsSlide.astro';
-import KeyMessagesSlide from '../components/slides/05-KeyMessagesSlide.astro';
-import DerivedStateSlide from '../components/slides/06-DerivedStateSlide.astro';
-import ConclusionSlide from '../components/slides/07-ConclusionSlide.astro';
-import EmptyEffectsSlide from '../components/slides/08-EmptyEffectsSlide.astro';
-import PropOnlyEffectsSlide from '../components/slides/09-PropOnlyEffectsSlide.astro';
-import StateChainsSlide from '../components/slides/10-StateChainsSlide.astro';
-import RaceConditionsSlide from '../components/slides/11-RaceConditionsSlide.astro';
-import EffectAsHandlerSlide from '../components/slides/12-EffectAsHandlerSlide.astro';
-import AdjustingStateSlide from '../components/slides/13-AdjustingStateSlide.astro';
-import ResettingStateSlide from '../components/slides/14-ResettingStateSlide.astro';
-import NotifyingParentSlide from '../components/slides/15-NotifyingParentSlide.astro';
-import PassingDataUpSlide from '../components/slides/16-PassingDataUpSlide.astro';
-import InitializingStateSlide from '../components/slides/17-InitializingStateSlide.astro';
-import WhenNeededSlide from '../components/slides/18-WhenNeededSlide.astro';
-import WhatsNextSlide from '../components/slides/19-WhatsNextSlide.astro';
-import TechStackSlide from '../components/slides/20-TechStackSlide.astro';
+
+// Dynamically import remaining slides to reduce initial bundle size
+const WhatIsUseEffectSlide = (await import('../components/slides/03-WhatIsUseEffectSlide.astro')).default;
+const ProblemsSlide = (await import('../components/slides/04-ProblemsSlide.astro')).default;
+const KeyMessagesSlide = (await import('../components/slides/05-KeyMessagesSlide.astro')).default;
+const DerivedStateSlide = (await import('../components/slides/06-DerivedStateSlide.astro')).default;
+const ConclusionSlide = (await import('../components/slides/07-ConclusionSlide.astro')).default;
+const EmptyEffectsSlide = (await import('../components/slides/08-EmptyEffectsSlide.astro')).default;
+const PropOnlyEffectsSlide = (await import('../components/slides/09-PropOnlyEffectsSlide.astro')).default;
+const StateChainsSlide = (await import('../components/slides/10-StateChainsSlide.astro')).default;
+const RaceConditionsSlide = (await import('../components/slides/11-RaceConditionsSlide.astro')).default;
+const EffectAsHandlerSlide = (await import('../components/slides/12-EffectAsHandlerSlide.astro')).default;
+const AdjustingStateSlide = (await import('../components/slides/13-AdjustingStateSlide.astro')).default;
+const ResettingStateSlide = (await import('../components/slides/14-ResettingStateSlide.astro')).default;
+const NotifyingParentSlide = (await import('../components/slides/15-NotifyingParentSlide.astro')).default;
+const PassingDataUpSlide = (await import('../components/slides/16-PassingDataUpSlide.astro')).default;
+const InitializingStateSlide = (await import('../components/slides/17-InitializingStateSlide.astro')).default;
+const WhenNeededSlide = (await import('../components/slides/18-WhenNeededSlide.astro')).default;
+const WhatsNextSlide = (await import('../components/slides/19-WhatsNextSlide.astro')).default;
+const TechStackSlide = (await import('../components/slides/20-TechStackSlide.astro')).default;
 
 // Define slide structure for navigation
 const slides = [

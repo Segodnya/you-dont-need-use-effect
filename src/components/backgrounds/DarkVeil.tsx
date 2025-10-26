@@ -198,87 +198,119 @@ export default function DarkVeil({
       height: container.clientHeight,
     });
 
-    try {
-      const renderer = new Renderer({
-        dpr: Math.min(window.devicePixelRatio, 2),
-        canvas,
-        alpha: false,
-      });
+    // ⚡ OPTIMIZATION: Defer WebGL initialization to prevent blocking main thread
+    const initWebGL = () => {
+      try {
+        const renderer = new Renderer({
+          dpr: Math.min(window.devicePixelRatio, 2),
+          canvas,
+          alpha: false,
+          // ⚡ Enable performance optimizations
+          antialias: false, // Disable antialiasing for better performance
+          powerPreference: 'high-performance',
+        });
 
-      const gl = renderer.gl;
-      console.log('✅ DarkVeil: WebGL context created');
+        const gl = renderer.gl;
+        console.log('✅ DarkVeil: WebGL context created');
 
-      const geometry = new Triangle(gl);
+        const geometry = new Triangle(gl);
 
-      // Initialize hueShiftRef with the initial value
-      hueShiftRef.current = calculatedHueShift;
-      console.log('🎨 DarkVeil: Initial HueShift:', hueShiftRef.current);
+        // Initialize hueShiftRef with the initial value
+        hueShiftRef.current = calculatedHueShift;
+        console.log('🎨 DarkVeil: Initial HueShift:', hueShiftRef.current);
 
-      const program = new Program(gl, {
-        vertex,
-        fragment,
-        uniforms: {
-          uTime: { value: 0 },
-          uResolution: { value: new Vec2() },
-          uHueShift: { value: calculatedHueShift },
-          uNoise: { value: noiseIntensity },
-          uScan: { value: scanlineIntensity },
-          uScanFreq: { value: scanlineFrequency },
-          uWarp: { value: warpAmount },
-        },
-      });
+        const program = new Program(gl, {
+          vertex,
+          fragment,
+          uniforms: {
+            uTime: { value: 0 },
+            uResolution: { value: new Vec2() },
+            uHueShift: { value: calculatedHueShift },
+            uNoise: { value: noiseIntensity },
+            uScan: { value: scanlineIntensity },
+            uScanFreq: { value: scanlineFrequency },
+            uWarp: { value: warpAmount },
+          },
+        });
 
-      const mesh = new Mesh(gl, { geometry, program });
+        const mesh = new Mesh(gl, { geometry, program });
 
-      const resize = () => {
-        const w = container.clientWidth;
-        const h = container.clientHeight;
+        // ⚡ Use ResizeObserver for more efficient resize handling
+        let resizeTimeout: ReturnType<typeof setTimeout> | undefined;
+        const resize = () => {
+          if (resizeTimeout) clearTimeout(resizeTimeout);
+          resizeTimeout = setTimeout(() => {
+            const w = container.clientWidth;
+            const h = container.clientHeight;
 
-        console.log('📏 DarkVeil: Resizing to', { w, h });
+            console.log('📏 DarkVeil: Resizing to', { w, h });
 
-        if (w > 0 && h > 0) {
-          renderer.setSize(w * resolutionScale, h * resolutionScale);
-          program.uniforms.uResolution.value.set(w, h);
-        }
-      };
+            if (w > 0 && h > 0) {
+              renderer.setSize(w * resolutionScale, h * resolutionScale);
+              program.uniforms.uResolution.value.set(w, h);
+            }
+          }, 150); // Debounce resize
+        };
 
-      window.addEventListener('resize', resize);
-      resize();
+        const resizeObserver = new ResizeObserver(resize);
+        resizeObserver.observe(container);
+        resize();
 
-      const start = performance.now();
-      let frame = 0;
-      let frameCount = 0;
+        const start = performance.now();
+        let frame = 0;
+        let frameCount = 0;
+        let lastTime = start;
+        
+        // ⚡ Throttle rendering to 30fps for better battery life
+        const targetFPS = 30;
+        const frameDelay = 1000 / targetFPS;
 
-      const loop = () => {
-        program.uniforms.uTime.value =
-          ((performance.now() - start) / 1000) * speed;
-        program.uniforms.uHueShift.value = hueShiftRef.current;
-        program.uniforms.uNoise.value = noiseIntensity;
-        program.uniforms.uScan.value = scanlineIntensity;
-        program.uniforms.uScanFreq.value = scanlineFrequency;
-        program.uniforms.uWarp.value = warpAmount;
+        const loop = (currentTime: number) => {
+          const elapsed = currentTime - lastTime;
+          
+          // Only render if enough time has passed
+          if (elapsed > frameDelay) {
+            lastTime = currentTime - (elapsed % frameDelay);
+            
+            program.uniforms.uTime.value =
+              ((performance.now() - start) / 1000) * speed;
+            program.uniforms.uHueShift.value = hueShiftRef.current;
+            program.uniforms.uNoise.value = noiseIntensity;
+            program.uniforms.uScan.value = scanlineIntensity;
+            program.uniforms.uScanFreq.value = scanlineFrequency;
+            program.uniforms.uWarp.value = warpAmount;
 
-        renderer.render({ scene: mesh });
+            renderer.render({ scene: mesh });
 
-        frameCount++;
-        if (frameCount === 1) {
-          console.log('✅ DarkVeil: First frame rendered!');
-        }
+            frameCount++;
+            if (frameCount === 1) {
+              console.log('✅ DarkVeil: First frame rendered!');
+            }
+          }
 
-        frame = requestAnimationFrame(loop);
-      };
+          frame = requestAnimationFrame(loop);
+        };
 
-      loop();
-      console.log('🎬 DarkVeil: Animation loop started');
+        loop(performance.now());
+        console.log('🎬 DarkVeil: Animation loop started');
 
-      return () => {
-        console.log('🛑 DarkVeil: Cleaning up...');
-        cancelAnimationFrame(frame);
-        window.removeEventListener('resize', resize);
-      };
-    } catch (error) {
-      console.error('❌ DarkVeil: Error:', error);
-    }
+        return () => {
+          console.log('🛑 DarkVeil: Cleaning up...');
+          cancelAnimationFrame(frame);
+          resizeObserver.disconnect();
+          if (resizeTimeout) clearTimeout(resizeTimeout);
+        };
+      } catch (error) {
+        console.error('❌ DarkVeil: Error:', error);
+      }
+    };
+    
+    // ⚡ Defer WebGL initialization slightly to prevent blocking
+    const timeoutId = setTimeout(initWebGL, 100);
+    
+    return () => {
+      clearTimeout(timeoutId);
+    };
   }, [
     noiseIntensity,
     scanlineIntensity,
