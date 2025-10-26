@@ -13,47 +13,55 @@ const iconSize = getIconSize('lg');
 ---
 
 <div class="carousel-container" data-carousel-id={id}>
-  <div class="carousel-wrapper relative flex items-center gap-4">
-    <!-- Left Navigation Button -->
-    <button
-      class={`carousel-prev-btn ${buttonClass}`}
-      aria-label="Предыдущий пример"
-      title="Предыдущий пример"
-    >
-      <Icon name="arrow-left" class={iconSize} />
-    </button>
+  <!-- Shared Carousel Content (visible on all screens) -->
+  <div class="carousel-content-wrapper">
+    <div class="carousel-content">
+      <slot />
+    </div>
+  </div>
 
-    <!-- Carousel Content -->
-    <div class="carousel-content-wrapper flex-1">
-      <div class="carousel-content">
-        <slot />
-      </div>
-      
-      <!-- Carousel Indicator -->
-      <div class="carousel-indicator text-center text-gray-400 font-mono text-sm mt-4">
-        <span class="current-index">1</span> / <span class="total-items">4</span>
-      </div>
+  <!-- Carousel Controls - Repositioned based on screen size -->
+  <div class="carousel-controls">
+    <!-- Navigation Buttons Container -->
+    <div class="carousel-buttons-wrapper">
+      <!-- Left Navigation Button -->
+      <button
+        class={`carousel-prev-btn ${buttonClass}`}
+        aria-label="Предыдущий пример"
+        title="Предыдущий пример"
+      >
+        <Icon name="arrow-left" class={iconSize} />
+      </button>
 
-      <!-- Dots Indicator -->
-      <div class="carousel-dots flex items-center justify-center gap-2 mt-3">
-        <!-- Will be populated by JavaScript -->
-      </div>
+      <!-- Right Navigation Button -->
+      <button
+        class={`carousel-next-btn ${buttonClass}`}
+        aria-label="Следующий пример"
+        title="Следующий пример"
+      >
+        <Icon name="arrow-right" class={iconSize} />
+      </button>
+    </div>
+  </div>
+
+  <!-- Shared Indicators (visible on all screens) -->
+  <div class="carousel-indicators mt-4">
+    <!-- Carousel Indicator -->
+    <div class="carousel-indicator text-center text-gray-400 font-mono text-sm">
+      <span class="current-index">1</span> / <span class="total-items">4</span>
     </div>
 
-    <!-- Right Navigation Button -->
-    <button
-      class={`carousel-next-btn ${buttonClass}`}
-      aria-label="Следующий пример"
-      title="Следующий пример"
-    >
-      <Icon name="arrow-right" class={iconSize} />
-    </button>
+    <!-- Dots Indicator -->
+    <div class="carousel-dots flex items-center justify-center gap-2 mt-3">
+      <!-- Will be populated by JavaScript -->
+    </div>
   </div>
 </div>
 
 <style>
   .carousel-container {
     width: 100%;
+    position: relative;
   }
 
   .carousel-content {
@@ -68,6 +76,51 @@ const iconSize = getIconSize('lg');
 
   .carousel-content :global(.carousel-item.active) {
     display: block;
+  }
+
+  /* Carousel Controls Positioning */
+  .carousel-controls {
+    position: relative;
+  }
+
+  /* Mobile: Buttons below content */
+  .carousel-buttons-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 1rem;
+  }
+
+  /* Desktop: Buttons on sides with absolute positioning */
+  @media (min-width: 1024px) {
+    .carousel-controls {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      pointer-events: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 1rem;
+    }
+
+    .carousel-buttons-wrapper {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      margin-top: 0;
+    }
+
+    .carousel-buttons-wrapper button {
+      pointer-events: auto;
+    }
+
+    .carousel-content-wrapper {
+      padding: 0 4rem;
+    }
   }
 
   @keyframes fadeIn {

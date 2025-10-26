@@ -6,11 +6,12 @@ import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
 ---
 
-<BaseSlide id="initializing-state" title="10. Инициализация состояния в эффекте">
+<BaseSlide
+  id="initializing-state"
+  title="10. Инициализация состояния в эффекте"
+>
   <Section>
-    <Text>
-      Зачем делать два рендера, когда можно сделать один?
-    </Text>
+    <Text> Зачем делать два рендера, когда можно сделать один? </Text>
 
     <CodeComparison
       badCode={`function MyComponent() {
@@ -35,7 +36,9 @@ function ExpensiveComponent() {
     />
 
     <Callout variant="tip">
-      Функция в useState выполняется только при первом рендере, а эффект с пустыми зависимостями выполняется после рендера, вызывая дополнительное обновление.
+      Функция в useState выполняется только при первом рендере, а эффект с
+      пустыми зависимостями выполняется после рендера, вызывая дополнительное
+      обновление.
     </Callout>
   </Section>
 </BaseSlide>

@@ -92,7 +92,7 @@ const { slides } = Astro.props;
   <!-- Navigation Buttons -->
   <div class="flex flex-col items-center gap-3">
     <!-- Previous Button -->
-    <NavButton 
+    <NavButton
       id="prev-slide-btn"
       icon="arrow-up"
       label="Предыдущий слайд"
@@ -102,7 +102,7 @@ const { slides } = Astro.props;
     />
 
     <!-- Next Button -->
-    <NavButton 
+    <NavButton
       id="next-slide-btn"
       icon="arrow-down"
       label="Следующий слайд"
@@ -113,7 +113,7 @@ const { slides } = Astro.props;
 
     <!-- URL Sync Toggle Button -->
     <div class="relative">
-      <NavButton 
+      <NavButton
         id="url-sync-toggle-btn"
         icon="link"
         label="Синхронизация URL"
@@ -127,7 +127,7 @@ const { slides } = Astro.props;
 
     <!-- Fullscreen Button -->
     <div class="relative">
-      <NavButton 
+      <NavButton
         id="fullscreen-btn"
         icon="fullscreen"
         label="Полноэкранный режим (F)"
@@ -139,50 +139,8 @@ const { slides } = Astro.props;
   </div>
 </div>
 
-<!-- Mobile Navigation Buttons (Bottom) -->
-<div
-  class="fixed bottom-8 left-1/2 transform -translate-x-1/2 flex items-center gap-4 z-50 lg:hidden"
->
-  <!-- Previous Button -->
-  <NavButton 
-    id="prev-slide-btn-mobile"
-    icon="arrow-left"
-    label="Предыдущий слайд"
-    title="Предыдущий слайд"
-    size="lg"
-    canDisable={true}
-  />
-
-  <!-- URL Sync Toggle Button -->
-  <NavButton 
-    id="url-sync-toggle-btn-mobile"
-    icon="link"
-    label="Синхронизация URL"
-    title="Синхронизация URL (L)"
-    size="lg"
-    alpineClass="syncUrlWithSlide ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
-    class="url-sync-toggle-btn"
-  />
-
-  <!-- Fullscreen Button -->
-  <NavButton 
-    id="fullscreen-btn-mobile"
-    icon="fullscreen"
-    label="Полноэкранный режим (F)"
-    title="Полноэкранный режим (F)"
-    size="lg"
-  />
-
-  <!-- Next Button -->
-  <NavButton 
-    id="next-slide-btn-mobile"
-    icon="arrow-right"
-    label="Следующий слайд"
-    title="Следующий слайд"
-    size="lg"
-    canDisable={true}
-  />
-</div>
+<!-- Mobile Navigation Buttons (Bottom) - REMOVED FOR MOBILE -->
+<!-- Mobile devices will use simple scrolling without navigation controls -->
 
 <!-- Slide Counter (Mobile) -->
 <div

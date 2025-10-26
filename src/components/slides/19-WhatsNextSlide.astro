@@ -13,7 +13,9 @@ import Highlight from '../ui/Highlight.astro';
 <BaseSlide id="whats-next" title="Что дальше?">
   <Section>
     <Text>
-      Сегодня мы рассмотрели основные проблемы, которые возникают при неправильном использовании useEffect. И да, эти проблемы могут быть отловлены с помощью линтера.
+      Сегодня мы рассмотрели основные проблемы, которые возникают при
+      неправильном использовании useEffect. И да, эти проблемы могут быть
+      отловлены с помощью линтера.
     </Text>
 
     <Callout variant="info" class="mt-6">
@@ -22,18 +24,24 @@ import Highlight from '../ui/Highlight.astro';
           Внедрение ESLint плагина
         </SlideTitle>
         <Text size="base" class="mb-4">
-          <Highlight color="cyan">eslint-plugin-react-you-might-not-need-an-effect</Highlight>
+          <Highlight color="cyan"
+            >eslint-plugin-react-you-might-not-need-an-effect</Highlight
+          >
         </Text>
-        
+
         <List spacing="normal" class="text-base">
           <ChecklistItem number="1">
-            Сначала добавим правила с уровнем <Highlight color="cyan">warn</Highlight> - чтобы видеть проблемы, но не блокировать разработку
+            Сначала добавим правила с уровнем <Highlight color="cyan"
+              >warn</Highlight
+            > - чтобы видеть проблемы, но не блокировать разработку
           </ChecklistItem>
           <ChecklistItem number="2">
-            Будем исправлять старые ошибки постепенно, по мере работы с компонентами (их 172)
+            Будем исправлять старые ошибки постепенно, по мере работы с
+            компонентами (их 172)
           </ChecklistItem>
           <ChecklistItem number="3">
-            Для нового кода - задумываться, когда используем useEffect, и сразу писать правильно
+            Для нового кода - задумываться, когда используем useEffect, и сразу
+            писать правильно
           </ChecklistItem>
         </List>
       </Section>
@@ -43,9 +51,15 @@ import Highlight from '../ui/Highlight.astro';
       <Section spacing="tight">
         <SlideTitle size="md" class="mb-4">Что это даст:</SlideTitle>
         <List spacing="tight">
-          <ListItem>Улучшится производительность - меньше лишних ре-рендеров</ListItem>
-          <ListItem>Упростится отладка - код станет более предсказуемым</ListItem>
-          <ListItem>Улучшится архитектура - более четкое разделение ответственности</ListItem>
+          <ListItem
+            >Улучшится производительность - меньше лишних ре-рендеров</ListItem
+          >
+          <ListItem
+            >Упростится отладка - код станет более предсказуемым</ListItem
+          >
+          <ListItem
+            >Улучшится архитектура - более четкое разделение ответственности</ListItem
+          >
         </List>
       </Section>
     </Callout>

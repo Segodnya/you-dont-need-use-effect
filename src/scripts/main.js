@@ -25,11 +25,17 @@ document.addEventListener('DOMContentLoaded', async () => {
   const [
     { initKeyboardNavigation, initNavigationButtons },
     { initUrlSyncToggle },
-  ] = await Promise.all([import('./navigation.js'), import('./url-sync.js')]);
+    { initMobileScrollTracking },
+  ] = await Promise.all([
+    import('./navigation.js'),
+    import('./url-sync.js'),
+    import('./mobile-scroll.js'),
+  ]);
 
   initKeyboardNavigation();
   initNavigationButtons();
   initUrlSyncToggle();
+  initMobileScrollTracking();
 
   // ⚡ Defer carousel initialization until after initial render
   // Carousels are only needed when user reaches those specific slides

@@ -9,65 +9,95 @@ import { toggleUrlSync } from './url-sync.js';
 
 let slides = [];
 let currentSlideIndex = 0;
+let isMobile = false;
+
+function checkIfMobile() {
+  return window.innerWidth < 1024;
+}
 
 export function initKeyboardNavigation() {
   // Initialize slides array
   slides = Array.from(document.querySelectorAll('.slide'));
 
-  // Initialize from URL hash or start at first slide
-  initializeFromHash();
+  // Check if mobile
+  isMobile = checkIfMobile();
 
-  // Listen for hash changes
-  window.addEventListener('hashchange', handleHashChange);
+  // Initialize from URL hash or start at first slide (desktop only)
+  if (!isMobile) {
+    initializeFromHash();
+  } else {
+    // Mobile: just set initial state
+    currentSlideIndex = 0;
+    alpineState.setCurrentSlide(0);
+  }
 
-  document.addEventListener('keydown', (e) => {
-    const activeCarousel = getActiveCarousel();
+  // Listen for hash changes (desktop only)
+  if (!isMobile) {
+    window.addEventListener('hashchange', handleHashChange);
+  }
 
-    // Handle fullscreen toggle with 'F' key
-    if (e.key === 'f' || e.key === 'F') {
-      e.preventDefault();
-      toggleFullscreen();
-      return;
-    }
+  // Keyboard navigation (desktop only)
+  if (!isMobile) {
+    document.addEventListener('keydown', (e) => {
+      const activeCarousel = getActiveCarousel();
 
-    // Handle URL sync toggle with 'L' key
-    if (e.key === 'l' || e.key === 'L') {
-      e.preventDefault();
-      toggleUrlSync();
-      return;
-    }
+      // Handle fullscreen toggle with 'F' key
+      if (e.key === 'f' || e.key === 'F') {
+        e.preventDefault();
+        toggleFullscreen();
+        return;
+      }
 
-    // Navigate with Arrow keys, Page Up/Down, and Space
-    if (
-      e.key === 'ArrowDown' ||
-      e.key === 'PageDown' ||
-      (e.key === ' ' && !e.shiftKey)
-    ) {
-      e.preventDefault();
-      navigateToNextSlide();
-    } else if (
-      e.key === 'ArrowUp' ||
-      e.key === 'PageUp' ||
-      (e.key === ' ' && e.shiftKey)
-    ) {
-      e.preventDefault();
-      navigateToPrevSlide();
-    } else if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      // If there's an active carousel, navigate within it first
-      if (activeCarousel && !activeCarousel.isAtEnd()) {
-        activeCarousel.next();
-      } else {
+      // Handle URL sync toggle with 'L' key
+      if (e.key === 'l' || e.key === 'L') {
+        e.preventDefault();
+        toggleUrlSync();
+        return;
+      }
+
+      // Navigate with Arrow keys, Page Up/Down, and Space
+      if (
+        e.key === 'ArrowDown' ||
+        e.key === 'PageDown' ||
+        (e.key === ' ' && !e.shiftKey)
+      ) {
+        e.preventDefault();
         navigateToNextSlide();
-      }
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      // If there's an active carousel, navigate within it first
-      if (activeCarousel && !activeCarousel.isAtStart()) {
-        activeCarousel.prev();
-      } else {
+      } else if (
+        e.key === 'ArrowUp' ||
+        e.key === 'PageUp' ||
+        (e.key === ' ' && e.shiftKey)
+      ) {
+        e.preventDefault();
         navigateToPrevSlide();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        // If there's an active carousel, navigate within it first
+        if (activeCarousel && !activeCarousel.isAtEnd()) {
+          activeCarousel.next();
+        } else {
+          navigateToNextSlide();
+        }
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        // If there's an active carousel, navigate within it first
+        if (activeCarousel && !activeCarousel.isAtStart()) {
+          activeCarousel.prev();
+        } else {
+          navigateToPrevSlide();
+        }
       }
+    });
+  }
+
+  // Update on resize
+  window.addEventListener('resize', () => {
+    const wasMobile = isMobile;
+    isMobile = checkIfMobile();
+
+    // If switching from mobile to desktop, reinitialize
+    if (wasMobile && !isMobile) {
+      initializeFromHash();
     }
   });
 }
@@ -123,15 +153,24 @@ function updateHash(slideIndex) {
 
 function navigateToSlide(slideIndex, updateHashFlag = true) {
   if (slideIndex >= 0 && slideIndex < slides.length) {
-    slides[slideIndex].scrollIntoView({ behavior: 'smooth', block: 'center' });
-    if (updateHashFlag) {
-      updateHash(slideIndex);
+    // Desktop only: smooth scroll with snap
+    if (!isMobile) {
+      slides[slideIndex].scrollIntoView({
+        behavior: 'smooth',
+        block: 'center',
+      });
+      if (updateHashFlag) {
+        updateHash(slideIndex);
+      }
     }
     alpineState.setCurrentSlide(slideIndex);
   }
 }
 
 export function navigateToNextSlide() {
+  // Mobile: do nothing, let natural scroll happen
+  if (isMobile) return;
+
   const activeCarousel = getActiveCarousel();
 
   // If there's an active carousel and it's not at the end, navigate within it
@@ -149,6 +188,9 @@ export function navigateToNextSlide() {
 }
 
 export function navigateToPrevSlide() {
+  // Mobile: do nothing, let natural scroll happen
+  if (isMobile) return;
+
   const activeCarousel = getActiveCarousel();
 
   // If there's an active carousel and it's not at the start, navigate within it
@@ -170,12 +212,7 @@ export function initNavigationButtons() {
   const prevBtn = document.getElementById('prev-slide-btn');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
 
-  // Mobile buttons
-  const nextBtnMobile = document.getElementById('next-slide-btn-mobile');
-  const prevBtnMobile = document.getElementById('prev-slide-btn-mobile');
-  const fullscreenBtnMobile = document.getElementById('fullscreen-btn-mobile');
-
-  // Desktop buttons
+  // Desktop buttons only (mobile buttons removed)
   if (nextBtn) {
     nextBtn.addEventListener('click', navigateToNextSlide);
   }
@@ -188,45 +225,34 @@ export function initNavigationButtons() {
     fullscreenBtn.addEventListener('click', toggleFullscreen);
   }
 
-  // Mobile buttons
-  if (nextBtnMobile) {
-    nextBtnMobile.addEventListener('click', navigateToNextSlide);
-  }
-
-  if (prevBtnMobile) {
-    prevBtnMobile.addEventListener('click', navigateToPrevSlide);
-  }
-
-  if (fullscreenBtnMobile) {
-    fullscreenBtnMobile.addEventListener('click', toggleFullscreen);
-  }
-
-  // Initialize navigation dots click handlers
+  // Initialize navigation dots click handlers (desktop only)
   const navDots = document.querySelectorAll('.nav-dot');
   navDots.forEach((dot, index) => {
     dot.addEventListener('click', (e) => {
       e.preventDefault();
-      currentSlideIndex = index;
-      navigateToSlide(index);
+      if (!isMobile) {
+        currentSlideIndex = index;
+        navigateToSlide(index);
+      }
     });
   });
 
   // Update button states based on current slide
   setupSlideObserver((entry, slideIndex) => {
     currentSlideIndex = slideIndex;
-    updateNavigationButtons(slideIndex, slides.length);
+    if (!isMobile) {
+      updateNavigationButtons(slideIndex, slides.length);
+      updateHash(slideIndex);
+    }
     alpineState.setCurrentSlide(slideIndex);
-    updateHash(slideIndex);
   });
 }
 
 function updateNavigationButtons(currentIndex, totalSlides) {
   const prevBtn = document.getElementById('prev-slide-btn');
   const nextBtn = document.getElementById('next-slide-btn');
-  const prevBtnMobile = document.getElementById('prev-slide-btn-mobile');
-  const nextBtnMobile = document.getElementById('next-slide-btn-mobile');
 
-  // Update desktop buttons
+  // Update desktop buttons only
   if (prevBtn) {
     prevBtn.disabled = currentIndex === 0;
     prevBtn.style.opacity = currentIndex === 0 ? '0.3' : '1';
@@ -235,18 +261,6 @@ function updateNavigationButtons(currentIndex, totalSlides) {
   if (nextBtn) {
     nextBtn.disabled = currentIndex === totalSlides - 1;
     nextBtn.style.opacity = currentIndex === totalSlides - 1 ? '0.3' : '1';
-  }
-
-  // Update mobile buttons
-  if (prevBtnMobile) {
-    prevBtnMobile.disabled = currentIndex === 0;
-    prevBtnMobile.style.opacity = currentIndex === 0 ? '0.3' : '1';
-  }
-
-  if (nextBtnMobile) {
-    nextBtnMobile.disabled = currentIndex === totalSlides - 1;
-    nextBtnMobile.style.opacity =
-      currentIndex === totalSlides - 1 ? '0.3' : '1';
   }
 }
 

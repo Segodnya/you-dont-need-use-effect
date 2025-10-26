@@ -8,9 +8,7 @@ import Section from '../ui/Section.astro';
 
 <BaseSlide id="derived-state" title="3. Производное состояние">
   <Section>
-    <Text>
-      Избегайте useEffect для вычисления производных значений
-    </Text>
+    <Text> Избегайте useEffect для вычисления производных значений </Text>
 
     <CodeComparison
       badCode={`function Form({ firstName, lastName }) {
@@ -32,8 +30,8 @@ import Section from '../ui/Section.astro';
     />
 
     <Callout variant="tip">
-      Вычисляйте значения напрямую во время рендера! Если вычисление
-      дорогое — используйте <code class="text-cyan-300">useMemo</code>.
+      Вычисляйте значения напрямую во время рендера! Если вычисление дорогое —
+      используйте <code class="text-cyan-300">useMemo</code>.
     </Callout>
   </Section>
 </BaseSlide>

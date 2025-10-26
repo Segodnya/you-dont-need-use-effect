@@ -13,7 +13,7 @@ const { id, title, variant = 'default', className = '' } = Astro.props;
 
 <section
   id={id}
-  class={`slide min-h-screen w-full snap-start flex flex-col justify-center px-6 lg:px-32 py-16 transition-all duration-700 opacity-40 transform-gpu ${className}`}
+  class={`slide min-h-screen w-full lg:snap-start flex flex-col justify-center px-6 lg:px-32 py-16 lg:transition-all lg:duration-700 lg:opacity-40 transform-gpu ${className}`}
   data-slide={id}
 >
   {title && <PageTitle>{title}</PageTitle>}
@@ -21,7 +21,7 @@ const { id, title, variant = 'default', className = '' } = Astro.props;
     class={`
     ${variant === 'centered' ? 'text-center mx-auto max-w-4xl' : ''}
     ${variant === 'full' ? 'w-full' : 'max-w-6xl'}
-    content-animation
+    lg:content-animation
   `}
   >
     <slot />

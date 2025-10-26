@@ -6,10 +6,14 @@ import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
 ---
 
-<BaseSlide id="resetting-state" title="7. Полный сброс состояния при изменении пропса">
+<BaseSlide
+  id="resetting-state"
+  title="7. Полный сброс состояния при изменении пропса"
+>
   <Section>
     <Text>
-      Когда нужно сбросить все состояние при изменении пропса, не нужно делать это вручную через эффект.
+      Когда нужно сбросить все состояние при изменении пропса, не нужно делать
+      это вручную через эффект.
     </Text>
 
     <CodeComparison
@@ -35,7 +39,8 @@ function Profile({ userId }) {
     />
 
     <Callout variant="tip">
-      Используйте key проп - это идиоматический способ сказать React: 'это совершенно другой экземпляр компонента'.
+      Используйте key проп - это идиоматический способ сказать React: 'это
+      совершенно другой экземпляр компонента'.
     </Callout>
   </Section>
 </BaseSlide>

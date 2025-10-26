@@ -14,21 +14,36 @@ import ListItem from '../ui/ListItem.astro';
   <Section>
     <Text>
       Прежде чем ругать, давайте договоримся, для чего он создан.
-      <Highlight color="blue">useEffect — это инструмент для синхронизации.</Highlight>
+      <Highlight color="blue"
+        >useEffect — это инструмент для синхронизации.</Highlight
+      >
       Синхронизации вашего React-компонента с чем-то внешним по отношению к React.
     </Text>
 
     <Grid cols="2" gap="6" class="mt-8">
-      <InfoCard variant="success" icon="✅" title="Что такое 'внешняя система'?">
+      <InfoCard
+        variant="success"
+        icon="✅"
+        title="Что такое 'внешняя система'?"
+      >
         <List spacing="tight" class="text-sm">
-          <ListItem>API браузера: <Highlight color="cyan">setInterval</Highlight>, <Highlight color="cyan">addEventListener</Highlight></ListItem>
+          <ListItem
+            >API браузера: <Highlight color="cyan">setInterval</Highlight>, <Highlight
+              color="cyan">addEventListener</Highlight
+            ></ListItem
+          >
           <ListItem>Сетевые запросы (когда нет спец. библиотеки)</ListItem>
-          <ListItem>Сторонние библиотеки: Backbone, D3, карты, виджеты</ListItem>
+          <ListItem>Сторонние библиотеки: Backbone, D3, карты, виджеты</ListItem
+          >
           <ListItem>Подписки: WebSocket, Firebase</ListItem>
         </List>
       </InfoCard>
 
-      <InfoCard variant="error" icon="❌" title="Что НЕ является внешней системой?">
+      <InfoCard
+        variant="error"
+        icon="❌"
+        title="Что НЕ является внешней системой?"
+      >
         <List spacing="tight" class="text-sm">
           <ListItem>Пропсы и состояние вашего же приложения</ListItem>
           <ListItem>Логика преобразования данных</ListItem>
@@ -38,9 +53,9 @@ import ListItem from '../ui/ListItem.astro';
     </Grid>
 
     <Callout variant="tip" class="mt-6">
-      React уже имеет встроенный механизм реагирования на изменения — это
-      сам рендер. useEffect — это ответ на изменения, которые выходят за
-      рамки этого механизма.
+      React уже имеет встроенный механизм реагирования на изменения — это сам
+      рендер. useEffect — это ответ на изменения, которые выходят за рамки этого
+      механизма.
     </Callout>
   </Section>
 </BaseSlide>
