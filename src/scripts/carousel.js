@@ -216,12 +216,3 @@ export function getActiveCarousel() {
   const carouselId = carouselContainer.dataset.carouselId;
   return carousels.get(carouselId);
 }
-
-export function hasActiveCarousel() {
-  // No active carousel on mobile
-  if (isMobile()) {
-    return false;
-  }
-
-  return getActiveCarousel() !== null;
-}

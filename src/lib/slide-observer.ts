@@ -10,7 +10,7 @@ import { OBSERVER_CONFIG } from './utils';
  * @param callback - Function to call when a slide becomes visible
  * @param options - Optional IntersectionObserver options
  */
-export function createSlideObserver(
+function createSlideObserver(
   callback: (
     entry: IntersectionObserverEntry,
     slideIndex: number,
@@ -45,7 +45,7 @@ export function createSlideObserver(
  * Observe all slides with a given observer
  * @param observer - IntersectionObserver instance
  */
-export function observeAllSlides(observer: IntersectionObserver): void {
+function observeAllSlides(observer: IntersectionObserver): void {
   const slides = document.querySelectorAll('.slide');
   slides.forEach((slide) => observer.observe(slide));
 }

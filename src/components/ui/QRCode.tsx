@@ -1,7 +1,7 @@
 import { useRef, useEffect } from 'preact/hooks';
 import QRCode from 'qrcode';
 
-export interface QRCodeProps {
+interface QRCodeProps {
   value: string;
   size?: number;
   label?: string;

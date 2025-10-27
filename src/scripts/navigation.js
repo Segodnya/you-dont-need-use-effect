@@ -167,7 +167,7 @@ function navigateToSlide(slideIndex, updateHashFlag = true) {
   }
 }
 
-export function navigateToNextSlide() {
+function navigateToNextSlide() {
   // Mobile: do nothing, let natural scroll happen
   if (isMobile) return;
 
@@ -187,7 +187,7 @@ export function navigateToNextSlide() {
   }
 }
 
-export function navigateToPrevSlide() {
+function navigateToPrevSlide() {
   // Mobile: do nothing, let natural scroll happen
   if (isMobile) return;
 

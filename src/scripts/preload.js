@@ -30,7 +30,7 @@ function preloadSlide(slideIndex) {
 /**
  * Initialize smart preloading based on current slide
  */
-export function initSmartPreload() {
+function initSmartPreload() {
   let currentSlide = 0;
 
   // Watch for slide changes

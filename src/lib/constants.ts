@@ -39,7 +39,7 @@ export const GRADIENT_BACKGROUNDS: Record<ColorVariant, string> = {
 /**
  * Map status variants to color variants
  */
-export const STATUS_TO_COLOR: Record<StatusVariant, ColorVariant> = {
+const STATUS_TO_COLOR: Record<StatusVariant, ColorVariant> = {
   info: 'blue',
   success: 'green',
   error: 'red',
@@ -79,7 +79,7 @@ export const BACKGROUND_COLORS: Record<ColorVariant, string> = {
 /**
  * Shadow colors for each variant
  */
-export const SHADOW_COLORS: Record<ColorVariant, string> = {
+const SHADOW_COLORS: Record<ColorVariant, string> = {
   blue: 'shadow-blue-500/10',
   green: 'shadow-green-500/10',
   red: 'shadow-red-500/10',
@@ -93,7 +93,7 @@ export const SHADOW_COLORS: Record<ColorVariant, string> = {
 /**
  * Text colors for titles
  */
-export const TITLE_COLORS: Record<ColorVariant, string> = {
+const TITLE_COLORS: Record<ColorVariant, string> = {
   blue: 'text-blue-400',
   green: 'text-green-400',
   red: 'text-red-400',
@@ -107,7 +107,7 @@ export const TITLE_COLORS: Record<ColorVariant, string> = {
 /**
  * Text colors for content
  */
-export const TEXT_COLORS: Record<ColorVariant, string> = {
+const TEXT_COLORS: Record<ColorVariant, string> = {
   blue: 'text-blue-200',
   green: 'text-green-200',
   red: 'text-red-200',
@@ -121,7 +121,7 @@ export const TEXT_COLORS: Record<ColorVariant, string> = {
 /**
  * Secondary text colors (300 level)
  */
-export const TITLE_COLORS_LIGHT: Record<ColorVariant, string> = {
+const TITLE_COLORS_LIGHT: Record<ColorVariant, string> = {
   blue: 'text-blue-300',
   green: 'text-green-300',
   red: 'text-red-300',
@@ -135,7 +135,7 @@ export const TITLE_COLORS_LIGHT: Record<ColorVariant, string> = {
 /**
  * Default icons for status variants
  */
-export const STATUS_ICONS: Record<StatusVariant, string> = {
+const STATUS_ICONS: Record<StatusVariant, string> = {
   info: '💡',
   success: '✅',
   error: '❌',
@@ -147,7 +147,7 @@ export const STATUS_ICONS: Record<StatusVariant, string> = {
 /**
  * Get a complete theme configuration for a color variant
  */
-export function getColorTheme(color: ColorVariant) {
+function getColorTheme(color: ColorVariant) {
   return {
     gradient: GRADIENT_BACKGROUNDS[color],
     border: BORDER_COLORS[color],

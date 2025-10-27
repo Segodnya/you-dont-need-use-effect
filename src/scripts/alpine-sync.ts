@@ -10,7 +10,7 @@ import { TIMING_CONFIG } from '../lib/utils.ts';
 /**
  * Setup synchronization between Alpine.js state and DarkVeil container
  */
-export function setupAlpineSync(): void {
+function setupAlpineSync(): void {
   logger.log('🏔️ Setting up Alpine sync');
   const container = document.getElementById('dark-veil-container');
 

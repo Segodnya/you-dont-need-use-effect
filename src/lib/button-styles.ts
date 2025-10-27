@@ -3,7 +3,7 @@
  * These classes are used across navigation buttons, carousel controls, etc.
  */
 
-export const BUTTON_STYLES = {
+const BUTTON_STYLES = {
   base: 'nav-button backdrop-blur-sm text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-cyan-400',
   primary: 'bg-gray-800/80 hover:bg-cyan-600/90',
   disabled:
@@ -20,7 +20,7 @@ export const BUTTON_STYLES = {
   },
 } as const;
 
-export const CAROUSEL_BUTTON_STYLES = {
+const CAROUSEL_BUTTON_STYLES = {
   base: 'carousel-btn text-white rounded-full shadow-lg transition-all duration-300 hover:scale-110 focus:outline-none focus:ring-2 focus:ring-blue-400 shrink-0',
   primary: 'bg-blue-600/80 hover:bg-blue-500',
   disabled:

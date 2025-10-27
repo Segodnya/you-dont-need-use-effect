@@ -1,0 +1,9 @@
+{
+  "$schema": "https://unpkg.com/knip@5/schema.json",
+  "entry": [
+    "src/pages/**/*.astro",
+    "src/layouts/**/*.astro",
+    "src/scripts/main.js"
+  ],
+  "project": ["src/**/*.{js,ts,jsx,tsx,astro}", "astro.config.mjs"]
+}
