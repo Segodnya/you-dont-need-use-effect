@@ -1,9 +1,15 @@
 /**
  * Carousel functionality for slides with multiple content items
  * ⚡ OPTIMIZED: Lazy initialization with Intersection Observer
+ * 📱 MOBILE: Carousels are disabled on mobile devices (< 1024px)
  */
 
 import { OBSERVER_CONFIG } from '../lib/utils.ts';
+
+// Helper to check if we're on mobile
+function isMobile() {
+  return window.innerWidth < 1024;
+}
 
 class Carousel {
   constructor(container) {
@@ -20,7 +26,11 @@ class Carousel {
     this.dotsContainer = container.querySelector('.carousel-dots');
 
     this.initialized = false;
-    this.init();
+
+    // Only initialize if not on mobile
+    if (!isMobile()) {
+      this.init();
+    }
   }
 
   init() {
@@ -155,8 +165,14 @@ const observedContainers = new Set();
 /**
  * ⚡ OPTIMIZED: Use Intersection Observer to only initialize carousels when they're visible
  * This dramatically improves initial page load performance
+ * 📱 MOBILE: Carousels are disabled on mobile devices (< 1024px)
  */
 export function initCarousels() {
+  // Skip carousel initialization on mobile
+  if (isMobile()) {
+    return;
+  }
+
   const carouselContainers = document.querySelectorAll('.carousel-container');
 
   // ⚡ Create an Intersection Observer to lazy-initialize carousels
@@ -185,6 +201,11 @@ export function initCarousels() {
 }
 
 export function getActiveCarousel() {
+  // No active carousel on mobile
+  if (isMobile()) {
+    return null;
+  }
+
   // Check if the active slide has a carousel
   const activeSlide = document.querySelector('.slide.active');
   if (!activeSlide) return null;
@@ -197,5 +218,10 @@ export function getActiveCarousel() {
 }
 
 export function hasActiveCarousel() {
+  // No active carousel on mobile
+  if (isMobile()) {
+    return false;
+  }
+
   return getActiveCarousel() !== null;
 }

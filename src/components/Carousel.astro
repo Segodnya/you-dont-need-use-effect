@@ -20,8 +20,8 @@ const iconSize = getIconSize('lg');
     </div>
   </div>
 
-  <!-- Carousel Controls - Repositioned based on screen size -->
-  <div class="carousel-controls">
+  <!-- Carousel Controls - Only visible on desktop -->
+  <div class="carousel-controls lg-only">
     <!-- Navigation Buttons Container -->
     <div class="carousel-buttons-wrapper">
       <!-- Left Navigation Button -->
@@ -44,8 +44,8 @@ const iconSize = getIconSize('lg');
     </div>
   </div>
 
-  <!-- Shared Indicators (visible on all screens) -->
-  <div class="carousel-indicators mt-4">
+  <!-- Shared Indicators (only visible on desktop) -->
+  <div class="carousel-indicators mt-4 lg-only">
     <!-- Carousel Indicator -->
     <div class="carousel-indicator text-center text-gray-400 font-mono text-sm">
       <span class="current-index">1</span> / <span class="total-items">4</span>
@@ -66,34 +66,55 @@ const iconSize = getIconSize('lg');
 
   .carousel-content {
     position: relative;
-    overflow: hidden;
   }
 
+  /* Mobile: Show all items vertically, no carousel behavior */
   .carousel-content :global(.carousel-item) {
-    display: none;
-    animation: fadeIn 0.4s ease-in-out;
-  }
-
-  .carousel-content :global(.carousel-item.active) {
     display: block;
+    margin-bottom: 1.5rem;
   }
 
-  /* Carousel Controls Positioning */
-  .carousel-controls {
-    position: relative;
+  /* Hide desktop-only carousel items on mobile */
+  .carousel-content :global(.carousel-item-desktop-only) {
+    display: none;
   }
 
-  /* Mobile: Buttons below content */
-  .carousel-buttons-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    margin-top: 1rem;
+  /* Hide controls and indicators on mobile */
+  .lg-only {
+    display: none;
   }
 
-  /* Desktop: Buttons on sides with absolute positioning */
+  /* Desktop: Enable carousel behavior */
   @media (min-width: 1024px) {
+    .carousel-content {
+      overflow: hidden;
+    }
+
+    .carousel-content :global(.carousel-item) {
+      display: none;
+      animation: fadeIn 0.4s ease-in-out;
+      margin-bottom: 0;
+    }
+
+    .carousel-content :global(.carousel-item.active) {
+      display: block;
+    }
+
+    /* Show desktop-only items on desktop (they follow normal carousel rules) */
+    .carousel-content :global(.carousel-item-desktop-only) {
+      display: none;
+    }
+
+    .carousel-content :global(.carousel-item-desktop-only.active) {
+      display: block;
+    }
+
+    /* Show controls and indicators on desktop */
+    .lg-only {
+      display: block;
+    }
+
+    /* Carousel Controls Positioning */
     .carousel-controls {
       position: absolute;
       top: 0;
@@ -111,7 +132,6 @@ const iconSize = getIconSize('lg');
       width: 100%;
       display: flex;
       justify-content: space-between;
-      margin-top: 0;
     }
 
     .carousel-buttons-wrapper button {
@@ -121,35 +141,35 @@ const iconSize = getIconSize('lg');
     .carousel-content-wrapper {
       padding: 0 4rem;
     }
-  }
 
-  @keyframes fadeIn {
-    from {
-      opacity: 0;
-      transform: translateX(20px);
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateX(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
     }
-    to {
-      opacity: 1;
-      transform: translateX(0);
+
+    .carousel-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: rgba(156, 163, 175, 0.5);
+      transition: all 0.3s ease;
+      cursor: pointer;
     }
-  }
 
-  .carousel-dot {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    background-color: rgba(156, 163, 175, 0.5);
-    transition: all 0.3s ease;
-    cursor: pointer;
-  }
+    .carousel-dot:hover {
+      background-color: rgba(156, 163, 175, 0.8);
+      transform: scale(1.2);
+    }
 
-  .carousel-dot:hover {
-    background-color: rgba(156, 163, 175, 0.8);
-    transform: scale(1.2);
-  }
-
-  .carousel-dot.active {
-    background-color: rgb(59, 130, 246);
-    transform: scale(1.3);
+    .carousel-dot.active {
+      background-color: rgb(59, 130, 246);
+      transform: scale(1.3);
+    }
   }
 </style>

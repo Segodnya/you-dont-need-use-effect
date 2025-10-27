@@ -33,8 +33,8 @@ const {
 ---
 
 <Carousel id={carouselId}>
-  <!-- Step 1: Show only bad example -->
-  <div class="carousel-item">
+  <!-- Step 1: Show only bad example (desktop only, hidden on mobile to avoid duplication) -->
+  <div class="carousel-item carousel-item-desktop-only">
     <div class="flex justify-center">
       <div class="w-full lg:w-1/2">
         <GlassCard color="red" class="w-full" padding="p-0">
