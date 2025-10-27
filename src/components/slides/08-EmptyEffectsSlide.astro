@@ -1,6 +1,6 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import CodeComparison from '../CodeComparison.astro';
+import SteppedCodeComparison from '../SteppedCodeComparison.astro';
 import Text from '../ui/Text.astro';
 import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
@@ -10,7 +10,8 @@ import Section from '../ui/Section.astro';
   <Section>
     <Text> Если эффект ничего не делает - он не нужен. </Text>
 
-    <CodeComparison
+    <SteppedCodeComparison
+      carouselId="empty-effects-comparison"
       badCode={`function Component() {
   useEffect(() => {}, []); // 🤡 Бессмысленный эффект
 }`}

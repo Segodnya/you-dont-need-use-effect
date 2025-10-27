@@ -1,6 +1,6 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import CodeComparison from '../CodeComparison.astro';
+import SteppedCodeComparison from '../SteppedCodeComparison.astro';
 import Text from '../ui/Text.astro';
 import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
@@ -12,7 +12,8 @@ import Section from '../ui/Section.astro';
       Эффект используется как 'наблюдатель' за состоянием. Это антипаттерн!
     </Text>
 
-    <CodeComparison
+    <SteppedCodeComparison
+      carouselId="effect-as-handler-comparison"
       badCode={`function Form() {
   const [dataToSubmit, setDataToSubmit] = useState();
 

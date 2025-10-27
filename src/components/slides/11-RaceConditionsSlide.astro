@@ -1,6 +1,6 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import CodeComparison from '../CodeComparison.astro';
+import SteppedCodeComparison from '../SteppedCodeComparison.astro';
 import Text from '../ui/Text.astro';
 import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
@@ -12,7 +12,8 @@ import Section from '../ui/Section.astro';
       Что, если user изменится, пока мы получаем profile? Race condition налицо.
     </Text>
 
-    <CodeComparison
+    <SteppedCodeComparison
+      carouselId="race-conditions-comparison"
       badCode={`useEffect(() => {
   if (user) {
     setProfile(null);

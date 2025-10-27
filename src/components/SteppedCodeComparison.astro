@@ -1,0 +1,71 @@
+---
+/**
+ * SteppedCodeComparison - A carousel-based code comparison that shows:
+ * Step 1: Only the bad example
+ * Step 2: Both bad and good examples side by side
+ *
+ * This allows for a progressive reveal of the solution.
+ */
+
+import Carousel from './Carousel.astro';
+import CodeBlock from './CodeBlock.astro';
+import CodeComparison from './CodeComparison.astro';
+import GlassCard from './ui/GlassCard.astro';
+import { BORDER_COLORS, BACKGROUND_COLORS } from '../lib/constants';
+
+export interface Props {
+  badCode: string;
+  goodCode: string;
+  language?: any;
+  badTitle?: string;
+  goodTitle?: string;
+  carouselId: string;
+}
+
+const {
+  badCode,
+  goodCode,
+  language = 'tsx',
+  badTitle = '❌ Плохой пример',
+  goodTitle = '✅ Правильное решение',
+  carouselId,
+} = Astro.props;
+---
+
+<Carousel id={carouselId}>
+  <!-- Step 1: Show only bad example -->
+  <div class="carousel-item">
+    <div class="flex justify-center">
+      <div class="w-full lg:w-1/2">
+        <GlassCard color="red" class="w-full" padding="p-0">
+          <div
+            class={`border-2 ${BORDER_COLORS.red} ${BACKGROUND_COLORS.red} rounded-xl h-full flex flex-col`}
+          >
+            <div class="p-4 lg:p-6 flex-1 flex flex-col">
+              <div class="flex items-center mb-4 shrink-0">
+                <div class="w-3 h-3 bg-red-500 rounded-full mr-3"></div>
+                <h3 class="text-lg font-semibold text-red-400">{badTitle}</h3>
+              </div>
+              <div
+                class="text-sm lg:text-base overflow-x-auto bg-gray-900 rounded-lg p-4 flex-1 min-h-0"
+              >
+                <CodeBlock code={badCode} language={language} size="sm" />
+              </div>
+            </div>
+          </div>
+        </GlassCard>
+      </div>
+    </div>
+  </div>
+
+  <!-- Step 2: Show both examples side by side -->
+  <div class="carousel-item">
+    <CodeComparison
+      badCode={badCode}
+      goodCode={goodCode}
+      language={language}
+      badTitle={badTitle}
+      goodTitle={goodTitle}
+    />
+  </div>
+</Carousel>

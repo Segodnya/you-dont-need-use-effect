@@ -1,6 +1,6 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import CodeComparison from '../CodeComparison.astro';
+import SteppedCodeComparison from '../SteppedCodeComparison.astro';
 import Text from '../ui/Text.astro';
 import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
@@ -13,7 +13,8 @@ import Section from '../ui/Section.astro';
       обновлений.
     </Text>
 
-    <CodeComparison
+    <SteppedCodeComparison
+      carouselId="state-chains-comparison"
       badCode={`// Длинная цепочка эффектов
 useEffect(() => {
   if (card !== null && card.gold) {

@@ -1,6 +1,6 @@
 ---
 import BaseSlide from './BaseSlide.astro';
-import CodeComparison from '../CodeComparison.astro';
+import SteppedCodeComparison from '../SteppedCodeComparison.astro';
 import Text from '../ui/Text.astro';
 import Callout from '../ui/Callout.astro';
 import Section from '../ui/Section.astro';
@@ -16,7 +16,8 @@ import Section from '../ui/Section.astro';
       распространенный паттерн, но он не оптимален.
     </Text>
 
-    <CodeComparison
+    <SteppedCodeComparison
+      carouselId="adjusting-state-comparison"
       badCode={`function List({ items }) {
   const [selection, setSelection] = useState();
 
