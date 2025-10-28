@@ -25,26 +25,22 @@ import Section from '../ui/Section.astro';
     setSelection(null);
   }, [items]);
 }`}
-      goodCode={`// Решение 1: Контролируемый компонент
-function List({ items, selection, onSelectionChange }) {
-  // selection управляется родителем,
-}
-
-// Решение 2: Независимый внутренний state
-function List({ items }) {
-  const [prevItems, setPrevItems] = useState(items);
-  
-  if (items !== prevItems) {
-    setPrevItems(items);
-    setSelection(null);
-  }
+      goodCode={`function List({ items, selection, onSelectionChange }) {
+  // Вся логика управления состоянием у родителя
+  return (
+    <div>
+      {items.map(item => (
+        // ...
+      ))}
+    </div>
+  );
 }`}
       language="tsx"
     />
 
     <Callout variant="tip">
-      Делайте компонент полностью контролируемым или корректируйте состояние во
-      время рендера.
+      Делайте компонент полностью контролируемым или используйте проп key (см.
+      следующий слайд).
     </Callout>
   </Section>
 </BaseSlide>
