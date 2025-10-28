@@ -23,7 +23,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   // Load navigation modules in parallel (high priority but not blocking)
   const [
-    { initKeyboardNavigation, initNavigationButtons },
+    { initKeyboardNavigation, initNavigationButtons, initClickAdvance },
     { initUrlSyncToggle },
     { initMobileScrollTracking },
   ] = await Promise.all([
@@ -34,6 +34,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
   initKeyboardNavigation();
   initNavigationButtons();
+  initClickAdvance();
   initUrlSyncToggle();
   initMobileScrollTracking();
 

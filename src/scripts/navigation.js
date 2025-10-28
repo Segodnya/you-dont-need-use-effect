@@ -102,6 +102,54 @@ export function initKeyboardNavigation() {
   });
 }
 
+export function initClickAdvance() {
+  // Desktop only: click anywhere to advance (excluding controls and interactive elements)
+  if (checkIfMobile()) return;
+
+  document.addEventListener('click', (e) => {
+    // Only left-click, ignore modified clicks
+    if (e.defaultPrevented || e.button !== 0) return;
+
+    // Ignore if text is selected
+    const selection = window.getSelection();
+    if (selection && selection.toString().length > 0) return;
+
+    const target = e.target;
+    if (!(target instanceof Element)) return;
+
+    // Exclude navigation UI, carousel controls, and general interactive elements
+    const excludedSelectors = [
+      '#next-slide-btn',
+      '#prev-slide-btn',
+      '#fullscreen-btn',
+      '.url-sync-toggle-btn',
+      '.nav-dot',
+      '.carousel-prev-btn',
+      '.carousel-next-btn',
+      '.carousel-dot',
+      'a',
+      'button',
+      'input',
+      'textarea',
+      'select',
+      'label',
+      '[role="button"]',
+      '[contenteditable="true"]',
+      'summary',
+      'details',
+    ];
+
+    if (excludedSelectors.some((sel) => target.closest(sel))) return;
+
+    const activeCarousel = getActiveCarousel();
+    if (activeCarousel && !activeCarousel.isAtEnd()) {
+      activeCarousel.next();
+    } else {
+      navigateToNextSlide();
+    }
+  });
+}
+
 function initializeFromHash() {
   const hash = window.location.hash.substring(1); // Remove the '#'
   if (hash) {
