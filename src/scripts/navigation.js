@@ -55,6 +55,13 @@ export function initKeyboardNavigation() {
         return;
       }
 
+      // Handle High Contrast toggle with 'C' key
+      if (e.key === 'c' || e.key === 'C') {
+        e.preventDefault();
+        toggleHighContrast();
+        return;
+      }
+
       // Navigate with Arrow keys, Page Up/Down, and Space
       if (
         e.key === 'ArrowDown' ||
@@ -123,6 +130,7 @@ export function initClickAdvance() {
       '#prev-slide-btn',
       '#fullscreen-btn',
       '.url-sync-toggle-btn',
+      '.high-contrast-toggle-btn',
       '.nav-dot',
       '.carousel-prev-btn',
       '.carousel-next-btn',
@@ -259,6 +267,7 @@ export function initNavigationButtons() {
   const nextBtn = document.getElementById('next-slide-btn');
   const prevBtn = document.getElementById('prev-slide-btn');
   const fullscreenBtn = document.getElementById('fullscreen-btn');
+  const highContrastBtns = document.querySelectorAll('.high-contrast-toggle-btn');
 
   // Desktop buttons only (mobile buttons removed)
   if (nextBtn) {
@@ -271,6 +280,10 @@ export function initNavigationButtons() {
 
   if (fullscreenBtn) {
     fullscreenBtn.addEventListener('click', toggleFullscreen);
+  }
+
+  if (highContrastBtns && highContrastBtns.length) {
+    highContrastBtns.forEach((btn) => btn.addEventListener('click', toggleHighContrast));
   }
 
   // Initialize navigation dots click handlers (desktop only)
@@ -319,5 +332,16 @@ function toggleFullscreen() {
     });
   } else {
     document.exitFullscreen();
+  }
+}
+
+function toggleHighContrast() {
+  const body = document.body;
+  const xData = body && (body)._x_dataStack ? (body)._x_dataStack[0] : null;
+  if (xData && typeof xData === 'object') {
+    xData.highContrast = !xData.highContrast;
+  } else {
+    // Fallback: toggle class directly if Alpine state is unavailable
+    document.body.classList.toggle('high-contrast');
   }
 }

@@ -52,7 +52,8 @@ import PageLoader from '../components/ui/PageLoader.astro';
   </head>
   <body
     class="text-white overflow-x-hidden dark relative"
-    x-data="{ currentSlide: 0, totalSlides: 0, syncUrlWithSlide: false }"
+    x-data="{ currentSlide: 0, totalSlides: 0, syncUrlWithSlide: false, highContrast: false }"
+    x-bind:class="highContrast ? 'high-contrast' : ''"
     x-init="
       totalSlides = document.querySelectorAll('.slide').length;
       // Initialize from URL hash if present

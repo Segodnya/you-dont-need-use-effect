@@ -136,6 +136,20 @@ const { slides } = Astro.props;
       />
       <span class="keyboard-hint">F</span>
     </div>
+
+    <!-- High Contrast Toggle Button -->
+    <div class="relative">
+      <NavButton
+        id="high-contrast-toggle-btn"
+        icon="contrast"
+        label="Высокая контрастность (C)"
+        title="Высокая контрастность (C)"
+        size="md"
+        alpineClass="highContrast ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+        class="high-contrast-toggle-btn"
+      />
+      <span class="keyboard-hint">C</span>
+    </div>
   </div>
 </div>
 
@@ -147,4 +161,19 @@ const { slides } = Astro.props;
   class="fixed bottom-4 right-4 lg:hidden z-50 bg-gray-800/80 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-mono"
 >
   <span x-text="`${currentSlide + 1} / ${totalSlides}`"></span>
+</div>
+
+<!-- High Contrast Toggle (Mobile) -->
+<div class="fixed bottom-4 left-4 lg:hidden z-50">
+  <button
+    class="high-contrast-toggle-btn bg-gray-800/80 hover:bg-gray-700/80 text-white rounded-full p-3 shadow-md transition-colors"
+    x-bind:class="highContrast ? 'bg-cyan-600/90 hover:bg-cyan-700/90' : 'bg-gray-800/80 hover:bg-gray-700/80'"
+    aria-label="Высокая контрастность"
+    title="Высокая контрастность"
+  >
+    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+      <circle cx="12" cy="12" r="10" stroke-width="2" />
+      <line x1="12" y1="6" x2="12" y2="18" stroke-width="2" />
+    </svg>
+  </button>
 </div>
