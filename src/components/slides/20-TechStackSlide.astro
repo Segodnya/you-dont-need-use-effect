@@ -7,6 +7,7 @@ import Card from '../ui/Card.astro';
 import CardTitle from '../ui/CardTitle.astro';
 import CardText from '../ui/CardText.astro';
 import Highlight from '../ui/Highlight.astro';
+import Link from '../ui/Link.astro';
 ---
 
 <BaseSlide id="tech-stack" title="Технический стек" variant="centered">
@@ -98,7 +99,12 @@ import Highlight from '../ui/Highlight.astro';
 
     <Text class="mt-8 text-center text-lg">
       Все исходники доступны на моём
-      <Highlight color="purple">GitHub</Highlight>
+      <Link
+        href="https://github.com/Segodnya/you-dont-need-use-effect"
+        variant="external"
+      >
+        <Highlight color="purple">GitHub</Highlight>
+      </Link>
       для изучения и использования
     </Text>
   </Section>
